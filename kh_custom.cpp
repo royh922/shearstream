@@ -198,7 +198,7 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
             phydro->u(IEN,k,j,i) = pgas_0/(gamma_adi-1);
 
             //assigns momentum (velocity), all x direction along cylinder
-            phydro->u(IM1,k,j,i) = density * vel_shear * -1 * (std::tanh((r-radius)/smoothing_thickness) );
+            phydro->u(IM1,k,j,i) = density * vel_shear * -1 * (std::tanh((r-radius)/smoothing_thickness_vel) );
             phydro->u(IM2,k,j,i) = 0.0;
             phydro->u(IM3,k,j,i) = 0.0;
 
