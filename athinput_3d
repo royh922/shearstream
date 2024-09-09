@@ -18,7 +18,7 @@ file_type = rst # restart file
 dt      = 2.0 # time increment between outputs
 
 <time>
-cfl_number = 0.5       # The Courant, Friedrichs, & Lewy (CFL) Number
+cfl_number = 0.01       # The Courant, Friedrichs, & Lewy (CFL) Number
 nlim       = -1        # cycle limit
 tlim       = 10.0      # time limit
 integrator  = vl2      # time integration algorithm
