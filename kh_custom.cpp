@@ -5,7 +5,7 @@
 //========================================================================================
 //! \file kh.cpp
 //! \brief Problem generator for KH instability.
-//! Writen by Jake Reinheimer UNT
+//! Writen by Jake Reinheimer UNT, Jui-Teng (Roy) Hsu UNT
 
 
 #include <cmath>      // log for lambda cool
@@ -203,35 +203,35 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
             phydro->u(IM3,k,j,i) = 0.0;
 
             // Perturbations
-            // A full circular velocity pertubation
-            if (lambda_pert >= 0.0){
+            // A full circular velocity perturbation
+  
+            //catch the point where density is fluctuating between values in tanh func
+            if ((density>rho_0) && (density<(rho_0*density_contrast))){ // Adding perturbations only too areas between the densities
 
-              //catch the point where density is fluctuating between values in tanh func
-              if ((density>rho_0) && (density<(rho_0*density_contrast))){ // Adding perturbations only too areas between the densities
+              Real mag = density * vel_pert ;// is the magnitude of the perturbation
+              mag *= std::exp(-1*SQR(r-radius)/(smoothing_thickness));// is the gaussian to center the perturbation
 
-                Real mag = density * vel_pert ;// is the magnitude of the pertibation
-                mag *= std::exp(-1*SQR(r-radius)/(smoothing_thickness));// is the gaussian to center the perturbation
+              if (lambda_pert > 0.0){
 
-                if (lambda_pert > 0.0){
+                mag *= std::sin(2*PI*x/lambda_pert) ; //multiplies both components by a sin to have it at oscillate along x axis
 
-                mag *= std::sin(2*PI*x/lambda_pert) ; //multiplies both components by a sin to have it at oscilate along x axis
+              } else if (lambda_pert == 0.0) {
 
-                } else if (lambda_pert == 0.0) {
+                //find where the perturbation location should be
+                Real pert_loc= pin->GetReal("problem","pert_loc");
 
-                  //find where the perturbation location should be
-                  Real pert_loc= pin->GetReal("problem","pert_loc");
+                //find how big the perturbation should be
+                Real pert_width = smoothing_thickness;
 
-                  //find how big the perturbation should be
-                  Real pert_width= smoothing_thickness;
+                mag *= std::exp(-1*(SQR(x+(-1*pert_loc))/pert_width)); 
+              } 
 
-                  mag *= std::exp(-1*(SQR(x+(-1*pert_loc))/pert_width)); 
-                } 
+              Real theta = std::atan(y/z); // is the angle the current point is on for calculating the impact for each dimension
+              phydro->u(IM3,k,j,i) = mag * std::cos(theta); //z component magnitude with cos of theta
+              phydro->u(IM2,k,j,i) = mag * std::sin(theta); //y component magnitude with sin of theta
+            } //end perturbation
 
-                Real theta = std::atan(y/z); // is the angle the current point is on for calculating the impact for each dimension
-                phydro->u(IM3,k,j,i) = mag * std::cos(theta); //z component magnitude with cos of theta
-                phydro->u(IM2,k,j,i) = mag * std::sin(theta); //y component magnitude with sin of theta
-            } //end 
-            } // end pert
+
 
             // Add random noise if noise wants to be added
             if (noisy_IC){

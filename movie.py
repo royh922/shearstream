@@ -109,7 +109,7 @@ if MPI.COMM_WORLD.rank == 0:
 
 
     # Create the animation object
-    animation = FuncAnimation(fig, animate, frames=len(storage), interval=100)
+    animation = FuncAnimation(fig, animate, frames=len(storage), interval=10)
 
     # Save the animation with locked colorbars
     with rc_context({"mathtext.fontset": "stix"}):
