@@ -183,67 +183,65 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
         for (int i=il; i<=iu; i++) {
           Real x = pcoord->x1v(i);
 
-          //if 3d
-          if (block_size.nx3 > 1) {
-            // r is the radius from x=0 along the cylinder main axis
-            Real r = std::sqrt(SQR(z) + SQR(y));
+          // r is the radius from x=0 along the cylinder main axis
+          Real r = std::sqrt(SQR(z) + SQR(y));
 
-            //density is like the cylinder with the tanh function to slope down the edges
-            Real density= rho_0 * ((density_contrast/2) + 0.5 + (density_contrast-1.0) * 0.5 * -std::tanh((r-radius)/smoothing_thickness) ) ;
+          //density is like the cylinder with the tanh function to slope down the edges
+          Real density= rho_0 * ((density_contrast/2) + 0.5 + (density_contrast-1.0) * 0.5 * -std::tanh((r-radius)/smoothing_thickness) ) ;
 
-            //assigns density to sim
-            phydro->u(IDN,k,j,i) = density;
+          //assigns density to sim
+          phydro->u(IDN,k,j,i) = density;
 
-            // assigns energy
-            phydro->u(IEN,k,j,i) = pgas_0/(gamma_adi-1);
+          // assigns energy
+          phydro->u(IEN,k,j,i) = pgas_0/(gamma_adi-1);
 
-            //assigns momentum (velocity), all x direction along cylinder
-            phydro->u(IM1,k,j,i) = density * vel_shear * -1 * (std::tanh((r-radius)/smoothing_thickness_vel) );
-            phydro->u(IM2,k,j,i) = 0.0;
-            phydro->u(IM3,k,j,i) = 0.0;
+          //assigns momentum (velocity), all x direction along cylinder
+          phydro->u(IM1,k,j,i) = density * vel_shear * -1 * (std::tanh((r-radius)/smoothing_thickness_vel) );
+          phydro->u(IM2,k,j,i) = 0.0;
+          phydro->u(IM3,k,j,i) = 0.0;
 
-            // Perturbations
-            // A full circular velocity perturbation
-  
-            //catch the point where density is fluctuating between values in tanh func
-            if ((density>rho_0) && (density<(rho_0*density_contrast))){ // Adding perturbations only too areas between the densities
+          // Perturbations
+          // A full circular velocity perturbation
 
-              Real mag = density * vel_pert ;// is the magnitude of the perturbation
-              mag *= std::exp(-1*SQR(r-radius)/(smoothing_thickness));// is the gaussian to center the perturbation
+          //catch the point where density is fluctuating between values in tanh func
+          if ((density>rho_0) && (density<(rho_0*density_contrast))){ // Adding perturbations only too areas between the densities
 
-              if (lambda_pert > 0.0){
+            Real mag = density * vel_pert ;// is the magnitude of the perturbation
+            mag *= std::exp(-1*SQR(r-radius)/(smoothing_thickness));// is the gaussian to center the perturbation
 
-                mag *= std::sin(2*PI*x/lambda_pert) ; //multiplies both components by a sin to have it at oscillate along x axis
+            if (lambda_pert > 0.0){
 
-              } else if (lambda_pert == 0.0) {
+              mag *= std::sin(2*PI*x/lambda_pert) ; //multiplies both components by a sin to have it at oscillate along x axis
 
-                //find where the perturbation location should be
-                Real pert_loc= pin->GetReal("problem","pert_loc");
+            } else if (lambda_pert == 0.0) {
 
-                //find how big the perturbation should be
-                Real pert_width = smoothing_thickness;
+              //find where the perturbation location should be
+              Real pert_loc= pin->GetReal("problem","pert_loc");
 
-                mag *= std::exp(-1*(SQR(x+(-1*pert_loc))/pert_width)); 
-              } 
+              //find how big the perturbation should be
+              Real pert_width = smoothing_thickness;
 
-              Real theta = std::atan(y/z); // is the angle the current point is on for calculating the impact for each dimension
-              phydro->u(IM3,k,j,i) = mag * std::cos(theta); //z component magnitude with cos of theta
-              phydro->u(IM2,k,j,i) = mag * std::sin(theta); //y component magnitude with sin of theta
-            } //end perturbation
+              mag *= std::exp(-1*(SQR(x+(-1*pert_loc))/pert_width)); 
+            } 
+
+            Real theta = std::atan(y/z); // is the angle the current point is on for calculating the impact for each dimension
+            phydro->u(IM3,k,j,i) = mag * std::cos(theta); //z component magnitude with cos of theta
+            phydro->u(IM2,k,j,i) = mag * std::sin(theta); //y component magnitude with sin of theta
+          } //end perturbation
 
 
 
-            // Add random noise if noise wants to be added
-            if (noisy_IC){
-              phydro->u(IM2,k,j,i) *= ran2(&iseed); 
-              phydro->u(IM3,k,j,i) *= ran2(&iseed); 
-            }
-
-            // sets pressure based on velocity
-            if (NON_BAROTROPIC_EOS) {
-              phydro->u(IEN,k,j,i) = pgas_0/(gamma_adi-1.0) + 0.5*(SQR(phydro->u(IM1,k,j,i))+SQR(phydro->u(IM2,k,j,i)))/phydro->u(IDN,k,j,i);
-            }
+          // Add random noise if noise wants to be added
+          if (noisy_IC){
+            phydro->u(IM2,k,j,i) *= ran2(&iseed); 
+            phydro->u(IM3,k,j,i) *= ran2(&iseed); 
           }
+
+          // sets pressure based on velocity
+          if (NON_BAROTROPIC_EOS) {
+            phydro->u(IEN,k,j,i) = pgas_0/(gamma_adi-1.0) + 0.5*(SQR(phydro->u(IM1,k,j,i))+SQR(phydro->u(IM2,k,j,i)))/phydro->u(IDN,k,j,i);
+          }
+   
         } // i for
       } // j for
     } // k for
