@@ -187,7 +187,7 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
           Real r = std::sqrt(SQR(z) + SQR(y));
 
           //density is like the cylinder with the tanh function to slope down the edges
-          Real density= rho_0 * ((density_contrast/2) + 0.5 + (density_contrast-1.0) * 0.5 * -std::tanh((r-radius)/smoothing_thickness) ) ;
+          Real density = rho_0 * ((density_contrast/2) + 0.5 + (density_contrast-1.0) * 0.5 * -std::tanh((r-radius)/smoothing_thickness) ) ;
 
           //assigns density to sim
           phydro->u(IDN,k,j,i) = density;
@@ -196,7 +196,7 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
           phydro->u(IEN,k,j,i) = pgas_0/(gamma_adi-1);
 
           //assigns momentum (velocity), all x direction along cylinder
-          phydro->u(IM1,k,j,i) = density * vel_shear * -1 * (std::tanh((r-radius)/smoothing_thickness_vel) );
+          phydro->u(IM1,k,j,i) = density * vel_shear * -1 * (std::tanh((r-radius)/smoothing_thickness) );
           phydro->u(IM2,k,j,i) = 0.0;
           phydro->u(IM3,k,j,i) = 0.0;
 
@@ -204,16 +204,16 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
           // A full circular velocity perturbation
 
           //catch the point where density is fluctuating between values in tanh func
-          if ((density>rho_0) && (density<(rho_0*density_contrast))){ // Adding perturbations only too areas between the densities
+          if ((density>rho_0) && (density<(rho_0*density_contrast))){ // Adding perturbations only to areas between the densities
 
             Real mag = density * vel_pert ;// is the magnitude of the perturbation
-            mag *= std::exp(-1*SQR(r-radius)/(smoothing_thickness));// is the gaussian to center the perturbation
+            mag *= std::exp(-1*SQR((r-radius)/(smoothing_thickness_vel)));// is the gaussian to center the perturbation
 
             if (lambda_pert > 0.0){
 
               mag *= std::sin(2*PI*x/lambda_pert) ; //multiplies both components by a sin to have it at oscillate along x axis
 
-            } else if (lambda_pert == 0.0) {
+            } else if (lambda_pert == 0.0) { 
 
               //find where the perturbation location should be
               Real pert_loc= pin->GetReal("problem","pert_loc");
@@ -353,25 +353,28 @@ void ShearInnerInflowX(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim
   // copy face-centered magnetic fields into ghost zones
   if (MAGNETIC_FIELDS_ENABLED) {
     for (int k=kl; k<=ku; ++k) {
-    for (int j=1; j<=ngh; ++j) {
-      for (int i=il; i<=iu+1; ++i) {
-        b.x1f(k,(jl-j),i) = b.x1f(k,jl,i);
+      for (int j=1; j<=ngh; ++j) {
+        for (int i=il; i<=iu+1; ++i) {
+          b.x1f(k,(jl-j),i) = b.x1f(k,jl,i);
+        }
       }
-    }}
+    }
 
     for (int k=kl; k<=ku; ++k) {
-    for (int j=1; j<=ngh; ++j) {
-      for (int i=il; i<=iu; ++i) {
-        b.x2f(k,(jl-j),i) = b.x2f(k,jl,i);
+      for (int j=1; j<=ngh; ++j) {
+        for (int i=il; i<=iu; ++i) {
+          b.x2f(k,(jl-j),i) = b.x2f(k,jl,i);
+        }
       }
-    }}
+    }
 
     for (int k=kl; k<=ku+1; ++k) {
-    for (int j=1; j<=ngh; ++j) {
-      for (int i=il; i<=iu; ++i) {
-        b.x3f(k,(jl-j),i) = b.x3f(k,jl,i);
+      for (int j=1; j<=ngh; ++j) {
+        for (int i=il; i<=iu; ++i) {
+          b.x3f(k,(jl-j),i) = b.x3f(k,jl,i);
+        }
       }
-    }}
+    }
   }
 
   return;

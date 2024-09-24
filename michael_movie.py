@@ -13,6 +13,12 @@ parser.add_argument(
 )
 parser.add_argument("prefix", type=str, help="Prefix of the athdf5 files")
 parser.add_argument(
+    "resolution_x", type=int, help="Resolution in the horizontal direction"
+)
+parser.add_argument(
+    "resolution_y", type=int, help="Resolution in the vertical direction"
+)
+parser.add_argument(
     "--field", type=str, help="Field to plot (density, temperature, etc.)"
 )
 parser.add_argument("--axis", type=str, help="Axis to slice along (x, y, z)")
@@ -44,7 +50,11 @@ axis_center = ts[0].domain_center[axis_map[axis]]
 perp_axis_1 = (axis_map[axis] + 1) % 3
 perp_axis_2 = (axis_map[axis] + 2) % 3
 
-storage = {'min': np.inf, 'max': -np.inf}
+# Storage for the DataSets
+storage = {"min": np.inf, "max": -np.inf}
+
+# Buffer size
+buffer = (args.resolution_x, args.resolution_y)
 
 for sto, ds in ts.piter(storage=storage):
     slc = ds.slice(axis, axis_center)
@@ -56,7 +66,7 @@ for sto, ds in ts.piter(storage=storage):
             ds.domain_left_edge[perp_axis_2],
             ds.domain_right_edge[perp_axis_2],
         ),
-        (800, 800),
+        buffer,
     )  # Resolution
 
     # Store the preloaded buffer
@@ -65,8 +75,8 @@ for sto, ds in ts.piter(storage=storage):
 
     # Find min/max values
     field_data = frb[field].d
-    storage['min'] = min(storage['min'], field_data.min())
-    storage['max'] = max(storage['max'], field_data.max())
+    storage["min"] = min(storage["min"], field_data.min())
+    storage["max"] = max(storage["max"], field_data.max())
 
     # Check for NaN or Inf in data
     if np.isnan(field_data).any() or np.isinf(field_data).any():
@@ -75,23 +85,23 @@ for sto, ds in ts.piter(storage=storage):
 
 
 if args.norm:
-    norm = mcolors.LogNorm(vmin=storage['min']/storage['max'], vmax=1)
+    norm = mcolors.LogNorm(vmin=1e-2, vmax=1)
 else:
-    norm = mcolors.Normalize(vmin=storage['min']/storage['max'], vmax=1)
+    norm = mcolors.Normalize(vmin=1e-2, vmax=1)
 
-T_hot = storage['max']
+T_hot = storage["max"]
 
 if MPI.COMM_WORLD.rank == 0:
 
-    del storage['min']
-    del storage['max']
+    del storage["min"]
+    del storage["max"]
 
     storage = [value for key, value in sorted(storage.items())]
 
     # Initial plot using the preloaded data
-    plot = yt.SlicePlot(ts[0], axis, ("gas", field))
+    plot = yt.SlicePlot(ts[0], axis, ("gas", field), buff_size=buffer)
     plot.set_norm(("gas", field), norm)
-    plot.set_cmap(("gas", field), "seismic")
+    plot.set_cmap(("gas", field), "RdBu")
 
     # Lock the color scale by setting a fixed normalization
     plot.plots[("gas", field)].cb.norm = norm
@@ -106,11 +116,11 @@ if MPI.COMM_WORLD.rank == 0:
 
     # Define the animation function
     def animate(i):
-        frb = storage[i].d/T_hot  # Use preloaded data
+        frb = storage[i].d / T_hot  # Use preloaded data
         ax.images[0].set_array(frb)  # Update the plot
         ax.images[0].set_norm(norm)  # Update the normalization
+        ax.images[0].set_cmap("RdBu")  # Update the colormap
         fig.canvas.draw_idle()
-
 
     # Create the animation object
     animation = FuncAnimation(fig, animate, frames=len(storage), interval=10)
