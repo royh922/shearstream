@@ -26,12 +26,6 @@ parser.add_argument(
     "--field", type=str, help="Field to plot (density, temperature, etc.)"
 )
 parser.add_argument("--axis", type=str, help="Axis to slice along (x, y, z)")
-parser.add_argument(
-    "--norm",
-    type=bool,
-    default=True,
-    help="Normalization for the colorbar, True if Log, False if Linear. Defaults to True.",
-)
 args = parser.parse_args()
 
 if comm.rank == 0:
@@ -120,58 +114,8 @@ for sto, fn in yt.parallel_objects(fns, -1, storage=storage, dynamic=True):
     if np.isnan(field_data).any() or np.isinf(field_data).any():
         print(f"Invalid data (NaN or Inf) found in {ds}")
         quit(2)
-    
-    ds = None
-
-if args.norm:
-    norm = mcolors.LogNorm(vmin=1e-2, vmax=1)
-else:
-    norm = mcolors.Normalize(vmin=1e-2, vmax=1)
 
 local_max = storage["max"]
 global_max = comm.reduce(local_max, op=MPI.MAX, root=0)
 
-if yt.is_root():
-
-    T_hot = global_max
-
-    # del storage["min"]
-    # del storage["max"]
-
-    # storage = [value for key, value in sorted(storage.items())]
-
-    # Initial plot using the preloaded data
-    plot = yt.SlicePlot(first, axis, ("gas", field), buff_size=buffer)
-    plot.set_norm(("gas", field), norm)
-    plot.set_cmap(("gas", field), "RdBu")
-
-    # Lock the color scale by setting a fixed normalization
-    plot.plots[("gas", field)].cb.norm = norm
-
-    plot.plots[("gas", field)].cb.set_label("$T/T_{\mathrm{hot}}$")
-
-    # Extract the figure to be used in the animation
-    fig = plot.plots[("gas", field)].figure
-
-    # Get the axis object directly
-    ax = plot.plots[("gas", field)].axes
-
-    # Define the animation function
-    def animate(i):
-        data = np.load(f'{fns[i]}.npy') / T_hot
-        ax.images[0].set_array(data)  # Update the plot
-        ax.images[0].set_norm(norm)  # Update the normalization
-        ax.images[0].set_cmap("RdBu")  # Update the colormap
-        fig.canvas.draw_idle()
-        # storage[i] = None
-        gc.collect()
-
-    # Create the animation object
-    animation = FuncAnimation(fig, animate, frames=len(fns), interval=10, save_count=None)
-
-    # Save the animation with locked colorbars
-    with rc_context({"mathtext.fontset": "stix"}):
-        animation.save(f"{args.prefix}_{args.field}.mp4")
-
-    # Clean up temp files
-    os.system(f'rm {args.directory}/*.npy')
+np.save('global_max.npy', global_max)
