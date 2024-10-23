@@ -27,23 +27,23 @@ ncycle_out  = 100      # interval for stdout summary info
 dt_diagnostics = -1      # interval (in STS stages) for stdout extra dt info
 
 <mesh>
-nx1        = 512         # Number of zones in X1-direction
+nx1        = 256         # Number of zones in X1-direction
 x1min      = -6.0        # minimum value of X1
 x1max      = 6.0         # maximum value of X1
 ix1_bc     = periodic    # inner-X1 boundary flag
 ox1_bc     = periodic   # inner-X1 boundary flag
 
-nx2        = 256         # Number of zones in X2-direction
+nx2        = 128         # Number of zones in X2-direction
 x2min      = -3.0        # minimum value of X2
 x2max      = 3.0         # maximum value of X2
-ix2_bc     = periodic    # inner-X2 boundary flag
-ox2_bc     = periodic   # inner-X2 boundary flag
+ix2_bc     = outflow    # inner-X2 boundary flag
+ox2_bc     = outflow    # inner-X2 boundary flag
 
-nx3        = 256         # Number of zones in X3-direction
+nx3        = 128         # Number of zones in X3-direction
 x3min      = -3.0        # minimum value of X3
 x3max      = 3.0         # maximum value of X3
-ix3_bc     = periodic    # inner-X3 boundary flag
-ox3_bc     = periodic    # inner-X3 boundary flag
+ix3_bc     = outflow    # inner-X3 boundary flag
+ox3_bc     = outflow    # inner-X3 boundary flag
 
 <meshblock>
 nx1        = 64
@@ -55,26 +55,26 @@ iso_sound_speed = 1.0
 gamma           = 1.6666667    # gamma = C_p/C_v
 
 <problem>
-iprob=1                		# Default parameter values correspond to Re=10^5
+iprob=1                # Default parameter values correspond to Re=10^5
 rho_0  = 1.0
 pgas_0 = 10.0 
-density_contrast = 100.0 	# 100 is the physical contrast between n_Halpha (0.1 cm^-3) and n_ICM (10^-3)
-vel_shear = 4.0			# Relative velocity of the stream
-smoothing_thickness = 0.05	# Smoothing thickness around cylinder
-smoothing_thickness_vel = 0.2	# Smoothing thickness for perturbation (Gaussian)
-vel_pert = 1.0			# Magnitude of perturbation
-lambda_pert = 4 		# Period of perturbation along the stream. Also the characteristic length 
+density_contrast = 100.0 #100 is the physical contrast between n_Halpha (0.1 cm^-3) and n_ICM (10^-3)
+vel_shear = 4.0
+smoothing_thickness = 0.05
+smoothing_thickness_vel = 0.2
+vel_pert = 1.0
+lambda_pert = 4 #per Chandra proposal, wavelength perturbation equals to 
 #noisy_IC=false
 radius=0.5
 b0=10
 ShearOuterInflowX_on = false
 ShearInnerInflowX_on = false
-SpitzerViscosity = false 
-SpitzerConduction = false
+SpitzerViscosity = true 
+SpitzerConduction = true
 ConstantViscosity = false
 ConstantConduction = false
 nu_iso = 0.0
 visc_factor = 2.581988897e-3 
 T_cond_max = 0.0
-Cooling = false
+Cooling = true
 cooling_factor = 0.1837117 

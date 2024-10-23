@@ -1,11 +1,3 @@
-'''
-	What: create movie using timeseries of .npy files
-	How: python movie_gen.py . kh_custom.out1 2048 1024 --field temperature --axis z
-		!!!Do not use MPI on this!!!
-	Note: Right now it naively creates plots using the first athdf file and YT. 
-		Will need to be changed. 
-'''
-
 import yt
 from matplotlib import rc_context
 from matplotlib.animation import FuncAnimation
@@ -51,15 +43,14 @@ import glob
 fns = glob.glob(f"{args.directory}/{args.prefix}.*.npy")
 fns.sort()
 
-T_hot = np.load(fns[0]).max()
+T_hot = np.load('global_max.npy')
 
-# TODO: Remove dependency on first athdf block
 first = yt.load(f"kh_custom.out1.00000.athdf")
 
 # Initial plot using the preloaded data
 plot = yt.SlicePlot(first, axis, ("gas", field), buff_size=buffer)
 plot.set_norm(("gas", field), norm)
-plot.set_cmap(("gas", field), "RdBu_r")
+plot.set_cmap(("gas", field), "RdBu")
 
 # Lock the color scale by setting a fixed normalization
 plot.plots[("gas", field)].cb.norm = norm
@@ -74,20 +65,20 @@ ax = plot.plots[("gas", field)].axes
 
 # Define the animation function
 def animate(i):
-    data = np.load(fns[i])/T_hot	# TODO: Generalization (eventually)
+    data = np.load(fns[i]) / T_hot
     ax.images[0].set_array(data)  # Update the plot
     ax.images[0].set_norm(norm)  # Update the normalization
-    ax.images[0].set_cmap("RdBu_r")  # Update the colormap
+    ax.images[0].set_cmap("RdBu")  # Update the colormap
     fig.canvas.draw_idle()
     # storage[i] = None
     gc.collect()
 
 # Create the animation object
-animation = FuncAnimation(fig, animate, frames=len(fns), interval=100, save_count=None)
+animation = FuncAnimation(fig, animate, frames=len(fns), interval=10, save_count=None)
 
 # Save the animation with locked colorbars
 with rc_context({"mathtext.fontset": "stix"}):
     animation.save(f"{args.prefix}_{args.field}.mp4")
 
 # Clean up temp files
-# os.system(f'rm {args.directory}/*.npy')
+os.system(f'rm {args.directory}/*.npy')
