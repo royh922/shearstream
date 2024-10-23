@@ -88,7 +88,7 @@ yt.enable_parallelism()
 storage = {"min": np.inf, "max": -np.inf}
 
 for sto, fn in yt.parallel_objects(fns, -1, storage=storage, dynamic=True):
-    # TODO: Fix temperature readings
+
     ds = yt.load(fn, units_override=unit_base)
     slc = ds.slice(axis, axis_center)
     frb = yt.FixedResolutionBuffer(
