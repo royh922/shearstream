@@ -42,16 +42,18 @@ axis = args.axis
 field = args.field
 buffer = (args.resolution_x, args.resolution_y)
 
-if args.norm:
-    norm = mcolors.LogNorm(vmin=1e-2, vmax=1)
-else:
-    norm = mcolors.Normalize(vmin=1e-2, vmax=1)
 
 import glob 
 fns = glob.glob(f"{args.directory}/{args.prefix}.*.npy")
 fns.sort()
 
 T_hot = np.load(fns[0]).max()
+T_min = np.load(fns[0]).min()
+
+if args.norm:
+    norm = mcolors.LogNorm(vmin=T_min/T_hot, vmax=1)
+else:
+    norm = mcolors.Normalize(vmin=T_min/T_hot, vmax=1)
 
 # TODO: Remove dependency on first athdf block
 first = yt.load(f"kh_custom.out1.00000.athdf")

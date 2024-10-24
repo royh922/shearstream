@@ -49,7 +49,7 @@ if comm.rank == 0:
     buffer = (args.resolution_x, args.resolution_y)
 
     axis_map = {"x": 0, "y": 1, "z": 2}
-
+    
     # Load the first dataset to get the domain center
     first = yt.load(fns[0], units_override=unit_base)
     # first = yt.load(fns[0])
@@ -88,9 +88,10 @@ yt.enable_parallelism()
 storage = {"min": np.inf, "max": -np.inf}
 
 for sto, fn in yt.parallel_objects(fns, -1, storage=storage, dynamic=True):
-    # TODO: Fix temperature readings
+
     ds = yt.load(fn, units_override=unit_base)
-    slc = ds.slice(axis, axis_center)
+    slc = ds.proj([('athena_pp', 'press'), ('athena_pp', 'rho')], str(axis))    # For Projection Plot
+#    slc = ds.slice(axis, axis_center)  # For Slice Plot
     frb = yt.FixedResolutionBuffer(
         slc,
         (
@@ -102,7 +103,8 @@ for sto, fn in yt.parallel_objects(fns, -1, storage=storage, dynamic=True):
         buffer
     )  # Resolution
 
-    field_data = frb[field].d
+    # field_data = frb[field].d
+    field_data = frb[('athena_pp', 'press')].d/frb[('athena_pp', 'rho')].d
 
     np.save(f'{fn}.npy', field_data)
 
@@ -119,3 +121,4 @@ local_max = storage["max"]
 global_max = comm.reduce(local_max, op=MPI.MAX, root=0)
 
 np.save('global_max.npy', global_max)
+
