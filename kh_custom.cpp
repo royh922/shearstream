@@ -239,7 +239,7 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
 
           // sets pressure based on velocity
           if (NON_BAROTROPIC_EOS) {
-            phydro->u(IEN,k,j,i) = pgas_0/(gamma_adi-1.0) + 0.5*(SQR(phydro->u(IM1,k,j,i))+SQR(phydro->u(IM2,k,j,i)))/phydro->u(IDN,k,j,i);
+            phydro->u(IEN,k,j,i) = pgas_0/(gamma_adi-1.0) + 0.5*(SQR(phydro->u(IM1,k,j,i))+SQR(phydro->u(IM2,k,j,i))+SQR(phydro->u(IM3,k,j,i)))/phydro->u(IDN,k,j,i);
           }
    
         } // i for
@@ -353,28 +353,25 @@ void ShearInnerInflowX(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim
   // copy face-centered magnetic fields into ghost zones
   if (MAGNETIC_FIELDS_ENABLED) {
     for (int k=kl; k<=ku; ++k) {
-      for (int j=1; j<=ngh; ++j) {
-        for (int i=il; i<=iu+1; ++i) {
-          b.x1f(k,(jl-j),i) = b.x1f(k,jl,i);
-        }
+    for (int j=1; j<=ngh; ++j) {
+      for (int i=il; i<=iu+1; ++i) {
+        b.x1f(k,(jl-j),i) = b.x1f(k,jl,i);
       }
-    }
+    }}
 
     for (int k=kl; k<=ku; ++k) {
-      for (int j=1; j<=ngh; ++j) {
-        for (int i=il; i<=iu; ++i) {
-          b.x2f(k,(jl-j),i) = b.x2f(k,jl,i);
-        }
+    for (int j=1; j<=ngh; ++j) {
+      for (int i=il; i<=iu; ++i) {
+        b.x2f(k,(jl-j),i) = b.x2f(k,jl,i);
       }
-    }
+    }}
 
     for (int k=kl; k<=ku+1; ++k) {
-      for (int j=1; j<=ngh; ++j) {
-        for (int i=il; i<=iu; ++i) {
-          b.x3f(k,(jl-j),i) = b.x3f(k,jl,i);
-        }
+    for (int j=1; j<=ngh; ++j) {
+      for (int i=il; i<=iu; ++i) {
+        b.x3f(k,(jl-j),i) = b.x3f(k,jl,i);
       }
-    }
+    }}
   }
 
   return;
