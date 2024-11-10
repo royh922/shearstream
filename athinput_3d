@@ -28,20 +28,20 @@ dt_diagnostics = -1      # interval (in STS stages) for stdout extra dt info
 
 <mesh>
 nx1        = 512         # Number of zones in X1-direction
-x1min      = -6.0        # minimum value of X1
-x1max      = 6.0         # maximum value of X1
+x1min      = -48.0        # minimum value of X1
+x1max      = 48.0         # maximum value of X1
 ix1_bc     = periodic    # inner-X1 boundary flag
 ox1_bc     = periodic   # inner-X1 boundary flag
 
 nx2        = 256         # Number of zones in X2-direction
-x2min      = -3.0        # minimum value of X2
-x2max      = 3.0         # maximum value of X2
+x2min      = -24.0        # minimum value of X2
+x2max      = 24.0         # maximum value of X2
 ix2_bc     = periodic    # inner-X2 boundary flag
 ox2_bc     = periodic   # inner-X2 boundary flag
 
 nx3        = 256         # Number of zones in X3-direction
-x3min      = -3.0        # minimum value of X3
-x3max      = 3.0         # maximum value of X3
+x3min      = -24.0        # minimum value of X3
+x3max      = 24.0         # maximum value of X3
 ix3_bc     = periodic    # inner-X3 boundary flag
 ox3_bc     = periodic    # inner-X3 boundary flag
 
@@ -54,18 +54,18 @@ nx3        = 64
 iso_sound_speed = 1.0
 gamma           = 1.6666667    # gamma = C_p/C_v
 
-<problem>
+<problem>			# Using CGS units, length in kpc, time in Myr
 iprob=1                		# Default parameter values correspond to Re=10^5
-rho_0  = 1.0
-pgas_0 = 10.0 
-density_contrast = 100.0 	# 100 is the physical contrast between n_Halpha (0.1 cm^-3) and n_ICM (10^-3)
-vel_shear = 4.0			# Relative velocity of the stream
-smoothing_thickness = 0.05	# Smoothing thickness around cylinder
-smoothing_thickness_vel = 0.2	# Smoothing thickness for perturbation (Gaussian)
-vel_pert = 1.0			# Magnitude of perturbation
+n_e  = 1.e-4			# in cm^-3, per Sun, M et al. (2010). Electron number density of hot, diffuse gas
+density_contrast = 100.0        # 100 is the physical contrast between n_Halpha (0.1 cm^-3) and n_ICM (10^-3)
+pgas_0 = 1.380649e-14		# in ergs/cm^3. Ensures temp. in diffuse region to be 10^6 K
+vel_shear = 1.6363275756	# in kpc/Myr. Relative velocity of the stream per Sun et al. (2010)
+smoothing_thickness = 0.1	# Smoothing thickness around cylinder
+smoothing_thickness_vel = 2.e-2	# Smoothing thickness for perturbation (Gaussian)
+vel_pert = 1.0e-1		# Magnitude of perturbation
 lambda_pert = 4 		# Period of perturbation along the stream. Also the characteristic length 
 #noisy_IC=false
-radius=0.5
+radius=4			    # in kpc. Radius of cylinder, per Sun, M et al. (2010)
 b0=10
 ShearOuterInflowX_on = false
 ShearInnerInflowX_on = false
