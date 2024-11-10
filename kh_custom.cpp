@@ -46,24 +46,24 @@ void ShearInnerInflowX(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim
 
 // Global variables put in unnamed namespace to avoid linkage issues
 namespace {
-int iprob;                 // problem number
-Real gamma_adi;            // gamma value
-Real rho_0, pgas_0;        // initial density (g/cm^3) and pressure (erg/cm^3) of diffused gas
-Real n_e;                  // electron number density (cm^-3) of diffused gas
-Real vel_shear, vel_pert;  // shear and perturbation velocity (kPc/Myr)
-Real smoothing_thickness,
-    smoothing_thickness_vel;             // smoothing thickness for density, smotthing
-                                         // thickness for velocity for perturbation
-Real radius;                             // radius of the cylinder (kPc)
-Real density_contrast;                   // density contrast between hot and cold parts
-Real lambda_pert;                        // period of perturbations (kPc)
-Real T_cond_max;                         // max temp (K) for cond
-Real visc_factor;                        // factor for viscosity
-Real cooling_factor;                     // factor for cooling
-Real T_cold, T_hot;                      // temp (K) for cold and hot gasses
-static const Real k_B = 1.38064852e-16;  // Boltzmann constant in CGS units, erg/K
-static const mu_e = 1.166667;            // mean molecular weight per electron (0.7 Hydrogen, 0.28 Helium)
-static const m_H = 1.673534e-24;         // mass of hydrogen in grams
+int iprob;                                     // problem number
+Real gamma_adi;                                // gamma value
+Real rho_0, pgas_0;                            // initial density (g/cm^3) and pressure (erg/cm^3) of diffused gas
+Real n_e;                                      // electron number density (cm^-3) of diffused gas
+Real vel_shear, vel_pert;                      // shear and perturbation velocity (kPc/Myr)
+Real smoothing_thickness;                      // smoothing thickness for density, smoothing
+Real smoothing_thickness_vel;                  // thickness for velocity for perturbation
+Real radius;                                   // radius of the cylinder (kPc)
+Real density_contrast;                         // density contrast between hot and cold parts
+Real lambda_pert;                              // period of perturbations (kPc)
+Real T_cond_max;                               // max temp (K) for cond
+Real visc_factor;                              // factor for viscosity
+Real cooling_factor;                           // factor for cooling
+Real T_cold, T_hot;                            // temp (K) for cold and hot gasses
+static const Real k_B = 1.38064852e-16;        // Boltzmann constant in CGS units, erg/K
+static const Real mu_e = 1.166667;             // mean molecular weight per electron (0.7 Hydrogen, 0.28 Helium)
+static const Real m_H = 1.673534e-24;          // mass of hydrogen in grams (g)
+static const Real ke_to_ergs = 4.780457606e15  // g*(kPc/Myr)^2 to ergs (TODO: CURSED. FIXED LATER)
 }  // namespace
 
 //----------------------------------------------------------------------------------------
@@ -76,8 +76,8 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
     // Read Problem Parameters
     iprob = pin->GetOrAddInteger("problem", "iprob", 1);
     gamma_adi = pin->GetReal("hydro", "gamma");
-    n_e = pin->GetReal("problem", "n_e");
-    rho_0 = n_e * mu_e * m_H;
+    n_e = pin->GetReal("problem", "n_e");  // (cm^-3)
+    rho_0 = n_e * mu_e * m_H;              // (g/cm^3)
     pgas_0 = pin->GetReal("problem", "pgas_0");
     density_contrast = pin->GetReal("problem", "density_contrast");
     vel_shear = pin->GetReal("problem", "vel_shear");
@@ -199,11 +199,7 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
                     // assigns density to sim
                     phydro->u(IDN, k, j, i) = density;
 
-                    // assigns energy
-                    phydro->u(IEN, k, j, i) = pgas_0 / (gamma_adi - 1);
-
-                    // assigns momentum (velocity), all x direction along
-                    // cylinder
+                    // assigns momentum (g*kPc/Myr), all x direction along cylinder
                     phydro->u(IM1, k, j, i) =
                         density * vel_shear * -1 * (std::tanh((r - radius) / smoothing_thickness));
                     phydro->u(IM2, k, j, i) = 0.0;
@@ -212,11 +208,9 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
                     // Perturbations
                     // A full circular velocity perturbation
 
-                    // catch the point where density is fluctuating between
-                    // values in tanh func
-                    if ((density > rho_0) && (density < (rho_0 * density_contrast))) {  // Adding perturbations only to
-                                                                                        // areas between the densities
-
+                    // catch the point where density is fluctuating between values in tanh func
+                    // adds perturbations to the area between the densities
+                    if ((density > rho_0) && (density < (rho_0 * density_contrast))) {
                         Real mag = density * vel_pert;  // is the magnitude of the perturbation
                         mag *= std::exp(-1 * SQR((r - radius) / (smoothing_thickness_vel)));  // is the gaussian
                                                                                               // to center the
@@ -251,13 +245,17 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
                         phydro->u(IM3, k, j, i) *= ran2(&iseed);
                     }
 
-                    // sets pressure based on velocity
+                    // sets energy based on pressure and momentum
                     if (NON_BAROTROPIC_EOS) {
-                        phydro->u(IEN, k, j, i) = pgas_0 / (gamma_adi - 1.0) +
-                                                  0.5 *
-                                                      (SQR(phydro->u(IM1, k, j, i)) + SQR(phydro->u(IM2, k, j, i)) +
-                                                       SQR(phydro->u(IM3, k, j, i))) /
-                                                      phydro->u(IDN, k, j, i);
+                        Real thermal_energy = pgas_0 / (gamma_adi - 1.0);
+                        Real kinetic_energy = 0.5 *
+                                              (SQR(phydro->u(IM1, k, j, i)) + SQR(phydro->u(IM2, k, j, i)) +
+                                               SQR(phydro->u(IM3, k, j, i))) /
+                                              phydro->u(IDN, k, j, i);
+                        kinetic_energy *= ke_to_ergs;  // convert to ergs
+                        phydro->u(IEN, k, j, i) = thermal_energy + kinetic_energy;
+                    } else {
+                        phydro->u(IEN, k, j, i) = pgas_0 / (gamma_adi - 1.0);
                     }
 
                 }  // i for
@@ -304,11 +302,15 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
 }
 
 //----------------------------------------------------------------------------------------
-// calculated edot_cool
-// the cooling curve is set to be a sine wave
-// negative sine is make it cooling at low temp
-static Real Lambda_cool(Real Temp) {
-    return std::sin(PI * std::log(Temp / T_cold) / (std::log((T_hot - T_cold) / T_cold)));
+// Lambda function according to Sarazin and White (1987)
+static Real Lambda_cool(Real temperature) {
+    Real lambda = 4.7 * std::exp(-1 * std::pow(temperature / 3.5e5, 4.5));
+    lambda += 0.313 * std::pow(temperature, 0.08) * std::exp(-1 * std::pow(temperature / 3e6, 4.4));
+    lambda += 6.42 * std::pow(temperature, -0.2) * std::exp(-1 * std::pow(temperature / 2.1e6, 4.4));
+    lambda += 0.00439 * std::pow(temperature, 0.35);
+    // convert to ergs*cm^3/Myr
+    lambda *= 1e-22;
+    lambda *= (31557600 * 1e6) return lambda;
 }
 
 void Cooling(MeshBlock *pmb, const Real time, const Real dt, const AthenaArray<Real> &prim,
@@ -317,8 +319,9 @@ void Cooling(MeshBlock *pmb, const Real time, const Real dt, const AthenaArray<R
     for (int k = pmb->ks; k <= pmb->ke; ++k) {
         for (int j = pmb->js; j <= pmb->je; ++j) {
             for (int i = pmb->is; i <= pmb->ie; ++i) {
-                Real temp = prim(IPR, k, j, i) / prim(IDN, k, j, i);
-                cons(IEN, k, j, i) -= dt * cooling_factor * prim(IDN, k, j, i) * prim(IDN, k, j, i) * Lambda_cool(temp);
+                Real number_density = prim(IDN, k, j, i) / m_H / mu_e;
+                Real temperature = prim(IPR, k, j, i) / number_density / k_B;
+                cons(IEN, k, j, i) -= (dt * SQR(number_density) * Lambda_cool(temperature));
             }
         }
     }
