@@ -25,45 +25,32 @@
 #include "../utils/utils.hpp"
 
 // User Defined Functions
-void ConstantConduction(HydroDiffusion *phdif, MeshBlock *pmb,
-                        const AthenaArray<Real> &prim,
-                        const AthenaArray<Real> &bcc, int is, int ie, int js,
-                        int je, int ks, int ke);
-void ConstantViscosity(HydroDiffusion *phdif, MeshBlock *pmb,
-                       const AthenaArray<Real> &prim,
-                       const AthenaArray<Real> &bcc, int is, int ie, int js,
-                       int je, int ks, int ke);
-void SpitzerConduction(HydroDiffusion *phdif, MeshBlock *pmb,
-                       const AthenaArray<Real> &prim,
-                       const AthenaArray<Real> &bcc, int is, int ie, int js,
-                       int je, int ks, int ke);
-void SpitzerViscosity(HydroDiffusion *phdif, MeshBlock *pmb,
-                      const AthenaArray<Real> &prim,
-                      const AthenaArray<Real> &bcc, int is, int ie, int js,
-                      int je, int ks, int ke);
+void ConstantConduction(HydroDiffusion *phdif, MeshBlock *pmb, const AthenaArray<Real> &prim,
+                        const AthenaArray<Real> &bcc, int is, int ie, int js, int je, int ks, int ke);
+void ConstantViscosity(HydroDiffusion *phdif, MeshBlock *pmb, const AthenaArray<Real> &prim,
+                       const AthenaArray<Real> &bcc, int is, int ie, int js, int je, int ks, int ke);
+void SpitzerConduction(HydroDiffusion *phdif, MeshBlock *pmb, const AthenaArray<Real> &prim,
+                       const AthenaArray<Real> &bcc, int is, int ie, int js, int je, int ks, int ke);
+void SpitzerViscosity(HydroDiffusion *phdif, MeshBlock *pmb, const AthenaArray<Real> &prim,
+                      const AthenaArray<Real> &bcc, int is, int ie, int js, int je, int ks, int ke);
 static Real Lambda_cool(Real Temp);
-void Cooling(MeshBlock *pmb, const Real time, const Real dt,
-             const AthenaArray<Real> &prim,
-             const AthenaArray<Real> &prim_scalar, const AthenaArray<Real> &bcc,
-             AthenaArray<Real> &cons, AthenaArray<Real> &cons_scalar);
+void Cooling(MeshBlock *pmb, const Real time, const Real dt, const AthenaArray<Real> &prim,
+             const AthenaArray<Real> &prim_scalar, const AthenaArray<Real> &bcc, AthenaArray<Real> &cons,
+             AthenaArray<Real> &cons_scalar);
 
 // User Defined Boundary Conditions
-void ShearOuterInflowX(MeshBlock *pmb, Coordinates *pco,
-                       AthenaArray<Real> &prim, FaceField &b, Real time,
-                       Real dt, int il, int iu, int jl, int ju, int kl, int ku,
-                       int ngh);
-void ShearInnerInflowX(MeshBlock *pmb, Coordinates *pco,
-                       AthenaArray<Real> &prim, FaceField &b, Real time,
-                       Real dt, int il, int iu, int jl, int ju, int kl, int ku,
-                       int ngh);
+void ShearOuterInflowX(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim, FaceField &b, Real time, Real dt,
+                       int il, int iu, int jl, int ju, int kl, int ku, int ngh);
+void ShearInnerInflowX(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim, FaceField &b, Real time, Real dt,
+                       int il, int iu, int jl, int ju, int kl, int ku, int ngh);
 
 // Global variables put in unnamed namespace to avoid linkage issues
 namespace {
-int iprob;                              // problem number
-Real gamma_adi;                         // gamma value
-Real rho_0, pgas_0;                     // initial density (g/cm^3) and pressure (erg/cm^3) of diffused gas
-Real n_e;                               // electron number density (cm^-3) of diffused gas
-Real vel_shear, vel_pert;               // shear and perturbation velocity (kPc/Myr)
+int iprob;                 // problem number
+Real gamma_adi;            // gamma value
+Real rho_0, pgas_0;        // initial density (g/cm^3) and pressure (erg/cm^3) of diffused gas
+Real n_e;                  // electron number density (cm^-3) of diffused gas
+Real vel_shear, vel_pert;  // shear and perturbation velocity (kPc/Myr)
 Real smoothing_thickness,
     smoothing_thickness_vel;             // smoothing thickness for density, smotthing
                                          // thickness for velocity for perturbation
@@ -105,8 +92,7 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
 
     // Initial conditions and Boundary values
     smoothing_thickness = pin->GetReal("problem", "smoothing_thickness");
-    smoothing_thickness_vel =
-        pin->GetOrAddReal("problem", "smoothing_thickness_vel", -100.0);
+    smoothing_thickness_vel = pin->GetOrAddReal("problem", "smoothing_thickness_vel", -100.0);
     if (smoothing_thickness_vel < 0) {
         smoothing_thickness_vel = smoothing_thickness;
     }
@@ -116,21 +102,15 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
 
     // Boundary Conditions
     // -----------------------------------------------------------------
-    bool ShearOuterInflowX_on =
-        pin->GetOrAddBoolean("problem", "ShearOuterInflowX_on", false);
-    bool ShearInnerInflowX_on =
-        pin->GetOrAddBoolean("problem", "ShearInnerInflowX_on", false);
+    bool ShearOuterInflowX_on = pin->GetOrAddBoolean("problem", "ShearOuterInflowX_on", false);
+    bool ShearInnerInflowX_on = pin->GetOrAddBoolean("problem", "ShearInnerInflowX_on", false);
 
     // Enroll 2D boundary condition
     if (mesh_bcs[BoundaryFace::inner_x1] == GetBoundaryFlag("user")) {
-        if (ShearInnerInflowX_on)
-            EnrollUserBoundaryFunction(BoundaryFace::inner_x1,
-                                       ShearInnerInflowX);
+        if (ShearInnerInflowX_on) EnrollUserBoundaryFunction(BoundaryFace::inner_x1, ShearInnerInflowX);
     }
     if (mesh_bcs[BoundaryFace::outer_x1] == GetBoundaryFlag("user")) {
-        if (ShearOuterInflowX_on)
-            EnrollUserBoundaryFunction(BoundaryFace::outer_x1,
-                                       ShearOuterInflowX);
+        if (ShearOuterInflowX_on) EnrollUserBoundaryFunction(BoundaryFace::outer_x1, ShearOuterInflowX);
     }
 
     // Read Microphysics
@@ -142,10 +122,8 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
     }
 
     // spitzer viscosity and conduction enrollment
-    bool SpitzerViscosity_on =
-        pin->GetOrAddBoolean("problem", "SpitzerViscosity", false);
-    bool SpitzerConduction_on =
-        pin->GetOrAddBoolean("problem", "SpitzerConduction", false);
+    bool SpitzerViscosity_on = pin->GetOrAddBoolean("problem", "SpitzerViscosity", false);
+    bool SpitzerConduction_on = pin->GetOrAddBoolean("problem", "SpitzerConduction", false);
 
     if (SpitzerViscosity_on) {
         visc_factor = pin->GetOrAddReal("problem", "visc_factor", 1.0);
@@ -157,10 +135,8 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
     }
 
     // constant viscosity and conduction enrollment
-    bool ConstantViscosity_on =
-        pin->GetOrAddBoolean("problem", "ConstantViscosity", false);
-    bool ConstantConduction_on =
-        pin->GetOrAddBoolean("problem", "ConstantConduction", false);
+    bool ConstantViscosity_on = pin->GetOrAddBoolean("problem", "ConstantViscosity", false);
+    bool ConstantConduction_on = pin->GetOrAddBoolean("problem", "ConstantConduction", false);
 
     if (ConstantViscosity_on) {
         EnrollViscosityCoefficient(ConstantViscosity);
@@ -217,10 +193,8 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
                     // density is like the cylinder with the tanh function to
                     // slope down the edges
                     Real density =
-                        rho_0 *
-                        ((density_contrast / 2) + 0.5 +
-                         (density_contrast - 1.0) * 0.5 *
-                             -std::tanh((r - radius) / smoothing_thickness));
+                        rho_0 * ((density_contrast / 2) + 0.5 +
+                                 (density_contrast - 1.0) * 0.5 * -std::tanh((r - radius) / smoothing_thickness));
 
                     // assigns density to sim
                     phydro->u(IDN, k, j, i) = density;
@@ -231,8 +205,7 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
                     // assigns momentum (velocity), all x direction along
                     // cylinder
                     phydro->u(IM1, k, j, i) =
-                        density * vel_shear * -1 *
-                        (std::tanh((r - radius) / smoothing_thickness));
+                        density * vel_shear * -1 * (std::tanh((r - radius) / smoothing_thickness));
                     phydro->u(IM2, k, j, i) = 0.0;
                     phydro->u(IM3, k, j, i) = 0.0;
 
@@ -241,28 +214,18 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
 
                     // catch the point where density is fluctuating between
                     // values in tanh func
-                    if ((density > rho_0) &&
-                        (density <
-                         (rho_0 *
-                          density_contrast))) {  // Adding perturbations only to
-                                                 // areas between the densities
+                    if ((density > rho_0) && (density < (rho_0 * density_contrast))) {  // Adding perturbations only to
+                                                                                        // areas between the densities
 
-                        Real mag =
-                            density *
-                            vel_pert;  // is the magnitude of the perturbation
-                        mag *= std::exp(
-                            -1 *
-                            SQR((r - radius) /
-                                (smoothing_thickness_vel)));  // is the gaussian
-                                                              // to center the
-                                                              // perturbation
+                        Real mag = density * vel_pert;  // is the magnitude of the perturbation
+                        mag *= std::exp(-1 * SQR((r - radius) / (smoothing_thickness_vel)));  // is the gaussian
+                                                                                              // to center the
+                                                                                              // perturbation
 
                         if (lambda_pert > 0.0) {
-                            mag *= std::sin(
-                                2 * PI * x /
-                                lambda_pert);  // multiplies both components by
-                                               // a sin to have it at oscillate
-                                               // along x axis
+                            mag *= std::sin(2 * PI * x / lambda_pert);  // multiplies both components by
+                                                                        // a sin to have it at oscillate
+                                                                        // along x axis
 
                         } else if (lambda_pert == 0.0) {
                             // find where the perturbation location should be
@@ -271,20 +234,15 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
                             // find how big the perturbation should be
                             Real pert_width = smoothing_thickness;
 
-                            mag *= std::exp(
-                                -1 * (SQR(x + (-1 * pert_loc)) / pert_width));
+                            mag *= std::exp(-1 * (SQR(x + (-1 * pert_loc)) / pert_width));
                         }
 
-                        Real theta = std::atan(
-                            y /
-                            z);  // is the angle the current point is on for
-                                 // calculating the impact for each dimension
-                        phydro->u(IM3, k, j, i) =
-                            mag * std::cos(theta);  // z component magnitude
-                                                    // with cos of theta
-                        phydro->u(IM2, k, j, i) =
-                            mag * std::sin(theta);  // y component magnitude
-                                                    // with sin of theta
+                        Real theta = std::atan(y / z);                    // is the angle the current point is on for
+                                                                          // calculating the impact for each dimension
+                        phydro->u(IM3, k, j, i) = mag * std::cos(theta);  // z component magnitude
+                                                                          // with cos of theta
+                        phydro->u(IM2, k, j, i) = mag * std::sin(theta);  // y component magnitude
+                                                                          // with sin of theta
                     }  // end perturbation
 
                     // Add random noise if noise wants to be added
@@ -295,13 +253,11 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
 
                     // sets pressure based on velocity
                     if (NON_BAROTROPIC_EOS) {
-                        phydro->u(IEN, k, j, i) =
-                            pgas_0 / (gamma_adi - 1.0) +
-                            0.5 *
-                                (SQR(phydro->u(IM1, k, j, i)) +
-                                 SQR(phydro->u(IM2, k, j, i)) +
-                                 SQR(phydro->u(IM3, k, j, i))) /
-                                phydro->u(IDN, k, j, i);
+                        phydro->u(IEN, k, j, i) = pgas_0 / (gamma_adi - 1.0) +
+                                                  0.5 *
+                                                      (SQR(phydro->u(IM1, k, j, i)) + SQR(phydro->u(IM2, k, j, i)) +
+                                                       SQR(phydro->u(IM3, k, j, i))) /
+                                                      phydro->u(IDN, k, j, i);
                     }
 
                 }  // i for
@@ -352,20 +308,17 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
 // the cooling curve is set to be a sine wave
 // negative sine is make it cooling at low temp
 static Real Lambda_cool(Real Temp) {
-    return std::sin(PI * std::log(Temp / T_cold) /
-                    (std::log((T_hot - T_cold) / T_cold)));
+    return std::sin(PI * std::log(Temp / T_cold) / (std::log((T_hot - T_cold) / T_cold)));
 }
 
-void Cooling(MeshBlock *pmb, const Real time, const Real dt,
-             const AthenaArray<Real> &prim,
-             const AthenaArray<Real> &prim_scalar, const AthenaArray<Real> &bcc,
-             AthenaArray<Real> &cons, AthenaArray<Real> &cons_scalar) {
+void Cooling(MeshBlock *pmb, const Real time, const Real dt, const AthenaArray<Real> &prim,
+             const AthenaArray<Real> &prim_scalar, const AthenaArray<Real> &bcc, AthenaArray<Real> &cons,
+             AthenaArray<Real> &cons_scalar) {
     for (int k = pmb->ks; k <= pmb->ke; ++k) {
         for (int j = pmb->js; j <= pmb->je; ++j) {
             for (int i = pmb->is; i <= pmb->ie; ++i) {
                 Real temp = prim(IPR, k, j, i) / prim(IDN, k, j, i);
-                cons(IEN, k, j, i) -= dt * cooling_factor * prim(IDN, k, j, i) *
-                                      prim(IDN, k, j, i) * Lambda_cool(temp);
+                cons(IEN, k, j, i) -= dt * cooling_factor * prim(IDN, k, j, i) * prim(IDN, k, j, i) * Lambda_cool(temp);
             }
         }
     }
@@ -380,10 +333,8 @@ void Cooling(MeshBlock *pmb, const Real time, const Real dt,
 //                          ngh)
 //  \brief ConstantShearInflow boundary conditions, inner x2 boundary
 
-void ShearInnerInflowX(MeshBlock *pmb, Coordinates *pco,
-                       AthenaArray<Real> &prim, FaceField &b, Real time,
-                       Real dt, int il, int iu, int jl, int ju, int kl, int ku,
-                       int ngh) {
+void ShearInnerInflowX(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim, FaceField &b, Real time, Real dt,
+                       int il, int iu, int jl, int ju, int kl, int ku, int ngh) {
     // copy hydro variables into ghost zones
     for (int k = kl; k <= ku; k++) {
         Real z = pco->x3v(k);
@@ -393,10 +344,8 @@ void ShearInnerInflowX(MeshBlock *pmb, Coordinates *pco,
                 // Real x = pco->x1v(i);
                 Real r = std::sqrt(SQR(z) + SQR(y));
                 Real density =
-                    rho_0 *
-                    ((density_contrast / 2) + 0.5 +
-                     (density_contrast - 1.0) * 0.5 *
-                         -std::tanh((r - radius) / smoothing_thickness));
+                    rho_0 * ((density_contrast / 2) + 0.5 +
+                             (density_contrast - 1.0) * 0.5 * -std::tanh((r - radius) / smoothing_thickness));
 
                 for (int n = 0; n < (NHYDRO); n++) {
                     prim(n, k, j, il - i) = prim(n, k, j, il);
@@ -407,9 +356,7 @@ void ShearInnerInflowX(MeshBlock *pmb, Coordinates *pco,
                         prim(IDN, k, j, il - i) = density;
                     }
                     if (n == IVX) {
-                        prim(IVX, k, j, il - i) =
-                            vel_shear * -1 *
-                            (std::tanh((r - radius) / smoothing_thickness));
+                        prim(IVX, k, j, il - i) = vel_shear * -1 * (std::tanh((r - radius) / smoothing_thickness));
                     }
                 }
                 if (r > radius) {
@@ -459,10 +406,8 @@ void ShearInnerInflowX(MeshBlock *pmb, Coordinates *pco,
 //                          ngh)
 //  \brief ConstantShearInflow boundary conditions, outer x2 boundary
 
-void ShearOuterInflowX(MeshBlock *pmb, Coordinates *pco,
-                       AthenaArray<Real> &prim, FaceField &b, Real time,
-                       Real dt, int il, int iu, int jl, int ju, int kl, int ku,
-                       int ngh) {
+void ShearOuterInflowX(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim, FaceField &b, Real time, Real dt,
+                       int il, int iu, int jl, int ju, int kl, int ku, int ngh) {
     // copy hydro variables into ghost zones
     for (int k = kl; k <= ku; k++) {
         Real z = pco->x3v(k);
@@ -473,10 +418,8 @@ void ShearOuterInflowX(MeshBlock *pmb, Coordinates *pco,
                 // Real x = pco->x3v(i);
                 Real r = std::sqrt(SQR(z) + SQR(y));
                 Real density =
-                    rho_0 *
-                    ((density_contrast / 2) + 0.5 +
-                     (density_contrast - 1.0) * 0.5 *
-                         -std::tanh((r - radius) / smoothing_thickness));
+                    rho_0 * ((density_contrast / 2) + 0.5 +
+                             (density_contrast - 1.0) * 0.5 * -std::tanh((r - radius) / smoothing_thickness));
 
                 for (int n = 0; n < (NHYDRO); n++) {
                     prim(n, k, j, iu + i) = prim(n, k, j, iu);
@@ -487,9 +430,7 @@ void ShearOuterInflowX(MeshBlock *pmb, Coordinates *pco,
                         prim(IDN, k, j, iu + i) = density;
                     }
                     if (n == IVX) {
-                        prim(IVX, k, j, iu + i) =
-                            vel_shear * -1 *
-                            (std::tanh((r - radius) / smoothing_thickness));
+                        prim(IVX, k, j, iu + i) = vel_shear * -1 * (std::tanh((r - radius) / smoothing_thickness));
                     }
                 }
                 if (r < radius) {
@@ -534,10 +475,8 @@ void ShearOuterInflowX(MeshBlock *pmb, Coordinates *pco,
 // ----------------------------------------------------------------------------------------
 // SpitzerViscosity
 //
-void SpitzerViscosity(HydroDiffusion *phdif, MeshBlock *pmb,
-                      const AthenaArray<Real> &prim,
-                      const AthenaArray<Real> &bcc, int is, int ie, int js,
-                      int je, int ks, int ke) {
+void SpitzerViscosity(HydroDiffusion *phdif, MeshBlock *pmb, const AthenaArray<Real> &prim,
+                      const AthenaArray<Real> &bcc, int is, int ie, int js, int je, int ks, int ke) {
     for (int k = ks; k <= ke; ++k) {
         for (int j = js; j <= je; ++j) {
             for (int i = is + 1; i <= ie; ++i) {
@@ -554,17 +493,14 @@ void SpitzerViscosity(HydroDiffusion *phdif, MeshBlock *pmb,
 // ----------------------------------------------------------------------------------------
 // SpitzerConduction
 //
-void SpitzerConduction(HydroDiffusion *phdif, MeshBlock *pmb,
-                       const AthenaArray<Real> &prim,
-                       const AthenaArray<Real> &bcc, int is, int ie, int js,
-                       int je, int ks, int ke) {
+void SpitzerConduction(HydroDiffusion *phdif, MeshBlock *pmb, const AthenaArray<Real> &prim,
+                       const AthenaArray<Real> &bcc, int is, int ie, int js, int je, int ks, int ke) {
     for (int k = ks; k <= ke; ++k) {
         for (int j = js; j <= je; ++j) {
             for (int i = is + 1; i <= ie; ++i) {
                 Real T = prim(IPR, k, j, i) / prim(IDN, k, j, i);
                 Real Tpow = T > T_cond_max ? pow(T, 2.5) : pow(T_cond_max, 2.5);
-                phdif->kappa(HydroDiffusion::DiffProcess::iso, k, j, i) =
-                    phdif->kappa_iso / prim(IDN, k, j, i) * Tpow;
+                phdif->kappa(HydroDiffusion::DiffProcess::iso, k, j, i) = phdif->kappa_iso / prim(IDN, k, j, i) * Tpow;
             }
         }
     }
@@ -574,15 +510,12 @@ void SpitzerConduction(HydroDiffusion *phdif, MeshBlock *pmb,
 // ----------------------------------------------------------------------------------------
 // ConstantViscosity
 //
-void ConstantViscosity(HydroDiffusion *phdif, MeshBlock *pmb,
-                       const AthenaArray<Real> &prim,
-                       const AthenaArray<Real> &bcc, int is, int ie, int js,
-                       int je, int ks, int ke) {
+void ConstantViscosity(HydroDiffusion *phdif, MeshBlock *pmb, const AthenaArray<Real> &prim,
+                       const AthenaArray<Real> &bcc, int is, int ie, int js, int je, int ks, int ke) {
     for (int k = ks; k <= ke; ++k) {
         for (int j = js; j <= je; ++j) {
             for (int i = is + 1; i <= ie; ++i) {
-                phdif->nu(HydroDiffusion::DiffProcess::iso, k, j, i) =
-                    phdif->nu_iso / prim(IDN, k, j, i);
+                phdif->nu(HydroDiffusion::DiffProcess::iso, k, j, i) = phdif->nu_iso / prim(IDN, k, j, i);
             }
         }
     }
@@ -592,15 +525,12 @@ void ConstantViscosity(HydroDiffusion *phdif, MeshBlock *pmb,
 // ----------------------------------------------------------------------------------------
 // ConstantConduction
 //
-void ConstantConduction(HydroDiffusion *phdif, MeshBlock *pmb,
-                        const AthenaArray<Real> &prim,
-                        const AthenaArray<Real> &bcc, int is, int ie, int js,
-                        int je, int ks, int ke) {
+void ConstantConduction(HydroDiffusion *phdif, MeshBlock *pmb, const AthenaArray<Real> &prim,
+                        const AthenaArray<Real> &bcc, int is, int ie, int js, int je, int ks, int ke) {
     for (int k = ks; k <= ke; ++k) {
         for (int j = js; j <= je; ++j) {
             for (int i = is + 1; i <= ie; ++i) {
-                phdif->kappa(HydroDiffusion::DiffProcess::iso, k, j, i) =
-                    phdif->kappa_iso / prim(IDN, k, j, i);
+                phdif->kappa(HydroDiffusion::DiffProcess::iso, k, j, i) = phdif->kappa_iso / prim(IDN, k, j, i);
             }
         }
     }

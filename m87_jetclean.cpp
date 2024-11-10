@@ -57,82 +57,58 @@ scaledRadius = 2e-3 Mpc
 // User-defined functions, explanations available at each function
 // implementation
 
-void innerX1Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim,
-                     FaceField &b, Real time, Real dt, int il, int iu, int jl,
-                     int ju, int kl, int ku, int ngh);
-void outerX1Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim,
-                     FaceField &b, Real time, Real dt, int il, int iu, int jl,
-                     int ju, int kl, int ku, int ngh);
-void innerX2Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim,
-                     FaceField &b, Real time, Real dt, int il, int iu, int jl,
-                     int ju, int kl, int ku, int ngh);
-void outerX2Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim,
-                     FaceField &b, Real time, Real dt, int il, int iu, int jl,
-                     int ju, int kl, int ku, int ngh);
-void innerX3Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim,
-                     FaceField &b, Real time, Real dt, int il, int iu, int jl,
-                     int ju, int kl, int ku, int ngh);
-void outerX3Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim,
-                     FaceField &b, Real time, Real dt, int il, int iu, int jl,
-                     int ju, int kl, int ku, int ngh);
+void innerX1Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim, FaceField &b, Real time, Real dt,
+                     int il, int iu, int jl, int ju, int kl, int ku, int ngh);
+void outerX1Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim, FaceField &b, Real time, Real dt,
+                     int il, int iu, int jl, int ju, int kl, int ku, int ngh);
+void innerX2Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim, FaceField &b, Real time, Real dt,
+                     int il, int iu, int jl, int ju, int kl, int ku, int ngh);
+void outerX2Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim, FaceField &b, Real time, Real dt,
+                     int il, int iu, int jl, int ju, int kl, int ku, int ngh);
+void innerX3Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim, FaceField &b, Real time, Real dt,
+                     int il, int iu, int jl, int ju, int kl, int ku, int ngh);
+void outerX3Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim, FaceField &b, Real time, Real dt,
+                     int il, int iu, int jl, int ju, int kl, int ku, int ngh);
 // void radialBoundaries(MeshBlock *pmb, const AthenaArray<Real> &prim,
 //                       AthenaArray<Real> &cons, int k, int j, int i,
 //                       Real z, Real y, Real x, Real r);
-void outerRadialBoundary(MeshBlock *pmb, const AthenaArray<Real> &prim,
-                         AthenaArray<Real> &cons, int k, int j, int i, Real z,
-                         Real y, Real x);
-void innerRadialBoundary(MeshBlock *pmb, const AthenaArray<Real> &prim,
-                         AthenaArray<Real> &cons, int k, int j, int i, Real z,
-                         Real y, Real x);
+void outerRadialBoundary(MeshBlock *pmb, const AthenaArray<Real> &prim, AthenaArray<Real> &cons, int k, int j, int i,
+                         Real z, Real y, Real x);
+void innerRadialBoundary(MeshBlock *pmb, const AthenaArray<Real> &prim, AthenaArray<Real> &cons, int k, int j, int i,
+                         Real z, Real y, Real x);
 
 int RefinementCondition(MeshBlock *pmb);
 
-void allSourceFunctions(MeshBlock *pmb, const Real time, const Real dt,
-                        const AthenaArray<Real> &prim,
-                        const AthenaArray<Real> &prim_scalar,
-                        const AthenaArray<Real> &bcc, AthenaArray<Real> &cons,
+void allSourceFunctions(MeshBlock *pmb, const Real time, const Real dt, const AthenaArray<Real> &prim,
+                        const AthenaArray<Real> &prim_scalar, const AthenaArray<Real> &bcc, AthenaArray<Real> &cons,
                         AthenaArray<Real> &cons_scalar);
 
-void gravitySourceFunction(MeshBlock *pmb, const Real dt,
-                           const AthenaArray<Real> &prim,
-                           AthenaArray<Real> &cons, int k, int j, int i, Real z,
-                           Real y, Real x, Real r);
+void gravitySourceFunction(MeshBlock *pmb, const Real dt, const AthenaArray<Real> &prim, AthenaArray<Real> &cons, int k,
+                           int j, int i, Real z, Real y, Real x, Real r);
 static Real massFuncOfR(const Real distanceFromSMBH);
 static Real gravitationalAcceleration(const Real distanceFromSMBH);
 
 static Real coreEntropy(const Real dimensionlessX);
 static Real dN_dX(const Real dimensionlessX, const Real numberDensity);
-static Real rungeKutta4(Real x0, Real y0, Real xn, int n,
-                        Real (*differentialFunction)(Real, Real));
+static Real rungeKutta4(Real x0, Real y0, Real xn, int n, Real (*differentialFunction)(Real, Real));
 static Real numberDensityFromEntropy(const Real dimensionlessX);
-static Real pressureFromEntropyAndNumberDensity(const Real entropy,
-                                                const Real numberDensity);
+static Real pressureFromEntropyAndNumberDensity(const Real entropy, const Real numberDensity);
 static void tabulatedNumberDensitiesAndPressures();
 
-static void crossProduct(std::vector<Real> r, std::vector<Real> p, Real *x,
-                         Real *y, Real *z);
-static Real interpolate1D(const Real inputX,
-                          const std::vector<Real> &tabulatedX,
-                          const std::vector<Real> &tabulatedY);
-static Real simpleInterpolate(Real inputX, std::vector<Real> tabulatedX,
-                              std::vector<Real> tabulatedY);
-void enforceFloors(MeshBlock *pmb, AthenaArray<Real> &cons, int k, int j,
-                   int i);
+static void crossProduct(std::vector<Real> r, std::vector<Real> p, Real *x, Real *y, Real *z);
+static Real interpolate1D(const Real inputX, const std::vector<Real> &tabulatedX, const std::vector<Real> &tabulatedY);
+static Real simpleInterpolate(Real inputX, std::vector<Real> tabulatedX, std::vector<Real> tabulatedY);
+void enforceFloors(MeshBlock *pmb, AthenaArray<Real> &cons, int k, int j, int i);
 static Real coolingTime(AthenaArray<Real> &w, int k, int j, int i);
-static Real soundCrossingTime(AthenaArray<Real> &w, int k, int j, int i,
-                              Real cellWidth);
-static Real computeKineticEnergyDensityCode(AthenaArray<Real> &cons, int k,
-                                            int j, int i);
+static Real soundCrossingTime(AthenaArray<Real> &w, int k, int j, int i, Real cellWidth);
+static Real computeKineticEnergyDensityCode(AthenaArray<Real> &cons, int k, int j, int i);
 
-void coolingSourceFunction(const Real dt, const AthenaArray<Real> &prim,
-                           AthenaArray<Real> &cons, int k, int j, int i);
+void coolingSourceFunction(const Real dt, const AthenaArray<Real> &prim, AthenaArray<Real> &cons, int k, int j, int i);
 static Real emissivityFromTemperature(const Real temperature);
 static Real coolingFunction(const Real numberDensity, const Real emissivity);
 
-void jetFeedbackSourceFunction(MeshBlock *pmb, AthenaArray<Real> &cons,
-                               const AthenaArray<Real> &prim, int k, int j,
-                               int i, const Real dt, Real z, Real y, Real x,
-                               Real polarDistance);
+void jetFeedbackSourceFunction(MeshBlock *pmb, AthenaArray<Real> &cons, const AthenaArray<Real> &prim, int k, int j,
+                               int i, const Real dt, Real z, Real y, Real x, Real polarDistance);
 
 Real coldAccretionRate(MeshBlock *pmb, int iout);
 Real hotAccretionRate(MeshBlock *pmb, int iout);
@@ -146,24 +122,20 @@ namespace {
 // Global constants
 static int numberOfRefinementLevels;
 // static int maximumRefinementLevel = 20;
-static Real mu =
-    0.5924489;  // average mass per particle, for n_H = rho / mu * m_H equation,
-                // modified on 04/22/2023 to be consistent with yt
-                // implementation assuming fully ionized gas
+static Real mu = 0.5924489;  // average mass per particle, for n_H = rho / mu * m_H equation,
+                             // modified on 04/22/2023 to be consistent with yt
+                             // implementation assuming fully ionized gas
 
 // Global variables
 Real gammaAdiabatic, gammaMinus1;
-Real
-    innerRadius;  // inner radius, used for smoothing to avoid NaN at the center
+Real innerRadius;  // inner radius, used for smoothing to avoid NaN at the center
 Real outerRadius;  // outer radius, used to force regions outside to hydrostatic
                    // equilibrium
-Real numberDensityFloorCGS, temperatureFloor, pressureFloorCGS,
-    numberDensityVacuumSinkCGS;
-Real numberDensityFloorAstronomical, pressureFloorAstronomical,
-    numberDensityVacuumSinkAstronomical, pressureVacuumSinkAstronomical,
-    densityVacuumSinkAstronomical, densityFloorAstronomical;
-Real haloMass, haloRadius;        // dark-matter-halo-related parameters
-Real stellarMass, stellarRadius;  // BCG-related parameters
+Real numberDensityFloorCGS, temperatureFloor, pressureFloorCGS, numberDensityVacuumSinkCGS;
+Real numberDensityFloorAstronomical, pressureFloorAstronomical, numberDensityVacuumSinkAstronomical,
+    pressureVacuumSinkAstronomical, densityVacuumSinkAstronomical, densityFloorAstronomical;
+Real haloMass, haloRadius;                   // dark-matter-halo-related parameters
+Real stellarMass, stellarRadius;             // BCG-related parameters
 Real scaledEntropy, etaPower, scaledRadius;  // entropy-related parameters
 Real SMBHMass, gravitationalRadius,
     scalingFactorMDot;  // SMBH-related parameters
@@ -173,11 +145,9 @@ Real initialNumberDensityCGS,
                                        // solve hydrostatic equilibrium equation
                                        // numerically
 Real densityAtOuterBoundary, pressureAtOuterBoundary;
-Real jetLaunchingHeightScale, jetLaunchingHeight, jetFeedbackEfficiency,
-    jetKineticFraction, jetConversionEfficiency, jetLaunchingWidthScale,
-    jetLaunchingWidth;
-Real jetVelocityKms, jetVelocityAstronomical, jetPrecessionAngleTheta,
-    jetPrecessionPeriod;
+Real jetLaunchingHeightScale, jetLaunchingHeight, jetFeedbackEfficiency, jetKineticFraction, jetConversionEfficiency,
+    jetLaunchingWidthScale, jetLaunchingWidth;
+Real jetVelocityKms, jetVelocityAstronomical, jetPrecessionAngleTheta, jetPrecessionPeriod;
 Real coolingStartTime, jetStartTime;
 Real accretionUpdateFrequency,
     accretionMaxTemperature;  // update accretion rate (aka jet power) every n
@@ -201,15 +171,13 @@ int numberOfStepsToReachNewSink;  // how many time steps need to occur before
 Real newInnerRadius, currentInnerRadius, d_innerRadius, timeToReachNewSink;
 
 int turbulenceType, seed;
-Real densityPerturbation, velocityPerturbationKms,
-    velocityPerturbationAstronomical, velocityPerturbationWavelength;
+Real densityPerturbation, velocityPerturbationKms, velocityPerturbationAstronomical, velocityPerturbationWavelength;
 
 std::string configuration, additionalComment;
 
 // Create a table of radial distances, number densities, and pressure, to then
 // interpolate to find density and pressure at a given r
-const int numberOfTabulatedEntries =
-    1000;  // number of points in the tabulated data table, 1000 should be fine
+const int numberOfTabulatedEntries = 1000;  // number of points in the tabulated data table, 1000 should be fine
 std::vector<Real> dimensionlessXArray(numberOfTabulatedEntries);
 std::vector<Real> entropyFuncOfXArray(numberOfTabulatedEntries);
 std::vector<Real> numberDensityFuncOfXArray(numberOfTabulatedEntries);
@@ -219,55 +187,39 @@ std::vector<Real> pressureFuncOfXArray(numberOfTabulatedEntries);
 // Declare variables to store cooling curve from Schure+09, Schneider &
 // Robertson+18, and Koyama & Inutsuka+02 (solar metallicity)
 std::vector<Real> logTemperatureArray{
-    3.,    3.03,  3.06,  3.09,  3.121, 3.151, 3.181, 3.211, 3.241, 3.271, 3.302,
-    3.332, 3.362, 3.392, 3.422, 3.452, 3.482, 3.513, 3.543, 3.573, 3.603, 3.633,
-    3.663, 3.693, 3.724, 3.754, 3.784, 3.814, 3.844, 3.874, 3.905, 3.935, 3.965,
-    3.995, 4.025, 4.055, 4.085, 4.116, 4.146, 4.176, 4.206, 4.236, 4.266, 4.296,
-    4.327, 4.357, 4.387, 4.417, 4.447, 4.477, 4.508, 4.538, 4.568, 4.598, 4.628,
-    4.658, 4.688, 4.719, 4.749, 4.779, 4.809, 4.839, 4.869, 4.899, 4.93,  4.96,
-    4.99,  5.02,  5.05,  5.08,  5.111, 5.141, 5.171, 5.201, 5.231, 5.261, 5.291,
-    5.322, 5.352, 5.382, 5.412, 5.442, 5.472, 5.503, 5.533, 5.563, 5.593, 5.623,
-    5.653, 5.683, 5.714, 5.744, 5.774, 5.804, 5.834, 5.864, 5.894, 5.925, 5.955,
-    5.985, 6.015, 6.045, 6.075, 6.106, 6.136, 6.166, 6.196, 6.226, 6.256, 6.286,
-    6.317, 6.347, 6.377, 6.407, 6.437, 6.467, 6.497, 6.528, 6.558, 6.588, 6.618,
-    6.648, 6.678, 6.709, 6.739, 6.769, 6.799, 6.829, 6.859, 6.889, 6.92,  6.95,
-    6.98,  7.01,  7.04,  7.07,  7.101, 7.131, 7.161, 7.191, 7.221, 7.251, 7.281,
-    7.312, 7.342, 7.372, 7.402, 7.432, 7.462, 7.492, 7.523, 7.553, 7.583, 7.613,
-    7.643, 7.673, 7.704, 7.734, 7.764, 7.794, 7.824, 7.854, 7.884, 7.915, 7.945,
-    7.975, 8.005, 8.035, 8.065, 8.095, 8.126, 8.156, 8.186, 8.216, 8.246, 8.276,
-    8.307, 8.337, 8.367, 8.397, 8.427, 8.457, 8.487, 8.518, 8.548, 8.578, 8.608,
-    8.638, 8.668, 8.698, 8.729, 8.759, 8.789, 8.819, 8.849, 8.879, 8.91,  8.94,
-    8.97,  9.};
+    3.,    3.03,  3.06,  3.09,  3.121, 3.151, 3.181, 3.211, 3.241, 3.271, 3.302, 3.332, 3.362, 3.392, 3.422, 3.452,
+    3.482, 3.513, 3.543, 3.573, 3.603, 3.633, 3.663, 3.693, 3.724, 3.754, 3.784, 3.814, 3.844, 3.874, 3.905, 3.935,
+    3.965, 3.995, 4.025, 4.055, 4.085, 4.116, 4.146, 4.176, 4.206, 4.236, 4.266, 4.296, 4.327, 4.357, 4.387, 4.417,
+    4.447, 4.477, 4.508, 4.538, 4.568, 4.598, 4.628, 4.658, 4.688, 4.719, 4.749, 4.779, 4.809, 4.839, 4.869, 4.899,
+    4.93,  4.96,  4.99,  5.02,  5.05,  5.08,  5.111, 5.141, 5.171, 5.201, 5.231, 5.261, 5.291, 5.322, 5.352, 5.382,
+    5.412, 5.442, 5.472, 5.503, 5.533, 5.563, 5.593, 5.623, 5.653, 5.683, 5.714, 5.744, 5.774, 5.804, 5.834, 5.864,
+    5.894, 5.925, 5.955, 5.985, 6.015, 6.045, 6.075, 6.106, 6.136, 6.166, 6.196, 6.226, 6.256, 6.286, 6.317, 6.347,
+    6.377, 6.407, 6.437, 6.467, 6.497, 6.528, 6.558, 6.588, 6.618, 6.648, 6.678, 6.709, 6.739, 6.769, 6.799, 6.829,
+    6.859, 6.889, 6.92,  6.95,  6.98,  7.01,  7.04,  7.07,  7.101, 7.131, 7.161, 7.191, 7.221, 7.251, 7.281, 7.312,
+    7.342, 7.372, 7.402, 7.432, 7.462, 7.492, 7.523, 7.553, 7.583, 7.613, 7.643, 7.673, 7.704, 7.734, 7.764, 7.794,
+    7.824, 7.854, 7.884, 7.915, 7.945, 7.975, 8.005, 8.035, 8.065, 8.095, 8.126, 8.156, 8.186, 8.216, 8.246, 8.276,
+    8.307, 8.337, 8.367, 8.397, 8.427, 8.457, 8.487, 8.518, 8.548, 8.578, 8.608, 8.638, 8.668, 8.698, 8.729, 8.759,
+    8.789, 8.819, 8.849, 8.879, 8.91,  8.94,  8.97,  9.};
 std::vector<Real> logEmissivityHydroArray{
-    -26.0928, -26.075,  -26.0575, -26.0401, -26.0228, -26.0057, -25.9887,
-    -25.9719, -25.9552, -25.9386, -25.922,  -25.9056, -25.8893, -25.8731,
-    -25.8569, -25.8408, -25.8248, -25.8088, -25.7929, -25.777,  -25.761,
-    -25.7446, -25.7267, -25.7045, -25.6703, -25.6076, -25.489,  -25.2909,
-    -25.0182, -24.7013, -24.3696, -24.0409, -23.7232, -23.4198, -23.1318,
-    -22.8592, -22.6017, -22.3587, -22.1298, -21.9141, -21.5767, -21.4745,
-    -21.473,  -21.5081, -21.5615, -21.6154, -21.647,  -21.6523, -21.6292,
-    -21.5736, -21.5057, -21.4322, -21.3547, -21.2746, -21.1955, -21.1193,
-    -21.0472, -20.9809, -20.9209, -20.8653, -20.815,  -20.7712, -20.735,
-    -20.706,  -20.6852, -20.674,  -20.6796, -20.6934, -20.7097, -20.7229,
-    -20.7213, -20.713,  -20.7014, -20.6894, -20.6819, -20.6771, -20.6738,
-    -20.6711, -20.674,  -20.6935, -20.7373, -20.812,  -20.9338, -21.068,
-    -21.1941, -21.2991, -21.362,  -21.3976, -21.4183, -21.4312, -21.4498,
-    -21.4845, -21.5293, -21.5796, -21.6218, -21.6492, -21.667,  -21.678,
-    -21.687,  -21.7003, -21.716,  -21.7328, -21.7469, -21.7565, -21.7644,
-    -21.7727, -21.7859, -21.8116, -21.85,   -21.9014, -21.9664, -22.0362,
-    -22.1037, -22.1665, -22.2214, -22.2645, -22.2992, -22.3261, -22.3448,
-    -22.3549, -22.3603, -22.3615, -22.3591, -22.3534, -22.3469, -22.3403,
-    -22.3344, -22.332,  -22.3328, -22.3369, -22.3444, -22.3557, -22.3687,
-    -22.3837, -22.4008, -22.4221, -22.4461, -22.4724, -22.5002, -22.5272,
-    -22.5514, -22.5725, -22.5901, -22.6024, -22.6114, -22.6175, -22.6208,
-    -22.6212, -22.6197, -22.6166, -22.6121, -22.606,  -22.5988, -22.5908,
-    -22.5821, -22.5728, -22.5628, -22.5526, -22.542,  -22.5309, -22.5198,
-    -22.5087, -22.4976, -22.4864, -22.4752, -22.4638, -22.4524, -22.441,
-    -22.4294, -22.4179, -22.4065, -22.3949, -22.3813, -22.3678, -22.3542,
-    -22.3406, -22.3271, -22.3135, -22.2999, -22.2864, -22.2728, -22.2592,
-    -22.2457, -22.2321, -22.2185, -22.2049, -22.1914, -22.1778, -22.1642,
-    -22.1507, -22.1371, -22.1235, -22.11,   -22.0964, -22.0828, -22.0693,
-    -22.0557, -22.0421, -22.0286, -22.015};
+    -26.0928, -26.075,  -26.0575, -26.0401, -26.0228, -26.0057, -25.9887, -25.9719, -25.9552, -25.9386, -25.922,
+    -25.9056, -25.8893, -25.8731, -25.8569, -25.8408, -25.8248, -25.8088, -25.7929, -25.777,  -25.761,  -25.7446,
+    -25.7267, -25.7045, -25.6703, -25.6076, -25.489,  -25.2909, -25.0182, -24.7013, -24.3696, -24.0409, -23.7232,
+    -23.4198, -23.1318, -22.8592, -22.6017, -22.3587, -22.1298, -21.9141, -21.5767, -21.4745, -21.473,  -21.5081,
+    -21.5615, -21.6154, -21.647,  -21.6523, -21.6292, -21.5736, -21.5057, -21.4322, -21.3547, -21.2746, -21.1955,
+    -21.1193, -21.0472, -20.9809, -20.9209, -20.8653, -20.815,  -20.7712, -20.735,  -20.706,  -20.6852, -20.674,
+    -20.6796, -20.6934, -20.7097, -20.7229, -20.7213, -20.713,  -20.7014, -20.6894, -20.6819, -20.6771, -20.6738,
+    -20.6711, -20.674,  -20.6935, -20.7373, -20.812,  -20.9338, -21.068,  -21.1941, -21.2991, -21.362,  -21.3976,
+    -21.4183, -21.4312, -21.4498, -21.4845, -21.5293, -21.5796, -21.6218, -21.6492, -21.667,  -21.678,  -21.687,
+    -21.7003, -21.716,  -21.7328, -21.7469, -21.7565, -21.7644, -21.7727, -21.7859, -21.8116, -21.85,   -21.9014,
+    -21.9664, -22.0362, -22.1037, -22.1665, -22.2214, -22.2645, -22.2992, -22.3261, -22.3448, -22.3549, -22.3603,
+    -22.3615, -22.3591, -22.3534, -22.3469, -22.3403, -22.3344, -22.332,  -22.3328, -22.3369, -22.3444, -22.3557,
+    -22.3687, -22.3837, -22.4008, -22.4221, -22.4461, -22.4724, -22.5002, -22.5272, -22.5514, -22.5725, -22.5901,
+    -22.6024, -22.6114, -22.6175, -22.6208, -22.6212, -22.6197, -22.6166, -22.6121, -22.606,  -22.5988, -22.5908,
+    -22.5821, -22.5728, -22.5628, -22.5526, -22.542,  -22.5309, -22.5198, -22.5087, -22.4976, -22.4864, -22.4752,
+    -22.4638, -22.4524, -22.441,  -22.4294, -22.4179, -22.4065, -22.3949, -22.3813, -22.3678, -22.3542, -22.3406,
+    -22.3271, -22.3135, -22.2999, -22.2864, -22.2728, -22.2592, -22.2457, -22.2321, -22.2185, -22.2049, -22.1914,
+    -22.1778, -22.1642, -22.1507, -22.1371, -22.1235, -22.11,   -22.0964, -22.0828, -22.0693, -22.0557, -22.0421,
+    -22.0286, -22.015};
 
 // Code conversion, assuming codeTemperature = 1
 static Real codeLength;
@@ -307,21 +259,16 @@ const Real hydrogenMassCGS = 1.6735575e-24;  // hydrogen atom mass in gram
 const Real cCGS = 2.9979e10;
 
 // cgs to astronomical units (Msun, Mpc, Myr, K)
-const Real boltzmannConstAstronomical =
-    boltzmannConstCGS / (solarMassCGS * pow(MpcCGS, 2) * pow(MyrCGS, -2));
-const Real eV_Astronomical =
-    eV_CGS / (solarMassCGS * SQR(MpcCGS) * pow(MyrCGS, -2.));
-const Real hydrogenMassAstronomical =
-    hydrogenMassCGS / solarMassCGS;  // hydrogen atom mass in M_sun (8.418e-64)
+const Real boltzmannConstAstronomical = boltzmannConstCGS / (solarMassCGS * pow(MpcCGS, 2) * pow(MyrCGS, -2));
+const Real eV_Astronomical = eV_CGS / (solarMassCGS * SQR(MpcCGS) * pow(MyrCGS, -2.));
+const Real hydrogenMassAstronomical = hydrogenMassCGS / solarMassCGS;  // hydrogen atom mass in M_sun (8.418e-64)
 const Real gravitationalConstAstronomical =
-    gravitationalConstCGS /
-    (pow(MpcCGS, 3.) * pow(MyrCGS, -2.) *
-     pow(solarMassCGS,
-         -1.));  // gravitational constant in Mpc^3 Myr^-2 M_sun^-1
+    gravitationalConstCGS / (pow(MpcCGS, 3.) * pow(MyrCGS, -2.) *
+                             pow(solarMassCGS,
+                                 -1.));  // gravitational constant in Mpc^3 Myr^-2 M_sun^-1
 
 // Additional unit conversion
-const Real kms_Astronomical =
-    kmCGS / (MpcCGS / MyrCGS);  // convert velocity from km s^-1 to Mpc Myr^-1
+const Real kms_Astronomical = kmCGS / (MpcCGS / MyrCGS);  // convert velocity from km s^-1 to Mpc Myr^-1
 
 }  // namespace
 
@@ -340,41 +287,29 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
     numberOfMeshBlocks = pin->GetInteger("meshblock", "nx1");
     numberOfZones = pin->GetInteger("mesh", "nx1");
     numberOfRefinementLevels = pin->GetInteger("mesh", "numlevel");
-    smallestCellWidth = simulationBoxWidth / numberOfZones /
-                        pow(2., numberOfRefinementLevels - 1);
+    smallestCellWidth = simulationBoxWidth / numberOfZones / pow(2., numberOfRefinementLevels - 1);
 
-    codeLength = pin->GetReal("conversion", "box_width") /
-                 simulationBoxWidth;  // set unit code length based on the width
-                                      // of the cubic box in Mpc
-    codeMass =
-        pin->GetReal("conversion", "base_mass");  // unit code mass in M_sun
-    codeTime =
-        pin->GetReal("conversion", "base_time");  // unit code time in Myr
-    codeTemperature =
-        pin->GetOrAddReal("conversion", "base_temp",
-                          1.);  // unit code temperature in Kelvin, default 1
+    codeLength = pin->GetReal("conversion", "box_width") / simulationBoxWidth;  // set unit code length based on the
+                                                                                // width of the cubic box in Mpc
+    codeMass = pin->GetReal("conversion", "base_mass");  // unit code mass in M_sun
+    codeTime = pin->GetReal("conversion", "base_time");  // unit code time in Myr
+    codeTemperature = pin->GetOrAddReal("conversion", "base_temp",
+                                        1.);  // unit code temperature in Kelvin, default 1
 
-    numberDensityFloorCGS = pin->GetOrAddReal(
-        "problem", "n_floor", 1.e-3);  // enforce number density floor in cm^-3
+    numberDensityFloorCGS = pin->GetOrAddReal("problem", "n_floor", 1.e-3);  // enforce number density floor in cm^-3
     numberDensityFloorAstronomical = numberDensityFloorCGS / pow(MpcCGS, -3);
-    densityFloorAstronomical =
-        numberDensityFloorAstronomical * mu * hydrogenMassAstronomical;
-    numberDensityVacuumSinkCGS = pin->GetOrAddReal(
-        "problem", "n_sink",
-        5.e-3);  // enforce number density inside central sink region in cm^-3
-    numberDensityVacuumSinkAstronomical =
-        numberDensityVacuumSinkCGS / pow(MpcCGS, -3);
-    densityVacuumSinkAstronomical =
-        numberDensityVacuumSinkAstronomical * mu * hydrogenMassAstronomical;
-    temperatureFloor = pin->GetOrAddReal(
-        "problem", "t_floor", 2.e5);  // enforce temperature floor in K
-    pressureFloorAstronomical =
-        numberDensityFloorAstronomical * boltzmannConstAstronomical *
-        temperatureFloor;  // enforce pressure floor, inferred from P = nkT, in
-                           // astronomical units
-    pressureVacuumSinkAstronomical = numberDensityVacuumSinkAstronomical *
-                                     boltzmannConstAstronomical *
-                                     temperatureFloor;
+    densityFloorAstronomical = numberDensityFloorAstronomical * mu * hydrogenMassAstronomical;
+    numberDensityVacuumSinkCGS =
+        pin->GetOrAddReal("problem", "n_sink",
+                          5.e-3);  // enforce number density inside central sink region in cm^-3
+    numberDensityVacuumSinkAstronomical = numberDensityVacuumSinkCGS / pow(MpcCGS, -3);
+    densityVacuumSinkAstronomical = numberDensityVacuumSinkAstronomical * mu * hydrogenMassAstronomical;
+    temperatureFloor = pin->GetOrAddReal("problem", "t_floor", 2.e5);  // enforce temperature floor in K
+    pressureFloorAstronomical = numberDensityFloorAstronomical * boltzmannConstAstronomical *
+                                temperatureFloor;  // enforce pressure floor, inferred from P = nkT, in
+                                                   // astronomical units
+    pressureVacuumSinkAstronomical =
+        numberDensityVacuumSinkAstronomical * boltzmannConstAstronomical * temperatureFloor;
 
     haloMass = pin->GetOrAddReal("problem", "M_DM",
                                  3.e13);  // dark matter halo mass in M_sun
@@ -384,120 +319,90 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
     stellarMass = pin->GetOrAddReal("problem", "M_star",
                                     3.e11);  // BCG stellar mass in M_sun
     stellarRadius = pin->GetOrAddReal("problem", "r0_s",
-                                      2.e-3);  // BCG stellar radius in Mpc
-    SMBHMass =
-        pin->GetOrAddReal("problem", "M_SMBH", 6.5e9);  // SMBH mass in M_sun
+                                      2.e-3);                  // BCG stellar radius in Mpc
+    SMBHMass = pin->GetOrAddReal("problem", "M_SMBH", 6.5e9);  // SMBH mass in M_sun
     gravitationalRadius =
-        gravitationalConstAstronomical * SMBHMass /
-        pow(cCGS / (MpcCGS / MyrCGS), 2);  // gravitational radius in Mpc
+        gravitationalConstAstronomical * SMBHMass / pow(cCGS / (MpcCGS / MyrCGS), 2);  // gravitational radius in Mpc
 
-    scaledEntropy =
-        pin->GetOrAddReal("problem", "K0", 7.);  // central entropy in keV cm^2
+    scaledEntropy = pin->GetOrAddReal("problem", "K0", 7.);  // central entropy in keV cm^2
     scaledEntropyCGS = scaledEntropy * eV_CGS * 1.e3;
-    scaledEntropyAstronomical =
-        scaledEntropyCGS / (solarMassCGS * pow(MpcCGS, 4) * pow(MyrCGS, -2));
+    scaledEntropyAstronomical = scaledEntropyCGS / (solarMassCGS * pow(MpcCGS, 4) * pow(MyrCGS, -2));
     etaPower = pin->GetOrAddReal("problem", "eta", 1.1);  // power slope
-    scaledRadius = pin->GetOrAddReal(
-        "problem", "r0_e",
-        2.e-3);  // scaled radius of the entropy profile in Mpc
-    initialNumberDensityCGS = pin->GetOrAddReal(
-        "problem", "n0", 0.1);  // initial condition of number density in cm^-3
-    initialNumberDensityAstronomical =
-        initialNumberDensityCGS / pow(MpcCGS, -3);
+    scaledRadius = pin->GetOrAddReal("problem", "r0_e",
+                                     2.e-3);                            // scaled radius of the entropy profile in Mpc
+    initialNumberDensityCGS = pin->GetOrAddReal("problem", "n0", 0.1);  // initial condition of number density in cm^-3
+    initialNumberDensityAstronomical = initialNumberDensityCGS / pow(MpcCGS, -3);
 
     innerRadius = pin->GetOrAddReal("boundary", "r_in",
-                                    3e-5);  // inner (smoothing) radius in Mpc
-    outerRadius = pin->GetOrAddReal(
-        "boundary", "r_out", 0.18);  // by default, set outer radius to 180 kpc,
-                                     // or slightly inside the box
+                                    3e-5);                       // inner (smoothing) radius in Mpc
+    outerRadius = pin->GetOrAddReal("boundary", "r_out", 0.18);  // by default, set outer radius to 180 kpc,
+                                                                 // or slightly inside the box
 
-    scalingFactorMDot =
-        10. * sqrt(gravitationalRadius /
-                   innerRadius);  // scaling factor for accretion rate, assuming
-                                  // M_dot ~ r^1/2 beyond 100 rg
-    accretionMaxTemperature = pin->GetOrAddReal(
-        "accretion", "max_temp",
-        1.e6);  // boundary between hot and cold accretion, in K
+    scalingFactorMDot = 10. * sqrt(gravitationalRadius / innerRadius);  // scaling factor for accretion rate, assuming
+                                                                        // M_dot ~ r^1/2 beyond 100 rg
+    accretionMaxTemperature = pin->GetOrAddReal("accretion", "max_temp",
+                                                1.e6);  // boundary between hot and cold accretion, in K
 
-    coolingStartTime = pin->GetOrAddReal(
-        "cooling", "t_cool",
-        5.);  // only start cooling after this much time has passed, in Myr
+    coolingStartTime = pin->GetOrAddReal("cooling", "t_cool",
+                                         5.);  // only start cooling after this much time has passed, in Myr
 
     jetStartTime = pin->GetOrAddReal("jet", "t_jet",
-                                     5.);  // only start jet feedback after this
-                                           // much time has passed, in Myr.
-    jetKineticFraction = pin->GetOrAddReal(
-        "jet", "f_kin", 0.5);  // which fraction of the jet power is injected as
-                               // kinetic vs thermal energy, from Martizzi+2019
-    jetLaunchingHeightScale = pin->GetOrAddReal(
-        "jet", "h_jet", 6.);  // the scale height from which the jet launching
-                              // layer is set, default to six times innerRadius
+                                     5.);                             // only start jet feedback after this
+                                                                      // much time has passed, in Myr.
+    jetKineticFraction = pin->GetOrAddReal("jet", "f_kin", 0.5);      // which fraction of the jet power is injected as
+                                                                      // kinetic vs thermal energy, from Martizzi+2019
+    jetLaunchingHeightScale = pin->GetOrAddReal("jet", "h_jet", 6.);  // the scale height from which the jet launching
+                                                                      // layer is set, default to six times innerRadius
     jetLaunchingHeight = innerRadius * (jetLaunchingHeightScale);
-    jetLaunchingWidthScale = pin->GetOrAddReal(
-        "jet", "w_jet", 0.5);  // the scale width of the jet launching platform,
-                               // wrt the innerRadius
+    jetLaunchingWidthScale = pin->GetOrAddReal("jet", "w_jet", 0.5);  // the scale width of the jet launching platform,
+                                                                      // wrt the innerRadius
     jetLaunchingWidth = innerRadius * jetLaunchingWidthScale;
-    jetVelocityKms = pin->GetOrAddReal(
-        "jet", "v_jet", 9.e3);  // initial velocity of the jet in km/s
+    jetVelocityKms = pin->GetOrAddReal("jet", "v_jet", 9.e3);  // initial velocity of the jet in km/s
     jetVelocityAstronomical = jetVelocityKms * kms_Astronomical;
-    jetConversionEfficiency =
-        0.5 * SQR(jetVelocityAstronomical * (MpcCGS / MyrCGS) / cCGS) /
-        jetKineticFraction;  // the conversion efficiency of accretion rate to
-                             // jet power, epsilon = v^2 / 2fc^2
+    jetConversionEfficiency = 0.5 * SQR(jetVelocityAstronomical * (MpcCGS / MyrCGS) / cCGS) /
+                              jetKineticFraction;  // the conversion efficiency of accretion rate to
+                                                   // jet power, epsilon = v^2 / 2fc^2
 
-    accretionUpdateFrequency = pin->GetOrAddReal(
-        "jet", "m_upd",
-        5.);  // update accretion rate (aka jet power) every n Myr
+    accretionUpdateFrequency = pin->GetOrAddReal("jet", "m_upd",
+                                                 5.);  // update accretion rate (aka jet power) every n Myr
     if (jetStartTime < accretionUpdateFrequency) {
-        jetStartTime =
-            accretionUpdateFrequency;  // if non-static jet, start jet only
-                                       // after galaxy has accumulated mass for
-                                       // n years
+        jetStartTime = accretionUpdateFrequency;  // if non-static jet, start jet only
+                                                  // after galaxy has accumulated mass for
+                                                  // n years
         outputJetSpecial = true;
     }
 
-    jetPrecessionAngleTheta = pin->GetOrAddReal(
-        "jet", "a_precess", 15.);          // jet precession angle in degrees
-    jetPrecessionAngleTheta *= PI / 180.;  // convert to radians
-    jetPrecessionPeriod = pin->GetOrAddReal(
-        "jet", "t_precess",
-        10.);  // frequency of changing precession angle in Myr
-    maxRefinementLevelForJet = pin->GetOrAddInteger(
-        "jet", "refine_m",
-        14);  // maximum refinement level before jet feedback is turned off
+    jetPrecessionAngleTheta = pin->GetOrAddReal("jet", "a_precess", 15.);  // jet precession angle in degrees
+    jetPrecessionAngleTheta *= PI / 180.;                                  // convert to radians
+    jetPrecessionPeriod = pin->GetOrAddReal("jet", "t_precess",
+                                            10.);  // frequency of changing precession angle in Myr
+    maxRefinementLevelForJet = pin->GetOrAddInteger("jet", "refine_m",
+                                                    14);  // maximum refinement level before jet feedback is turned off
 
     seed = 1;  // some random seeding for random generator, doesn't matter what
                // the actual value is
-    turbulenceType = pin->GetInteger(
-        "turbulence", "turb_type");  // 0 for density perturbation, 1 for
-                                     // velocity perturbation
+    turbulenceType = pin->GetInteger("turbulence", "turb_type");  // 0 for density perturbation, 1 for
+                                                                  // velocity perturbation
     if (turbulenceType == 0) {
-        densityPerturbation =
-            pin->GetOrAddReal("turbulence", "turb_amp",
-                              5.e-2);  // deviation of density from hydrostatic
-                                       // equilibrium solution as a fraction
+        densityPerturbation = pin->GetOrAddReal("turbulence", "turb_amp",
+                                                5.e-2);  // deviation of density from hydrostatic
+                                                         // equilibrium solution as a fraction
     } else {
-        velocityPerturbationKms = pin->GetOrAddReal(
-            "turbulence", "turb_vel",
-            100.);  // dispersion of velocity perturbation in km s^-1
-        velocityPerturbationAstronomical =
-            velocityPerturbationKms * kms_Astronomical;
+        velocityPerturbationKms = pin->GetOrAddReal("turbulence", "turb_vel",
+                                                    100.);  // dispersion of velocity perturbation in km s^-1
+        velocityPerturbationAstronomical = velocityPerturbationKms * kms_Astronomical;
         // velocityPerturbationWavelength = pin->GetOrAddReal("problem",
         // "lambda_pert", 8.e-3); // wavelength of velocity perturbation
     }
 
-    restartFlag = (pin->GetOrAddInteger("job", "res_flag", 0) == 1
-                       ? true
-                       : false);  // check whether job is new or restart
-    newGridFlag = (pin->GetOrAddInteger("job", "zoom_flag", 0) == 1
-                       ? true
-                       : false);  // check whether job should use the higher
-                                  // resolution grid
+    restartFlag =
+        (pin->GetOrAddInteger("job", "res_flag", 0) == 1 ? true : false);  // check whether job is new or restart
+    newGridFlag = (pin->GetOrAddInteger("job", "zoom_flag", 0) == 1 ? true : false);  // check whether job should use
+                                                                                      // the higher resolution grid
 
     if (adaptive) {
-        amrTimeOn = pin->GetOrAddReal(
-            "amr", "time_on", 40.);  // time to turn on condition-specific AMR,
-                                     // might save some time
+        amrTimeOn = pin->GetOrAddReal("amr", "time_on", 40.);  // time to turn on condition-specific AMR,
+                                                               // might save some time
     }
 
     currentInnerRadius = innerRadius;
@@ -505,38 +410,30 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
     if (newGridFlag) {
         // newOuterBoundary = pin->GetOrAddReal("restart", "boundary", 3.e-4);
         // // new start of refinement radius in Mpc
-        numberOfStepsToReachNewSink =
-            0;  // pin->GetOrAddInteger("restart", "n_step", 1000); // number of
-                // time steps to reach the new sink radius
-        timeToReachNewSink = pin->GetOrAddReal(
-            "restart", "t_new_sink",
-            0.01);  // amount of time to reach the new sink radius in Myr, 1e-4
-                    // is roughly equal to the free fall time at 1pc
-        newInnerRadius = pin->GetOrAddReal(
-            "restart", "r_in_new",
-            1.e-7);  // final inner radius of the meso-scale simulation in Mpc;
-                     // M87 has rg = 140 AU or ~6e-4 pc. At 0.1 pc inner radius,
-                     // this corresponds to ~200 rg's.
+        numberOfStepsToReachNewSink = 0;  // pin->GetOrAddInteger("restart", "n_step", 1000); // number of
+                                          // time steps to reach the new sink radius
+        timeToReachNewSink = pin->GetOrAddReal("restart", "t_new_sink",
+                                               0.01);  // amount of time to reach the new sink radius in Myr, 1e-4
+                                                       // is roughly equal to the free fall time at 1pc
+        newInnerRadius = pin->GetOrAddReal("restart", "r_in_new",
+                                           1.e-7);  // final inner radius of the meso-scale simulation in Mpc;
+                                                    // M87 has rg = 140 AU or ~6e-4 pc. At 0.1 pc inner radius,
+                                                    // this corresponds to ~200 rg's.
         // d_innerRadius = (innerRadius - newInnerRadius) /
         // numberOfStepsToReachNewSink;  // change in inner radius per time step
         d_innerRadius =
-            (currentInnerRadius - newInnerRadius) /
-            timeToReachNewSink;  // change in inner radius per unit time
-        smallestCellWidth = simulationBoxWidth / numberOfZones /
-                            pow(2., numberOfRefinementLevels - 1);
+            (currentInnerRadius - newInnerRadius) / timeToReachNewSink;  // change in inner radius per unit time
+        smallestCellWidth = simulationBoxWidth / numberOfZones / pow(2., numberOfRefinementLevels - 1);
         zoomInStep = ncycle;
-        accretionUpdateFrequency /=
-            (currentInnerRadius /
-             newInnerRadius);  // update accretion rate more frequently during
-                               // zoom-in
+        accretionUpdateFrequency /= (currentInnerRadius / newInnerRadius);  // update accretion rate more frequently
+                                                                            // during zoom-in
         scalingFactorMDot = 10. * sqrt(gravitationalRadius / newInnerRadius);
         afterGridReconstruction = false;
     }
 
     configuration = pin->GetString("comment", "configure");
-    additionalComment = pin->GetOrAddString(
-        "comment", "comment",
-        "");  // add any necessary comments about the simulation setup
+    additionalComment = pin->GetOrAddString("comment", "comment",
+                                            "");  // add any necessary comments about the simulation setup
 
     // Conversions to code
     // units-----------------------------------------------------------------
@@ -546,32 +443,23 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
     codeMomentum = codeVelocity * codeMass;
     codeDensity = codeMass / codeVolume;
     codeNumberDensity = 1. / codeVolume;
-    codeMomentumDensity =
-        codeVelocity *
-        codeDensity;  // momentum density, Athena++ defines momentum per cell as
-                      // the base IM1, IM2, IM3
+    codeMomentumDensity = codeVelocity * codeDensity;  // momentum density, Athena++ defines momentum per cell as
+                                                       // the base IM1, IM2, IM3
     codeAcceleration = codeVelocity / codeTime;
     codeForce = codeMass * codeAcceleration;
     codePressure = codeForce / codeArea;
     codeEnergy = codeForce * codeLength;
     codePower = codeEnergy / codeTime;
-    codeEnergyDensity =
-        codeDensity * codeLength *
-        codeAcceleration;  // total energy density, Athena++ defines energy per
-                           // cell as the base IEN
+    codeEnergyDensity = codeDensity * codeLength * codeAcceleration;  // total energy density, Athena++ defines energy
+                                                                      // per cell as the base IEN
     codeGravitationalConst =
         gravitationalConstAstronomical /
-        (pow(codeLength, 3.) / SQR(codeTime) /
-         codeMass);  // convert gravitational constant to code unit
+        (pow(codeLength, 3.) / SQR(codeTime) / codeMass);  // convert gravitational constant to code unit
     codeBoltzmannConst =
-        boltzmannConstAstronomical /
-        (codeEnergy /
-         codeTemperature);  // convert Boltzmann constant to code unit
-    conversionNtoRho =
-        mu * hydrogenMassAstronomical;  // this conversion from number density
-                                        // to mass density is used frequently
-    conversionNtoRhoCode =
-        conversionNtoRho / codeMass;  // same as above, in code units
+        boltzmannConstAstronomical / (codeEnergy / codeTemperature);  // convert Boltzmann constant to code unit
+    conversionNtoRho = mu * hydrogenMassAstronomical;                 // this conversion from number density
+                                                                      // to mass density is used frequently
+    conversionNtoRhoCode = conversionNtoRho / codeMass;               // same as above, in code units
 
     // Initial
     // conditions------------------------------------------------------------------------
@@ -583,12 +471,10 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
 
     // Boundary
     // Conditions-----------------------------------------------------------------------
-    densityAtOuterBoundary =
-        interpolate1D(outerRadius / scaledRadius, dimensionlessXArray,
-                      densityFuncOfXArray);  // the density and pressure outside
-                                             // the outerRadius is fixed
-    pressureAtOuterBoundary = interpolate1D(
-        outerRadius / scaledRadius, dimensionlessXArray, pressureFuncOfXArray);
+    densityAtOuterBoundary = interpolate1D(outerRadius / scaledRadius, dimensionlessXArray,
+                                           densityFuncOfXArray);  // the density and pressure outside
+                                                                  // the outerRadius is fixed
+    pressureAtOuterBoundary = interpolate1D(outerRadius / scaledRadius, dimensionlessXArray, pressureFuncOfXArray);
     if (mesh_bcs[BoundaryFace::inner_x1] == GetBoundaryFlag("user")) {
         EnrollUserBoundaryFunction(BoundaryFace::inner_x1, innerX1Boundary);
     }
@@ -616,9 +502,8 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
 
     // Enroll source
     // function--------------------------------------------------------------------
-    EnrollUserExplicitSourceFunction(
-        allSourceFunctions);  // all source functions (gravity, radial boundary,
-                              // cooling, jet) are inside this function
+    EnrollUserExplicitSourceFunction(allSourceFunctions);  // all source functions (gravity, radial boundary,
+                                                           // cooling, jet) are inside this function
 
     // Print data to output
     // file-----------------------------------------------------------------
@@ -642,18 +527,13 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
         if (newGridFlag) {
             std::cout << "----NEW GRID----"
                       << "\n";
-            std::cout << "New inner radius = " << newInnerRadius * 1.e6
-                      << " pc \n";
-            std::cout << "Time over which inner region shrinks = "
-                      << timeToReachNewSink * 1.e3 << " kyr \n";
+            std::cout << "New inner radius = " << newInnerRadius * 1.e6 << " pc \n";
+            std::cout << "Time over which inner region shrinks = " << timeToReachNewSink * 1.e3 << " kyr \n";
             // std::cout << "Outer refined radius = " << newOuterBoundary * 1.e6
             // << " pc \n";
-            std::cout << "Outer domain radius = " << outerRadius * 1.e3
-                      << " kpc \n";
+            std::cout << "Outer domain radius = " << outerRadius * 1.e3 << " kpc \n";
             std::cout << "Expected mass of the inner region = "
-                      << pow(newInnerRadius, 3.) *
-                             densityVacuumSinkAstronomical * PI * 4. / 3.
-                      << " Msun \n";
+                      << pow(newInnerRadius, 3.) * densityVacuumSinkAstronomical * PI * 4. / 3. << " Msun \n";
             std::cout << "\n";
         }
 
@@ -661,21 +541,14 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
                   << "\n";
         std::cout << "Simulation box width = " << simulationBoxWidth << "\n";
         std::cout << "Number of zones = " << numberOfZones << "\n";
-        std::cout << "Number of cell per mesh block dimension = "
-                  << numberOfMeshBlocks << "\n";
-        std::cout << "Time between hst dumps = "
-                  << pin->GetReal("output1", "dt") * codeTime << " Myr \n";
-        std::cout << "Time between hdf5 dumps = "
-                  << pin->GetReal("output2", "dt") * codeTime << " Myr \n";
+        std::cout << "Number of cell per mesh block dimension = " << numberOfMeshBlocks << "\n";
+        std::cout << "Time between hst dumps = " << pin->GetReal("output1", "dt") * codeTime << " Myr \n";
+        std::cout << "Time between hdf5 dumps = " << pin->GetReal("output2", "dt") * codeTime << " Myr \n";
         std::cout << "Simulation start time = " << time * codeTime << " Myr \n";
-        std::cout << "Final simulation time = "
-                  << pin->GetReal("time", "tlim") * codeTime << " Myr \n";
-        std::cout << "CFL number = " << pin->GetReal("time", "cfl_number")
-                  << "\n";
-        std::cout << "Time integrator = "
-                  << pin->GetString("time", "integrator") << "\n";
-        std::cout << "Number of SMR levels = " << numberOfRefinementLevels - 1
-                  << "\n";
+        std::cout << "Final simulation time = " << pin->GetReal("time", "tlim") * codeTime << " Myr \n";
+        std::cout << "CFL number = " << pin->GetReal("time", "cfl_number") << "\n";
+        std::cout << "Time integrator = " << pin->GetString("time", "integrator") << "\n";
+        std::cout << "Number of SMR levels = " << numberOfRefinementLevels - 1 << "\n";
         std::cout << "\n";
 
         if (adaptive) {
@@ -688,8 +561,7 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
                 std::cout << "AMR is delayed until " << amrTimeOn << " Myr \n";
                 outputAMRSpecial = true;
             }
-            std::cout << "Maximum number of refinement level allowed = "
-                      << numberOfRefinementLevels << "\n";
+            std::cout << "Maximum number of refinement level allowed = " << numberOfRefinementLevels << "\n";
             std::cout << "\n";
         }
 
@@ -710,8 +582,7 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
         std::cout << "Halo mass = " << haloMass << " Msun \n";
         std::cout << "Stellar mass = " << stellarMass << " Msun \n";
         std::cout << "SMBH mass = " << SMBHMass << " Msun \n";
-        std::cout << "Gravitational radius = " << gravitationalRadius * 1.e9
-                  << " mpc \n";
+        std::cout << "Gravitational radius = " << gravitationalRadius * 1.e9 << " mpc \n";
         std::cout << "\n";
 
         std::cout << "Inner radius = " << currentInnerRadius * 1.e6 << " pc \n";
@@ -731,8 +602,7 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
                   << "\n";
 
         if (numberOfRefinementLevels > maxRefinementLevelForJet) {
-            std::cout << "Jet feedback is OFF, " << maxRefinementLevelForJet
-                      << " refinement levels exceeded"
+            std::cout << "Jet feedback is OFF, " << maxRefinementLevelForJet << " refinement levels exceeded"
                       << "\n";
         } else {
             std::cout << "Jet feedback is ON"
@@ -751,20 +621,14 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
 
         std::cout << "----BOUNDARY CONDITIONS----"
                   << "\n";
-        std::cout << "Outer box boundary condition along X is: "
-                  << pin->GetString("mesh", "ix1_bc") << "\n";
-        std::cout << "Outer box boundary condition along Y is: "
-                  << pin->GetString("mesh", "ix2_bc") << "\n";
-        std::cout << "Outer box boundary condition along Z is: "
-                  << pin->GetString("mesh", "ix3_bc") << "\n";
+        std::cout << "Outer box boundary condition along X is: " << pin->GetString("mesh", "ix1_bc") << "\n";
+        std::cout << "Outer box boundary condition along Y is: " << pin->GetString("mesh", "ix2_bc") << "\n";
+        std::cout << "Outer box boundary condition along Z is: " << pin->GetString("mesh", "ix3_bc") << "\n";
 
         std::cout << "Outer radius = " << outerRadius * 1.e3 << " kpc \n";
-        std::cout << "Number density at boundary = "
-                  << densityAtOuterBoundary / conversionNtoRho * pow(MpcCGS, -3)
+        std::cout << "Number density at boundary = " << densityAtOuterBoundary / conversionNtoRho * pow(MpcCGS, -3)
                   << " cm^-3 \n";
-        std::cout << "Pressure at boundary = "
-                  << pressureAtOuterBoundary *
-                         (solarMassCGS / MpcCGS / SQR(MyrCGS)) / 10
+        std::cout << "Pressure at boundary = " << pressureAtOuterBoundary * (solarMassCGS / MpcCGS / SQR(MyrCGS)) / 10
                   << " Pa \n";
 
         if (outerRadius > codeLength) {
@@ -777,11 +641,9 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
         std::cout << "----TURBULENT PERTURBATION----"
                   << "\n";
         if (turbulenceType == 0) {
-            std::cout << "Amplitude as a fraction = " << densityPerturbation
-                      << "\n";
+            std::cout << "Amplitude as a fraction = " << densityPerturbation << "\n";
         } else {
-            std::cout << "Velocity perturbation dispersion = "
-                      << velocityPerturbationKms << " km s^-1 \n";
+            std::cout << "Velocity perturbation dispersion = " << velocityPerturbationKms << " km s^-1 \n";
             // std::cout << "Velocity perturbation wavelength = " <<
             // velocityPerturbationWavelength * 1.e3 << " kpc \n";
         }
@@ -789,8 +651,7 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
 
         std::cout << "----ACCRETION----"
                   << "\n";
-        std::cout << "Maximum accretion temperature = "
-                  << accretionMaxTemperature << " K \n";
+        std::cout << "Maximum accretion temperature = " << accretionMaxTemperature << " K \n";
         std::cout << "Scaling factor for M_dot = " << scalingFactorMDot << "\n";
         std::cout << "\n";
 
@@ -804,37 +665,27 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
                       << "\n";
             std::cout << "Jet start time = " << jetStartTime << " Myr \n";
             if (outputJetSpecial) {
-                std::cout
-                    << "Jet start time delay enforced. Set t_jet >= m_upd \n";
+                std::cout << "Jet start time delay enforced. Set t_jet >= m_upd \n";
                 outputJetSpecial = false;
             }
-            std::cout << "Jet launch height = " << jetLaunchingHeight * 1.e6
-                      << " pc \n";
-            std::cout << "Jet base radius = " << jetLaunchingWidth * 1.e6
-                      << " pc \n";
+            std::cout << "Jet launch height = " << jetLaunchingHeight * 1.e6 << " pc \n";
+            std::cout << "Jet base radius = " << jetLaunchingWidth * 1.e6 << " pc \n";
             std::cout << "Jet velocity = " << jetVelocityKms << " km s^-1 \n";
-            std::cout << "Jet conversion efficiency = "
-                      << jetConversionEfficiency << "\n";
-            std::cout << "Jet kinetic fraction = " << jetKineticFraction
-                      << "\n";
-            std::cout << "M_dot updates frequency = "
-                      << accretionUpdateFrequency << " Myr \n";
+            std::cout << "Jet conversion efficiency = " << jetConversionEfficiency << "\n";
+            std::cout << "Jet kinetic fraction = " << jetKineticFraction << "\n";
+            std::cout << "M_dot updates frequency = " << accretionUpdateFrequency << " Myr \n";
             std::cout << "Jet profile is Gaussian \n";
             std::cout << "Jet precession is ON"
                       << "\n";
-            std::cout << "Precession polar angle = "
-                      << jetPrecessionAngleTheta * 180. / PI << " degrees \n";
-            std::cout << "Period of precession = " << jetPrecessionPeriod
-                      << " Myr \n";
+            std::cout << "Precession polar angle = " << jetPrecessionAngleTheta * 180. / PI << " degrees \n";
+            std::cout << "Period of precession = " << jetPrecessionPeriod << " Myr \n";
             std::cout << "\n";
         }
 
         std::cout << "----FLOOR VALUES----"
                   << "\n";
-        std::cout << "Number density floor = " << numberDensityFloorCGS
-                  << " cm^-3 \n";
-        std::cout << "Number density inside sink region = "
-                  << numberDensityVacuumSinkCGS << " cm^-3 \n";
+        std::cout << "Number density floor = " << numberDensityFloorCGS << " cm^-3 \n";
+        std::cout << "Number density inside sink region = " << numberDensityVacuumSinkCGS << " cm^-3 \n";
         std::cout << "Temperature floor = " << temperatureFloor << " K \n";
         // std::cout << "Pressure floor = " << pressureFloorAstronomical *
         // (solarMassCGS / MpcCGS / SQR(MyrCGS)) / 10 << " Pa \n";
@@ -842,23 +693,19 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
 
         std::cout << "----DIAGNOSTIC PARAMETERS----"
                   << "\n";
-        std::cout << "Width of the smallest cell = "
-                  << smallestCellWidth * codeLength * 1.e6 << " pc \n";
+        std::cout << "Width of the smallest cell = " << smallestCellWidth * codeLength * 1.e6 << " pc \n";
         // std::cout << "Array of X starts at " << dimensionlessXArray[0] *
         // scaledRadius * 1.e6 << " pc \n"; std::cout << "Array of X ends at "
         // << dimensionlessXArray[numberOfTabulatedEntries - 1] * scaledRadius
         // * 1.e3 << " kpc \n";
         std::cout << "Expected mass of the inner region = "
-                  << pow(currentInnerRadius, 3.) *
-                         densityVacuumSinkAstronomical * PI * 4. / 3.
-                  << " Msun \n";
+                  << pow(currentInnerRadius, 3.) * densityVacuumSinkAstronomical * PI * 4. / 3. << " Msun \n";
         // std::cout << "Root refinement level = " << root_level << "\n";
         std::cout << "\n";
 
         std::cout << "----COMMENTS----"
                   << "\n";
-        std::cout << "To configure, do: python configure.py " << configuration
-                  << "\n";
+        std::cout << "To configure, do: python configure.py " << configuration << "\n";
         if (!additionalComment.empty()) {
             std::cout << additionalComment << "\n";
         }
@@ -871,46 +718,36 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
     // Declare global variables that need frequent updates
     AllocateRealUserMeshDataField(9);
     ruser_mesh_data[0].NewAthenaArray(1);
-    ruser_mesh_data[0](0) = pow(currentInnerRadius, 3.) *
-                            densityVacuumSinkAstronomical * PI * 4. / 3. /
+    ruser_mesh_data[0](0) = pow(currentInnerRadius, 3.) * densityVacuumSinkAstronomical * PI * 4. / 3. /
                             codeMass;  // base mass inside inner region
     ruser_mesh_data[1].NewAthenaArray(2);
-    ruser_mesh_data[1](0) = 0.;  // cold gas
-    ruser_mesh_data[1](1) = 0.;  // hot gas
-    ruser_mesh_data[2].NewAthenaArray(
-        2);  // mass accreted in the last n time step (corresponding to the
-             // accretionUpdateFrequency), used to load onto jet
-    ruser_mesh_data[2](0) = 0.;  // cold mass accreted in the last n time steps
-    ruser_mesh_data[2](1) = 0.;  // hot mass accreted in the last n time steps
+    ruser_mesh_data[1](0) = 0.;            // cold gas
+    ruser_mesh_data[1](1) = 0.;            // hot gas
+    ruser_mesh_data[2].NewAthenaArray(2);  // mass accreted in the last n time step (corresponding to the
+                                           // accretionUpdateFrequency), used to load onto jet
+    ruser_mesh_data[2](0) = 0.;            // cold mass accreted in the last n time steps
+    ruser_mesh_data[2](1) = 0.;            // hot mass accreted in the last n time steps
     ruser_mesh_data[3].NewAthenaArray(2);  // total mass accreted
     ruser_mesh_data[3](0) = 0.;            // total cold mass accreted
     ruser_mesh_data[3](1) = 0.;            // total hot mass accreted
-    ruser_mesh_data[4].NewAthenaArray(
-        1);  // a mesh data object that keeps track of the last time jet power
-             // was updated
+    ruser_mesh_data[4].NewAthenaArray(1);  // a mesh data object that keeps track of the last time jet power
+                                           // was updated
     ruser_mesh_data[4](0) = time;
-    ruser_mesh_data[5].NewAthenaArray(
-        2);  // keep track of current <M_dot> in code units
+    ruser_mesh_data[5].NewAthenaArray(2);  // keep track of current <M_dot> in code units
     ruser_mesh_data[5](0) = 0.;
-    ruser_mesh_data[5](1) =
-        0.;  // keep track of current <M_dot_hot> in code units
-    ruser_mesh_data[6].NewAthenaArray(
-        1);  // keep track of current jet power in code units
+    ruser_mesh_data[5](1) = 0.;            // keep track of current <M_dot_hot> in code units
+    ruser_mesh_data[6].NewAthenaArray(1);  // keep track of current jet power in code units
     ruser_mesh_data[6](0) = 0.;
-    ruser_mesh_data[7].NewAthenaArray(
-        3);  // keep track of the cell height at jet base and precession angle,
-             // for consistency (also other jet values in the future, modify as
-             // appropriate)
-    ruser_mesh_data[7](0) = 0.;  // jet base height
-    ruser_mesh_data[7](1) =
-        0.;  // current precession angle, THIS SEEMS TO BECOME 279 EVERY TIME
-             // RUN IS RESTARTED, SEED NEEDS TO BE SAVED ACROSS RUNS, OOPS
-    ruser_mesh_data[7](2) = time;  // last time precession angle was updated
-    ruser_mesh_data[8].NewAthenaArray(
-        1);  // keep track of the original max refinement level
-    ruser_mesh_data[8](0) =
-        numberOfRefinementLevels;  // only save the value at the start of the
-                                   // galaxy-scale simulation
+    ruser_mesh_data[7].NewAthenaArray(3);  // keep track of the cell height at jet base and precession angle,
+                                           // for consistency (also other jet values in the future, modify as
+                                           // appropriate)
+    ruser_mesh_data[7](0) = 0.;            // jet base height
+    ruser_mesh_data[7](1) = 0.;            // current precession angle, THIS SEEMS TO BECOME 279 EVERY TIME
+                                           // RUN IS RESTARTED, SEED NEEDS TO BE SAVED ACROSS RUNS, OOPS
+    ruser_mesh_data[7](2) = time;          // last time precession angle was updated
+    ruser_mesh_data[8].NewAthenaArray(1);  // keep track of the original max refinement level
+    ruser_mesh_data[8](0) = numberOfRefinementLevels;  // only save the value at the start of the
+                                                       // galaxy-scale simulation
 
     // Declare seed for consistency
     AllocateIntUserMeshDataField(1);
@@ -919,10 +756,8 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
 
     // Declare history output variables
     AllocateUserHistoryOutput(3);
-    EnrollUserHistoryOutput(0, coldAccretionRate, "mdot_c",
-                            UserHistoryOperation::max);
-    EnrollUserHistoryOutput(1, hotAccretionRate, "mdot_h",
-                            UserHistoryOperation::max);
+    EnrollUserHistoryOutput(0, coldAccretionRate, "mdot_c", UserHistoryOperation::max);
+    EnrollUserHistoryOutput(1, hotAccretionRate, "mdot_h", UserHistoryOperation::max);
     EnrollUserHistoryOutput(2, jetPower, "p_jet", UserHistoryOperation::max);
     // EnrollUserHistoryOutput(3, angularMomentumX, "L_x",
     // UserHistoryOperation::sum); EnrollUserHistoryOutput(4, angularMomentumY,
@@ -960,109 +795,76 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
             Real y = pcoord->x2v(j);
             for (int i = il; i <= iu; ++i) {
                 Real x = pcoord->x1v(i);
-                Real r = sqrt(SQR(x) + SQR(y) +
-                              SQR(z));  // radial distance in code unit
+                Real r = sqrt(SQR(x) + SQR(y) + SQR(z));  // radial distance in code unit
 
-                Real rAstronomical = r * codeLength;  // radial distance in Mpc
-                Real dimensionlessX =
-                    rAstronomical / scaledRadius;  // a dimensionless x
-                                                   // parameter, equals to r/r_0
+                Real rAstronomical = r * codeLength;                 // radial distance in Mpc
+                Real dimensionlessX = rAstronomical / scaledRadius;  // a dimensionless x
+                                                                     // parameter, equals to r/r_0
 
-                Real interpolatedDensity = interpolate1D(
-                    dimensionlessX, dimensionlessXArray, densityFuncOfXArray);
-                Real interpolatedPressure = interpolate1D(
-                    dimensionlessX, dimensionlessXArray, pressureFuncOfXArray);
+                Real interpolatedDensity = interpolate1D(dimensionlessX, dimensionlessXArray, densityFuncOfXArray);
+                Real interpolatedPressure = interpolate1D(dimensionlessX, dimensionlessXArray, pressureFuncOfXArray);
 
                 if (r <= currentInnerRadius / codeLength)  // inner region
                 {
-                    phydro->u(IDN, k, j, i) =
-                        densityVacuumSinkAstronomical / codeDensity;
-                    phydro->u(IEN, k, j, i) = pressureVacuumSinkAstronomical /
-                                              codePressure / gammaMinus1;
+                    phydro->u(IDN, k, j, i) = densityVacuumSinkAstronomical / codeDensity;
+                    phydro->u(IEN, k, j, i) = pressureVacuumSinkAstronomical / codePressure / gammaMinus1;
                     phydro->u(IM1, k, j, i) = 0.;
                     phydro->u(IM2, k, j, i) = 0.;
                     phydro->u(IM3, k, j, i) = 0.;
                 } else {
-                    phydro->u(IDN, k, j, i) =
-                        interpolatedDensity /
-                        codeDensity;  // u(IDN, k, j, i) is the conserved
-                                      // quantity, w(IDN, k, j, i) is the
-                                      // primitive quantity
-                    phydro->u(IEN, k, j, i) =
-                        interpolatedPressure / codePressure / gammaMinus1;
+                    phydro->u(IDN, k, j, i) = interpolatedDensity / codeDensity;  // u(IDN, k, j, i) is the conserved
+                                                                                  // quantity, w(IDN, k, j, i) is the
+                                                                                  // primitive quantity
+                    phydro->u(IEN, k, j, i) = interpolatedPressure / codePressure / gammaMinus1;
                     phydro->u(IM1, k, j, i) = 0.0;
-                    phydro->u(IM2, k, j, i) =
-                        0.0;  // initial motion of the gas field
+                    phydro->u(IM2, k, j, i) = 0.0;  // initial motion of the gas field
                     phydro->u(IM3, k, j, i) = 0.0;
 
                     // Initial turbulence field
                     if (turbulenceType == 0) {
                         // generate random density perturbation
-                        auto randomGenerator =
-                            std::mt19937(++(pmy_mesh->iuser_mesh_data[0](0)));
-                        auto normalDistribution =
-                            std::normal_distribution<Real>{
-                                0.0, densityPerturbation / 2};
-                        Real randomDensityPerturbation =
-                            normalDistribution(randomGenerator);
+                        auto randomGenerator = std::mt19937(++(pmy_mesh->iuser_mesh_data[0](0)));
+                        auto normalDistribution = std::normal_distribution<Real>{0.0, densityPerturbation / 2};
+                        Real randomDensityPerturbation = normalDistribution(randomGenerator);
 
-                        phydro->u(IDN, k, j, i) *=
-                            1 + randomDensityPerturbation;
+                        phydro->u(IDN, k, j, i) *= 1 + randomDensityPerturbation;
                     } else {  // Rewrite 02/09/2024: velocity perturbation is
                               // seeded randomly in x,y,z directions
                         // generate random velocity perturbation with given
                         // standard deviation and smoothing wavelength
-                        auto randomGenerator =
-                            std::mt19937(++(pmy_mesh->iuser_mesh_data[0](0)));
+                        auto randomGenerator = std::mt19937(++(pmy_mesh->iuser_mesh_data[0](0)));
                         auto normalDistribution =
-                            std::normal_distribution<Real>{
-                                0.0, velocityPerturbationAstronomical / 2};
+                            std::normal_distribution<Real>{0.0, velocityPerturbationAstronomical / 2};
                         Real randomVelocityPerturbationAstronomical =
-                            normalDistribution(
-                                randomGenerator);  // normal distribution,
-                                                   // centered around 0, with a
-                                                   // 1 sigma of velocity
-                                                   // perturbation
+                            normalDistribution(randomGenerator);  // normal distribution,
+                                                                  // centered around 0, with a
+                                                                  // 1 sigma of velocity
+                                                                  // perturbation
 
                         // Added 04/03/2023 to try a built-in random number
                         // generator instead
-                        int64_t iseed =
-                            -1 - ++(pmy_mesh->iuser_mesh_data[0](0));
-                        int64_t iseed2 =
-                            -1 - ++(pmy_mesh->iuser_mesh_data[0](0));
+                        int64_t iseed = -1 - ++(pmy_mesh->iuser_mesh_data[0](0));
+                        int64_t iseed2 = -1 - ++(pmy_mesh->iuser_mesh_data[0](0));
 
                         Real randomXFraction = ran2(&iseed);
                         Real randomYFraction = ran2(&iseed2);
 
                         if (pmy_mesh->iuser_mesh_data[0](0) % 1000000 == 0) {
-                            std::cout
-                                << "seed = " << pmy_mesh->iuser_mesh_data[0](0)
-                                << ", velocity perturbation = "
-                                << randomVelocityPerturbationAstronomical /
-                                       kms_Astronomical
-                                << "\n";
+                            std::cout << "seed = " << pmy_mesh->iuser_mesh_data[0](0) << ", velocity perturbation = "
+                                      << randomVelocityPerturbationAstronomical / kms_Astronomical << "\n";
                         }
 
-                        Real velocityPerturbationX =
-                            randomVelocityPerturbationAstronomical *
-                            randomXFraction;
-                        Real velocityPerturbationY =
-                            randomVelocityPerturbationAstronomical *
-                            randomYFraction;
-                        Real velocityPerturbationZ =
-                            sqrt(SQR(randomVelocityPerturbationAstronomical) -
-                                 SQR(velocityPerturbationX) -
-                                 SQR(velocityPerturbationY));
+                        Real velocityPerturbationX = randomVelocityPerturbationAstronomical * randomXFraction;
+                        Real velocityPerturbationY = randomVelocityPerturbationAstronomical * randomYFraction;
+                        Real velocityPerturbationZ = sqrt(SQR(randomVelocityPerturbationAstronomical) -
+                                                          SQR(velocityPerturbationX) - SQR(velocityPerturbationY));
 
                         phydro->u(IM1, k, j, i) =
-                            interpolatedDensity / codeDensity *
-                            (velocityPerturbationX / codeVelocity);
+                            interpolatedDensity / codeDensity * (velocityPerturbationX / codeVelocity);
                         phydro->u(IM2, k, j, i) =
-                            interpolatedDensity / codeDensity *
-                            (velocityPerturbationY / codeVelocity);
+                            interpolatedDensity / codeDensity * (velocityPerturbationY / codeVelocity);
                         phydro->u(IM3, k, j, i) =
-                            interpolatedDensity / codeDensity *
-                            (velocityPerturbationZ / codeVelocity);
+                            interpolatedDensity / codeDensity * (velocityPerturbationZ / codeVelocity);
                     }
                 }
             }
@@ -1082,28 +884,21 @@ int RefinementCondition(MeshBlock *pmb) {
     // Mimicking SMR setup but for radial spacing
     int currentRefinementLevel, requiredRefinementLevel, maximumAllowedAMRLevel;
     int requiredAMRLevel = 0;
-    int requiredSMRLevel =
-        numberOfRefinementLevels;  // at first, assuming the refinement needed
-                                   // is highest
-    int maximumAllowedDifferenceSMR_AMRLevel =
-        2;  // highest allowable difference in AMR vs. the base SMR at this
-            // meshblock
+    int requiredSMRLevel = numberOfRefinementLevels;  // at first, assuming the refinement needed
+                                                      // is highest
+    int maximumAllowedDifferenceSMR_AMRLevel = 2;     // highest allowable difference in AMR vs. the base SMR at this
+                                                      // meshblock
     int refinementCountFlag = 0;
 
     maximumAllowedAMRLevel =
-        numberOfRefinementLevels -
-        2;  // highest level of AMR allowed w/r to the total number of
-            // refinement levels; reduce this number to speed up simulation
+        numberOfRefinementLevels - 2;  // highest level of AMR allowed w/r to the total number of
+                                       // refinement levels; reduce this number to speed up simulation
 
     Real cellLengthCode = 0.;
-    Real rootCellLengthCode =
-        simulationBoxWidth /
-        numberOfZones;  // the width of the biggest cell in the domain
+    Real rootCellLengthCode = simulationBoxWidth / numberOfZones;  // the width of the biggest cell in the domain
     Real maximumRadialDistanceCode = simulationBoxWidth / 2.;
 
-    Real amrTimeOnCode =
-        amrTimeOn /
-        codeTime;  // time to turn on condition-specific AMR in code units
+    Real amrTimeOnCode = amrTimeOn / codeTime;  // time to turn on condition-specific AMR in code units
 
     AthenaArray<Real> &w = pmb->phydro->w;
 
@@ -1111,26 +906,21 @@ int RefinementCondition(MeshBlock *pmb) {
     Real meshblockX1 = (pmb->block_size.x1max + pmb->block_size.x1min) / 2.;
     Real meshblockX2 = (pmb->block_size.x2max + pmb->block_size.x2min) / 2.;
     Real meshblockX3 = (pmb->block_size.x3max + pmb->block_size.x3min) / 2.;
-    Real maximumMeshBlockX =
-        fmax(fmax(fabs(meshblockX1), fabs(meshblockX2)), fabs(meshblockX3));
+    Real maximumMeshBlockX = fmax(fmax(fabs(meshblockX1), fabs(meshblockX2)), fabs(meshblockX3));
 
-    if (newGridFlag == true &&
-        afterGridReconstruction ==
-            false)  // if the sim is at the first time step after grid
-                    // reconstruction, don't refine beyond the old refinement
-                    // level
+    if (newGridFlag == true && afterGridReconstruction == false)  // if the sim is at the first time step after grid
+                                                                  // reconstruction, don't refine beyond the old
+                                                                  // refinement level
     {
         requiredSMRLevel =
             fmin(pmb->pmy_mesh->ruser_mesh_data[8](0),
-                 int(log2(maximumRadialDistanceCode / maximumMeshBlockX)) +
-                     1);  // don't refine over the maximum number of refinement
-                          // levels
+                 int(log2(maximumRadialDistanceCode / maximumMeshBlockX)) + 1);  // don't refine over the maximum number
+                                                                                 // of refinement levels
     } else {
-        requiredSMRLevel =
-            fmin(requiredSMRLevel,
-                 int(log2(maximumRadialDistanceCode / maximumMeshBlockX)) +
-                     1);  // every time we go twice in radial distance,
-                          // refinement level goes down by one
+        requiredSMRLevel = fmin(requiredSMRLevel,
+                                int(log2(maximumRadialDistanceCode / maximumMeshBlockX)) +
+                                    1);  // every time we go twice in radial distance,
+                                         // refinement level goes down by one
     }
 
     // Added 08/02/2023: a flag implementation to exit the nested for loop in
@@ -1142,9 +932,8 @@ int RefinementCondition(MeshBlock *pmb) {
                 if (refinementCountFlag == 0) {
                     cellLengthCode = pmb->pcoord->GetEdge1Length(k, j, i);
                     currentRefinementLevel =
-                        round(log2(rootCellLengthCode / cellLengthCode)) +
-                        1;  // when root cell length = cell length, refinement
-                            // level = 1
+                        round(log2(rootCellLengthCode / cellLengthCode)) + 1;  // when root cell length = cell length,
+                                                                               // refinement level = 1
                     refinementCountFlag = 1;
                 }
 
@@ -1160,13 +949,10 @@ int RefinementCondition(MeshBlock *pmb) {
                     }
 
                     Real coolingBySoundCrossingRatio =
-                        coolingTime(w, k, j, i) /
-                        soundCrossingTime(w, k, j, i, cellLengthCode);
+                        coolingTime(w, k, j, i) / soundCrossingTime(w, k, j, i, cellLengthCode);
 
-                    if (coolingBySoundCrossingRatio <=
-                        6.) {  // check condition for AMR
-                        requiredAMRLevel = fmin(currentRefinementLevel + 1,
-                                                maximumAllowedAMRLevel);
+                    if (coolingBySoundCrossingRatio <= 6.) {  // check condition for AMR
+                        requiredAMRLevel = fmin(currentRefinementLevel + 1, maximumAllowedAMRLevel);
                         nestedLoopFlag = 1;
                         break;  // if the condition has been met, skip through
                                 // the nested for loop to save computational
@@ -1187,25 +973,21 @@ int RefinementCondition(MeshBlock *pmb) {
 
     // Combine SMR and AMR condition
     if (pmb->pmy_mesh->time < amrTimeOnCode) {
-        requiredRefinementLevel =
-            requiredSMRLevel;  // before AMR is turned on, only SMR is needed
+        requiredRefinementLevel = requiredSMRLevel;  // before AMR is turned on, only SMR is needed
     } else {
-        requiredRefinementLevel = fmax(
-            requiredAMRLevel,
-            requiredSMRLevel);  // take the maximum between the two requirements
+        requiredRefinementLevel = fmax(requiredAMRLevel,
+                                       requiredSMRLevel);  // take the maximum between the two requirements
 
-        if (requiredAMRLevel >
-            requiredSMRLevel + maximumAllowedDifferenceSMR_AMRLevel) {
+        if (requiredAMRLevel > requiredSMRLevel + maximumAllowedDifferenceSMR_AMRLevel) {
             requiredRefinementLevel =
-                requiredSMRLevel +
-                maximumAllowedDifferenceSMR_AMRLevel;  // if the required AMR is
-                                                       // more than two levels
-                                                       // above SMR at that
-                                                       // meshblock, only refine
-                                                       // by 2 at most (avoid
-                                                       // runaway refinement
-                                                       // that exceeds memory
-                                                       // allocation)
+                requiredSMRLevel + maximumAllowedDifferenceSMR_AMRLevel;  // if the required AMR is
+                                                                          // more than two levels
+                                                                          // above SMR at that
+                                                                          // meshblock, only refine
+                                                                          // by 2 at most (avoid
+                                                                          // runaway refinement
+                                                                          // that exceeds memory
+                                                                          // allocation)
         }
     }
 
@@ -1221,9 +1003,9 @@ int RefinementCondition(MeshBlock *pmb) {
 //  \brief Analysis of accretion rate after each cycle
 
 void Mesh::UserWorkInLoop() {
-    Real accretionPerTimeStepCode;  // the difference in the base mass before
-                                    // and after reset is the accreted mass
-    Real innerMassCode = 0.;        // base mass of the inner region
+    Real accretionPerTimeStepCode;       // the difference in the base mass before
+                                         // and after reset is the accreted mass
+    Real innerMassCode = 0.;             // base mass of the inner region
     Real updatedInnerColdMassCode = 0.;  // cold mass after accretion
     Real updatedInnerHotMassCode = 0.;   // hot mass after accretion
 
@@ -1233,9 +1015,8 @@ void Mesh::UserWorkInLoop() {
     // only need localInnerMass, since there should be no hot gas after update
 
     if (ncycle == 0) {
-        ruser_mesh_data[1](0) =
-            ruser_mesh_data[0](0);  // do this to save a repeated calculation on
-                                    // each cell at cycle 0
+        ruser_mesh_data[1](0) = ruser_mesh_data[0](0);  // do this to save a repeated calculation on
+                                                        // each cell at cycle 0
     }
 
     localInnerMass = ruser_mesh_data[0](0);
@@ -1244,99 +1025,70 @@ void Mesh::UserWorkInLoop() {
 
 #ifdef MPI_PARALLEL
     // sync data from each local MPI rank to the rest by summing all values
-    MPI_Allreduce(&localInnerMass, &innerMassCode, 1, MPI_ATHENA_REAL, MPI_SUM,
-                  MPI_COMM_WORLD);
+    MPI_Allreduce(&localInnerMass, &innerMassCode, 1, MPI_ATHENA_REAL, MPI_SUM, MPI_COMM_WORLD);
 
-    MPI_Allreduce(&localUpdatedColdMass, &updatedInnerColdMassCode, 1,
-                  MPI_ATHENA_REAL, MPI_SUM, MPI_COMM_WORLD);
-    MPI_Allreduce(&localUpdatedHotMass, &updatedInnerHotMassCode, 1,
-                  MPI_ATHENA_REAL, MPI_SUM, MPI_COMM_WORLD);
+    MPI_Allreduce(&localUpdatedColdMass, &updatedInnerColdMassCode, 1, MPI_ATHENA_REAL, MPI_SUM, MPI_COMM_WORLD);
+    MPI_Allreduce(&localUpdatedHotMass, &updatedInnerHotMassCode, 1, MPI_ATHENA_REAL, MPI_SUM, MPI_COMM_WORLD);
 #endif
 
     if (ncycle == 0) {
         if (Globals::my_rank == 0) {
-            std::cout << "Total mass of the inner region = "
-                      << innerMassCode * codeMass << " Msun \n";
+            std::cout << "Total mass of the inner region = " << innerMassCode * codeMass << " Msun \n";
             std::cout << "\n";
         }
     } else {
-        accretionPerTimeStepCode =
-            fmax(updatedInnerColdMassCode - innerMassCode,
-                 0.);  // in the case where no cold gas is accreted, the actual
-                       // updated cold mass might be less than the expected cold
-                       // mass, so set it to zero to prevent negative jet power
+        accretionPerTimeStepCode = fmax(updatedInnerColdMassCode - innerMassCode,
+                                        0.);  // in the case where no cold gas is accreted, the actual
+                                              // updated cold mass might be less than the expected cold
+                                              // mass, so set it to zero to prevent negative jet power
 
-        ruser_mesh_data[2](0) +=
-            accretionPerTimeStepCode;  // tally up accretion until next
-                                       // accretion update
-        ruser_mesh_data[3](0) +=
-            accretionPerTimeStepCode;  // tally up accretion for the entire
-                                       // simulation
+        ruser_mesh_data[2](0) += accretionPerTimeStepCode;  // tally up accretion until next
+                                                            // accretion update
+        ruser_mesh_data[3](0) += accretionPerTimeStepCode;  // tally up accretion for the entire
+                                                            // simulation
 
-        ruser_mesh_data[2](1) +=
-            updatedInnerHotMassCode;  // tally up hot accretion for analysis
-                                      // purpose
-        ruser_mesh_data[3](1) +=
-            updatedInnerHotMassCode;  // tally up hot accretion for the entire
-                                      // simulation
+        ruser_mesh_data[2](1) += updatedInnerHotMassCode;  // tally up hot accretion for analysis
+                                                           // purpose
+        ruser_mesh_data[3](1) += updatedInnerHotMassCode;  // tally up hot accretion for the entire
+                                                           // simulation
 
         if (time >=
-            ruser_mesh_data[4](0) +
-                accretionUpdateFrequency /
-                    codeTime) {  // update the amount of mass loaded onto jet
-                                 // per accretionUpdateFrequency
-            ruser_mesh_data[5](0) =
-                ruser_mesh_data[2](0) /
-                (accretionUpdateFrequency /
-                 codeTime);  // <M_dot_cold> = M_total / time, in code units
-            ruser_mesh_data[5](1) =
-                ruser_mesh_data[2](1) /
-                (accretionUpdateFrequency / codeTime);  // <M_dot_hot>
+            ruser_mesh_data[4](0) + accretionUpdateFrequency / codeTime) {  // update the amount of mass loaded onto jet
+                                                                            // per accretionUpdateFrequency
+            ruser_mesh_data[5](0) = ruser_mesh_data[2](0) / (accretionUpdateFrequency /
+                                                             codeTime);  // <M_dot_cold> = M_total / time, in code units
+            ruser_mesh_data[5](1) = ruser_mesh_data[2](1) / (accretionUpdateFrequency / codeTime);  // <M_dot_hot>
 
             // Modified 07/09/2024: now calculate jet power using the total mass
             // accreted instead of just the cold mass, plus the scaling factor
             const Real jetPowerCGS =
                 jetConversionEfficiency *
-                ((ruser_mesh_data[5](0) + ruser_mesh_data[5](1)) *
-                 scalingFactorMDot * codeMass / codeTime) *
-                (solarMassCGS / MyrCGS) *
-                pow(cCGS, 2);  // P_jet = eff * <M_dot|r_g> * c^2
-            ruser_mesh_data[6](0) =
-                jetPowerCGS /
-                (solarMassCGS * pow(MpcCGS, 2) * pow(MyrCGS, -3)) /
-                codePower;  // update jet power in code units, save for restart
+                ((ruser_mesh_data[5](0) + ruser_mesh_data[5](1)) * scalingFactorMDot * codeMass / codeTime) *
+                (solarMassCGS / MyrCGS) * pow(cCGS, 2);  // P_jet = eff * <M_dot|r_g> * c^2
+            ruser_mesh_data[6](0) = jetPowerCGS / (solarMassCGS * pow(MpcCGS, 2) * pow(MyrCGS, -3)) /
+                                    codePower;  // update jet power in code units, save for restart
 
             if (Globals::my_rank == 0) {
-                std::cout << "Time = " << time * codeTime
-                          << " Myr, <M_dot|r_in> = "
-                          << (ruser_mesh_data[5](0) + ruser_mesh_data[5](1)) *
-                                 codeMass / codeTime / 1.e6
+                std::cout << "Time = " << time * codeTime << " Myr, <M_dot|r_in> = "
+                          << (ruser_mesh_data[5](0) + ruser_mesh_data[5](1)) * codeMass / codeTime / 1.e6
                           << " Msun yr^-1\n";
                 std::cout << "Jet power = " << jetPowerCGS << " erg s^-1 \n";
             }
 
-            ruser_mesh_data[2](0) =
-                0.;  // reset mass accreted per unit update frequency
-            ruser_mesh_data[2](1) =
-                0.;  // reset hot mass accreted per unit update frequency
-            ruser_mesh_data[4](0) +=
-                accretionUpdateFrequency / codeTime;  // update time tracker
+            ruser_mesh_data[2](0) = 0.;  // reset mass accreted per unit update frequency
+            ruser_mesh_data[2](1) = 0.;  // reset hot mass accreted per unit update frequency
+            ruser_mesh_data[4](0) += accretionUpdateFrequency / codeTime;  // update time tracker
         }
 
-        if (time > ruser_mesh_data[7](2) +
-                       jetPrecessionPeriod / codeTime) {  // precession
+        if (time > ruser_mesh_data[7](2) + jetPrecessionPeriod / codeTime) {  // precession
             int64_t iseed = -1 - ++(iuser_mesh_data[0](0));
-            ruser_mesh_data[7](1) =
-                ran2(&iseed) * 2. *
-                PI;  // generate a random angle between 0 and 2 pi
+            ruser_mesh_data[7](1) = ran2(&iseed) * 2. * PI;  // generate a random angle between 0 and 2 pi
 
             if (Globals::my_rank == 0) {
-                std::cout << "Jet azimuthal angle = "
-                          << ruser_mesh_data[7](1) * 180. / PI << " degrees \n";
+                std::cout << "Jet azimuthal angle = " << ruser_mesh_data[7](1) * 180. / PI << " degrees \n";
             }
 
-            ruser_mesh_data[7](2) +=
-                jetPrecessionPeriod / codeTime;  // update time tracker
+            ruser_mesh_data[7](2) += jetPrecessionPeriod / codeTime;  // update time tracker
         }
 
         if (ncycle % ncycle_out == 0 && Globals::my_rank == 0) {
@@ -1344,13 +1096,10 @@ void Mesh::UserWorkInLoop() {
             // std::cout << "Mass of the inner region = " << innerMassCode *
             // codeMass << " Msun \n"; every ncycle, output the instantaneous
             // accretion rate
-            std::cout << "M_dot_hot|r_in = "
-                      << updatedInnerHotMassCode * codeMass /
-                             (dt * codeTime * 1.e6)
+            std::cout << "M_dot_hot|r_in = " << updatedInnerHotMassCode * codeMass / (dt * codeTime * 1.e6)
                       << " Msun yr^-1 \n";
             std::cout << "M_dot_cold|r_in = "
-                      << (updatedInnerColdMassCode - innerMassCode) * codeMass /
-                             (dt * codeTime * 1.e6)
+                      << (updatedInnerColdMassCode - innerMassCode) * codeMass / (dt * codeTime * 1.e6)
                       << " Msun yr^-1 \n";
             // std::cout << "\n";
 
@@ -1366,61 +1115,49 @@ void Mesh::UserWorkInLoop() {
     // this part is for shrinking the inner region and flip a flag to increase
     // the max level of refinement
     if (newGridFlag && numberOfRefinementLevels != ruser_mesh_data[8](0)) {
-        afterGridReconstruction =
-            true;  // after changing the inner region, flip this flag to start
-                   // refining the grid
+        afterGridReconstruction = true;  // after changing the inner region, flip this flag to start
+                                         // refining the grid
 
         if (ncycle == zoomInStep + 1 && Globals::my_rank == 0) {
-            std::cout << "Previous refinement level = " << ruser_mesh_data[8](0)
-                      << "\n";
-            std::cout << "New refinement level = " << numberOfRefinementLevels
-                      << "\n";
-            ruser_mesh_data[8](0) =
-                numberOfRefinementLevels;  // update the max level of refinement
+            std::cout << "Previous refinement level = " << ruser_mesh_data[8](0) << "\n";
+            std::cout << "New refinement level = " << numberOfRefinementLevels << "\n";
+            ruser_mesh_data[8](0) = numberOfRefinementLevels;  // update the max level of refinement
         }
 
         if (currentInnerRadius > newInnerRadius) {
             currentInnerRadius -= d_innerRadius * (dt * codeTime);
             numberOfStepsToReachNewSink += 1;
-            if (numberOfStepsToReachNewSink % 100 == 0 &&
-                Globals::my_rank == 0) {
-                std::cout << "Shrink step : " << ncycle - zoomInStep
-                          << "; inner radius = " << currentInnerRadius * 1.e9
+            if (numberOfStepsToReachNewSink % 100 == 0 && Globals::my_rank == 0) {
+                std::cout << "Shrink step : " << ncycle - zoomInStep << "; inner radius = " << currentInnerRadius * 1.e9
                           << " mpc \n";
                 std::cout << "dt = " << dt * codeTime * 1.e6 << " yr \n";
             }
             jetLaunchingHeight = newInnerRadius * jetLaunchingHeightScale;
             jetLaunchingWidth = newInnerRadius * jetLaunchingWidthScale;
-            ruser_mesh_data[0](0) =
-                pow(currentInnerRadius, 3.) * densityVacuumSinkAstronomical *
-                PI * 4. / 3. / codeMass;  // update the base mass of the inner
-                                          // region after grid reconstruction
-        } else {  // maybe we don't need this else statement
+            ruser_mesh_data[0](0) = pow(currentInnerRadius, 3.) * densityVacuumSinkAstronomical * PI * 4. / 3. /
+                                    codeMass;  // update the base mass of the inner
+                                               // region after grid reconstruction
+        } else {                               // maybe we don't need this else statement
             currentInnerRadius = newInnerRadius;
             jetLaunchingHeight = newInnerRadius * jetLaunchingHeightScale;
             jetLaunchingWidth = newInnerRadius * jetLaunchingWidthScale;
-            ruser_mesh_data[0](0) =
-                pow(newInnerRadius, 3.) * densityVacuumSinkAstronomical * PI *
-                4. / 3. / codeMass;  // update the base mass of the inner region
-                                     // after grid reconstruction
+            ruser_mesh_data[0](0) = pow(newInnerRadius, 3.) * densityVacuumSinkAstronomical * PI * 4. / 3. /
+                                    codeMass;  // update the base mass of the inner region
+                                               // after grid reconstruction
         }
-    } else if (newGridFlag &&
-               numberOfRefinementLevels == ruser_mesh_data[8](0)) {
+    } else if (newGridFlag && numberOfRefinementLevels == ruser_mesh_data[8](0)) {
         if (ncycle == zoomInStep + 1 && Globals::my_rank == 0) {
             std::cout << "Grid has already been reconstructed, keeping the "
                          "same refinement level"
                       << "\n";
-            std::cout << "Maximum refinement level = "
-                      << numberOfRefinementLevels << "\n";
+            std::cout << "Maximum refinement level = " << numberOfRefinementLevels << "\n";
         }
-        afterGridReconstruction =
-            true;  // after changing the inner region, flip this flag to start
-                   // refining the grid
+        afterGridReconstruction = true;  // after changing the inner region, flip this flag to start
+                                         // refining the grid
         currentInnerRadius = newInnerRadius;
         jetLaunchingHeight = newInnerRadius * jetLaunchingHeightScale;
         jetLaunchingWidth = newInnerRadius * jetLaunchingWidthScale;
-        ruser_mesh_data[0](0) = pow(newInnerRadius, 3.) *
-                                densityVacuumSinkAstronomical * PI * 4. / 3. /
+        ruser_mesh_data[0](0) = pow(newInnerRadius, 3.) * densityVacuumSinkAstronomical * PI * 4. / 3. /
                                 codeMass;  // update the base mass of the inner
                                            // region after grid reconstruction
     }
@@ -1431,33 +1168,24 @@ void Mesh::UserWorkInLoop() {
 //  \brief Print out the total mass accreted at the end of the simulation
 void Mesh::UserWorkAfterLoop(ParameterInput *pin) {
 #ifdef MPI_PARALLEL
-    MPI_Allreduce(MPI_IN_PLACE, &(ruser_mesh_data[7](0)), 1, MPI_ATHENA_REAL,
-                  MPI_MAX,
+    MPI_Allreduce(MPI_IN_PLACE, &(ruser_mesh_data[7](0)), 1, MPI_ATHENA_REAL, MPI_MAX,
                   MPI_COMM_WORLD);  // sync data from local MPI rank to the rest
                                     // by taking the maximum value
-    MPI_Allreduce(MPI_IN_PLACE, &(ruser_mesh_data[7](1)), 1, MPI_ATHENA_REAL,
-                  MPI_MAX, MPI_COMM_WORLD);
+    MPI_Allreduce(MPI_IN_PLACE, &(ruser_mesh_data[7](1)), 1, MPI_ATHENA_REAL, MPI_MAX, MPI_COMM_WORLD);
 #endif
 
     if (Globals::my_rank == 0) {
         std::cout.precision(4);
         std::cout << "\n";
         std::cout << "Current jet power = "
-                  << ruser_mesh_data[6](0) * codePower *
-                         (solarMassCGS * pow(MpcCGS, 2) * pow(MyrCGS, -3))
+                  << ruser_mesh_data[6](0) * codePower * (solarMassCGS * pow(MpcCGS, 2) * pow(MyrCGS, -3))
                   << " erg s^-1 \n";
         std::cout << "Current <M_dot|r_in> = "
-                  << (ruser_mesh_data[5](0) + ruser_mesh_data[5](1)) *
-                         codeMass / codeTime / 1.e6
-                  << " Msun yr^-1 \n";
-        std::cout << "Jet base cell height = "
-                  << ruser_mesh_data[7](0) * codeLength * 1.e6 << " pc \n";
-        std::cout << "Jet precession azimuthal angle = "
-                  << ruser_mesh_data[7](1) * 180. / PI << " degrees \n";
-        std::cout << "Total accreted mass through r_in = "
-                  << ruser_mesh_data[3](0) * codeMass << " Msun \n";
-        std::cout << "Base mass of the inner region = "
-                  << ruser_mesh_data[0](0) * codeMass << " Msun \n";
+                  << (ruser_mesh_data[5](0) + ruser_mesh_data[5](1)) * codeMass / codeTime / 1.e6 << " Msun yr^-1 \n";
+        std::cout << "Jet base cell height = " << ruser_mesh_data[7](0) * codeLength * 1.e6 << " pc \n";
+        std::cout << "Jet precession azimuthal angle = " << ruser_mesh_data[7](1) * 180. / PI << " degrees \n";
+        std::cout << "Total accreted mass through r_in = " << ruser_mesh_data[3](0) * codeMass << " Msun \n";
+        std::cout << "Base mass of the inner region = " << ruser_mesh_data[0](0) * codeMass << " Msun \n";
     }
 }
 
@@ -1468,15 +1196,13 @@ void Mesh::UserWorkAfterLoop(ParameterInput *pin) {
 Force initial hydrostatic equilibrium BCs
 */
 
-void innerX1Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim,
-                     FaceField &b, Real time, Real dt, int il, int iu, int jl,
-                     int ju, int kl, int ku, int ngh) {
+void innerX1Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim, FaceField &b, Real time, Real dt,
+                     int il, int iu, int jl, int ju, int kl, int ku, int ngh) {
     for (int k = kl; k <= ku; ++k) {
         for (int j = jl; j <= ju; ++j) {
             for (int i = 1; i <= ngh; ++i) {
                 prim(IDN, k, j, il - i) = densityAtOuterBoundary / codeDensity;
-                prim(IPR, k, j, il - i) =
-                    pressureAtOuterBoundary / codePressure;
+                prim(IPR, k, j, il - i) = pressureAtOuterBoundary / codePressure;
                 prim(IVX, k, j, il - i) = 0.;
                 prim(IVY, k, j, il - i) = 0.;
                 prim(IVZ, k, j, il - i) = 0.;
@@ -1485,15 +1211,13 @@ void innerX1Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim,
     }
 }
 
-void outerX1Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim,
-                     FaceField &b, Real time, Real dt, int il, int iu, int jl,
-                     int ju, int kl, int ku, int ngh) {
+void outerX1Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim, FaceField &b, Real time, Real dt,
+                     int il, int iu, int jl, int ju, int kl, int ku, int ngh) {
     for (int k = kl; k <= ku; ++k) {
         for (int j = jl; j <= ju; ++j) {
             for (int i = 1; i <= ngh; ++i) {
                 prim(IDN, k, j, iu + i) = densityAtOuterBoundary / codeDensity;
-                prim(IPR, k, j, iu + i) =
-                    pressureAtOuterBoundary / codePressure;
+                prim(IPR, k, j, iu + i) = pressureAtOuterBoundary / codePressure;
                 prim(IVX, k, j, iu + i) = 0.;
                 prim(IVY, k, j, iu + i) = 0.;
                 prim(IVZ, k, j, iu + i) = 0.;
@@ -1502,15 +1226,13 @@ void outerX1Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim,
     }
 }
 
-void innerX2Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim,
-                     FaceField &b, Real time, Real dt, int il, int iu, int jl,
-                     int ju, int kl, int ku, int ngh) {
+void innerX2Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim, FaceField &b, Real time, Real dt,
+                     int il, int iu, int jl, int ju, int kl, int ku, int ngh) {
     for (int k = kl; k <= ku; ++k) {
         for (int j = 1; j <= ngh; ++j) {
             for (int i = il; i <= iu; ++i) {
                 prim(IDN, k, jl - j, i) = densityAtOuterBoundary / codeDensity;
-                prim(IPR, k, jl - j, i) =
-                    pressureAtOuterBoundary / codePressure;
+                prim(IPR, k, jl - j, i) = pressureAtOuterBoundary / codePressure;
                 prim(IVX, k, jl - j, i) = 0.;
                 prim(IVY, k, jl - j, i) = 0.;
                 prim(IVZ, k, jl - j, i) = 0.;
@@ -1519,15 +1241,13 @@ void innerX2Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim,
     }
 }
 
-void outerX2Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim,
-                     FaceField &b, Real time, Real dt, int il, int iu, int jl,
-                     int ju, int kl, int ku, int ngh) {
+void outerX2Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim, FaceField &b, Real time, Real dt,
+                     int il, int iu, int jl, int ju, int kl, int ku, int ngh) {
     for (int k = kl; k <= ku; ++k) {
         for (int j = 1; j <= ngh; ++j) {
             for (int i = il; i <= iu; ++i) {
                 prim(IDN, k, ju + j, i) = densityAtOuterBoundary / codeDensity;
-                prim(IPR, k, ju + j, i) =
-                    pressureAtOuterBoundary / codePressure;
+                prim(IPR, k, ju + j, i) = pressureAtOuterBoundary / codePressure;
                 prim(IVX, k, ju + j, i) = 0.;
                 prim(IVY, k, ju + j, i) = 0.;
                 prim(IVZ, k, ju + j, i) = 0.;
@@ -1536,19 +1256,15 @@ void outerX2Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim,
     }
 }
 
-void innerX3Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim,
-                     FaceField &b, Real time, Real dt, int il, int iu, int jl,
-                     int ju, int kl, int ku, int ngh) {
+void innerX3Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim, FaceField &b, Real time, Real dt,
+                     int il, int iu, int jl, int ju, int kl, int ku, int ngh) {
     for (int k = 1; k <= ngh; ++k) {
         for (int j = jl; j <= iu; ++j) {
             for (int i = il; i <= iu; ++i) {
                 prim(IDN, kl - k, j, i) =
-                    densityAtOuterBoundary /
-                    codeDensity;  // force density = density | r = box_width / 2
-                prim(IPR, kl - k, j, i) =
-                    pressureAtOuterBoundary /
-                    codePressure;  // force pressure = pressure | r = box_width
-                                   // / 2
+                    densityAtOuterBoundary / codeDensity;  // force density = density | r = box_width / 2
+                prim(IPR, kl - k, j, i) = pressureAtOuterBoundary / codePressure;  // force pressure = pressure | r =
+                                                                                   // box_width / 2
                 prim(IVX, kl - k, j, i) = 0.;  // force zero velocity
                 prim(IVY, kl - k, j, i) = 0.;
                 prim(IVZ, kl - k, j, i) = 0.;
@@ -1557,19 +1273,15 @@ void innerX3Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim,
     }
 }
 
-void outerX3Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim,
-                     FaceField &b, Real time, Real dt, int il, int iu, int jl,
-                     int ju, int kl, int ku, int ngh) {
+void outerX3Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim, FaceField &b, Real time, Real dt,
+                     int il, int iu, int jl, int ju, int kl, int ku, int ngh) {
     for (int k = 1; k <= ngh; ++k) {
         for (int j = jl; j <= iu; ++j) {
             for (int i = il; i <= iu; ++i) {
                 prim(IDN, ku + k, j, i) =
-                    densityAtOuterBoundary /
-                    codeDensity;  // force density = density | r = box_width / 2
-                prim(IPR, ku + k, j, i) =
-                    pressureAtOuterBoundary /
-                    codePressure;  // force pressure = pressure | r = box_width
-                                   // / 2
+                    densityAtOuterBoundary / codeDensity;  // force density = density | r = box_width / 2
+                prim(IPR, ku + k, j, i) = pressureAtOuterBoundary / codePressure;  // force pressure = pressure | r =
+                                                                                   // box_width / 2
                 prim(IVX, ku + k, j, i) = 0.;  // force zero velocity
                 prim(IVY, ku + k, j, i) = 0.;
                 prim(IVZ, ku + k, j, i) = 0.;
@@ -1578,32 +1290,27 @@ void outerX3Boundary(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim,
     }
 }
 
-void innerRadialBoundary(MeshBlock *pmb, const AthenaArray<Real> &prim,
-                         AthenaArray<Real> &cons, int k, int j, int i, Real z,
-                         Real y, Real x) {
+void innerRadialBoundary(MeshBlock *pmb, const AthenaArray<Real> &prim, AthenaArray<Real> &cons, int k, int j, int i,
+                         Real z, Real y, Real x) {
     Real primDensity = prim(IDN, k, j, i);
     // Real valueW = pmb->phydro->w(IDN, k, j, i);
     Real valueW1 = pmb->phydro->w1(IDN, k, j, i);
 
     // track inflow mass
-    if (valueW1 ==
-        primDensity)  // check to see if the integrator has moved to the second
-                      // sub-step of the rk2. Only record accretion here to
-                      // avoid data being counted twice
-    {  // BAD FIX, CONSIDER WRITING MESHBLOCK::USERWORKINLOOP OR MEMORY ADDRESS
-       // POINTER TO AVOID CASES WHERE W = W1
+    if (valueW1 == primDensity)  // check to see if the integrator has moved to the second
+                                 // sub-step of the rk2. Only record accretion here to
+                                 // avoid data being counted twice
+    {                            // BAD FIX, CONSIDER WRITING MESHBLOCK::USERWORKINLOOP OR MEMORY ADDRESS
+                                 // POINTER TO AVOID CASES WHERE W = W1
 
         // Added 06/23/2023: calculate current temperature of cell to determine
         // if accretion is hot or cold
-        const Real conservedNumberDensityCode =
-            cons(IDN, k, j, i) / conversionNtoRhoCode;
-        const Real kineticEnergyDensityCode = computeKineticEnergyDensityCode(
-            cons, k, j, i);  // unit: mass / length / time^2 (checked)
-        const Real thermalEnergyDensityCode =
-            cons(IEN, k, j, i) - kineticEnergyDensityCode;
+        const Real conservedNumberDensityCode = cons(IDN, k, j, i) / conversionNtoRhoCode;
+        const Real kineticEnergyDensityCode =
+            computeKineticEnergyDensityCode(cons, k, j, i);  // unit: mass / length / time^2 (checked)
+        const Real thermalEnergyDensityCode = cons(IEN, k, j, i) - kineticEnergyDensityCode;
         const Real conservedTemperatureCode =
-            gammaMinus1 * thermalEnergyDensityCode /
-            (conservedNumberDensityCode * codeBoltzmannConst);
+            gammaMinus1 * thermalEnergyDensityCode / (conservedNumberDensityCode * codeBoltzmannConst);
 
         const Real cellVolumeCode = pmb->pcoord->GetCellVolume(k, j, i);
 
@@ -1615,43 +1322,34 @@ void innerRadialBoundary(MeshBlock *pmb, const AthenaArray<Real> &prim,
         //     cellVolumeCode;
         // }
 
-        if (conservedTemperatureCode <=
-            accretionMaxTemperature / codeTemperature) {
+        if (conservedTemperatureCode <= accretionMaxTemperature / codeTemperature) {
             pmb->pmy_mesh->ruser_mesh_data[1](0) +=
-                cons(IDN, k, j, i) *
-                cellVolumeCode;  // add up the mass contribution inside the
-                                 // inner region before density is reset to
-                                 // floor
+                cons(IDN, k, j, i) * cellVolumeCode;  // add up the mass contribution inside the
+                                                      // inner region before density is reset to
+                                                      // floor
         } else {
             pmb->pmy_mesh->ruser_mesh_data[1](1) +=
-                cons(IDN, k, j, i) *
-                cellVolumeCode;  // add up the mass contribution inside the
-                                 // inner region before density is reset to
-                                 // floor
+                cons(IDN, k, j, i) * cellVolumeCode;  // add up the mass contribution inside the
+                                                      // inner region before density is reset to
+                                                      // floor
         }
     }
 
-    cons(IDN, k, j, i) =
-        densityVacuumSinkAstronomical / codeDensity;  // force sink density
+    cons(IDN, k, j, i) = densityVacuumSinkAstronomical / codeDensity;  // force sink density
     cons(IEN, k, j, i) =
-        pressureVacuumSinkAstronomical / codePressure /
-        gammaMinus1;          // force floor pressure based on floor temperature
-    cons(IM1, k, j, i) = 0.;  // force zero velocity
+        pressureVacuumSinkAstronomical / codePressure / gammaMinus1;  // force floor pressure based on floor temperature
+    cons(IM1, k, j, i) = 0.;                                          // force zero velocity
     cons(IM2, k, j, i) = 0.;
     cons(IM3, k, j, i) = 0.;
 }
 
-void outerRadialBoundary(MeshBlock *pmb, const AthenaArray<Real> &prim,
-                         AthenaArray<Real> &cons, int k, int j, int i, Real z,
-                         Real y, Real x) {
+void outerRadialBoundary(MeshBlock *pmb, const AthenaArray<Real> &prim, AthenaArray<Real> &cons, int k, int j, int i,
+                         Real z, Real y, Real x) {
     // reset outer boundary
-    cons(IDN, k, j, i) =
-        densityAtOuterBoundary /
-        codeDensity;  // force density = density | r = outer radius
+    cons(IDN, k, j, i) = densityAtOuterBoundary / codeDensity;  // force density = density | r = outer radius
     cons(IEN, k, j, i) =
-        pressureAtOuterBoundary / codePressure /
-        gammaMinus1;          // force pressure = pressure | r = outer radius
-    cons(IM1, k, j, i) = 0.;  // force zero velocity
+        pressureAtOuterBoundary / codePressure / gammaMinus1;  // force pressure = pressure | r = outer radius
+    cons(IM1, k, j, i) = 0.;                                   // force zero velocity
     cons(IM2, k, j, i) = 0.;
     cons(IM3, k, j, i) = 0.;
 }
@@ -1661,10 +1359,8 @@ void outerRadialBoundary(MeshBlock *pmb, const AthenaArray<Real> &prim,
 
 // SOURCE
 // FUNCTION--------------------------------------------------------------------------------
-void allSourceFunctions(MeshBlock *pmb, const Real time, const Real dt,
-                        const AthenaArray<Real> &prim,
-                        const AthenaArray<Real> &prim_scalar,
-                        const AthenaArray<Real> &bcc, AthenaArray<Real> &cons,
+void allSourceFunctions(MeshBlock *pmb, const Real time, const Real dt, const AthenaArray<Real> &prim,
+                        const AthenaArray<Real> &prim_scalar, const AthenaArray<Real> &bcc, AthenaArray<Real> &cons,
                         AthenaArray<Real> &cons_scalar) {
     for (int k = pmb->ks; k <= pmb->ke; ++k) {
         const Real z = pmb->pcoord->x3v(k);
@@ -1672,15 +1368,12 @@ void allSourceFunctions(MeshBlock *pmb, const Real time, const Real dt,
             const Real y = pmb->pcoord->x2v(j);
             for (int i = pmb->is; i <= pmb->ie; ++i) {
                 const Real x = pmb->pcoord->x1v(i);
-                const Real r = sqrt(SQR(x) + SQR(y) +
-                                    SQR(z));  // radial distance in code unit
-                const Real polarDistance =
-                    sqrt(SQR(x) + SQR(y));  // polar distance in code unit
+                const Real r = sqrt(SQR(x) + SQR(y) + SQR(z));     // radial distance in code unit
+                const Real polarDistance = sqrt(SQR(x) + SQR(y));  // polar distance in code unit
 
                 if (r <= outerRadius / codeLength) {
                     // GRAVITY
-                    gravitySourceFunction(pmb, dt, prim, cons, k, j, i, z, y, x,
-                                          r);
+                    gravitySourceFunction(pmb, dt, prim, cons, k, j, i, z, y, x, r);
                     // END GRAVITY
 
                     // COOLING
@@ -1693,24 +1386,20 @@ void allSourceFunctions(MeshBlock *pmb, const Real time, const Real dt,
                     // ENFORCE TEMPERATURE AND DENSITY FLOOR // STILL NEED THIS
                     // EVEN WITH THE BUILT-IN FLOORS; TEMPERATURE SILENT CRASH
                     // OCCURS OTHERWISE
-                    enforceFloors(
-                        pmb, cons, k, j,
-                        i);  // 06/17/2023: moving this up here, since only
-                             // cooling would result in a temperature crash
+                    enforceFloors(pmb, cons, k, j,
+                                  i);  // 06/17/2023: moving this up here, since only
+                                       // cooling would result in a temperature crash
                     // END ENFORCE TEMPERATURE AND DENSITY FLOOR
 
                     // JET FEEDBACK
-                    if (time > jetStartTime / codeTime &&
-                        polarDistance <= jetLaunchingWidth / codeLength &&
+                    if (time > jetStartTime / codeTime && polarDistance <= jetLaunchingWidth / codeLength &&
                         r < 2 * jetLaunchingHeight / codeLength &&
-                        numberOfRefinementLevels <=
-                            maxRefinementLevelForJet)  // apply jet feedback
-                                                       // only to the regions
-                                                       // close to the jet
-                                                       // platform
+                        numberOfRefinementLevels <= maxRefinementLevelForJet)  // apply jet feedback
+                                                                               // only to the regions
+                                                                               // close to the jet
+                                                                               // platform
                     {
-                        jetFeedbackSourceFunction(pmb, cons, prim, k, j, i, dt,
-                                                  z, y, x, polarDistance);
+                        jetFeedbackSourceFunction(pmb, cons, prim, k, j, i, dt, z, y, x, polarDistance);
                     }
                     // END JET FEEDBACK
                 }
@@ -1739,13 +1428,10 @@ void allSourceFunctions(MeshBlock *pmb, const Real time, const Real dt,
 Gravity function, part of the source function
 */
 
-void gravitySourceFunction(MeshBlock *pmb, const Real dt,
-                           const AthenaArray<Real> &prim,
-                           AthenaArray<Real> &cons, int k, int j, int i, Real z,
-                           Real y, Real x, Real r) {
+void gravitySourceFunction(MeshBlock *pmb, const Real dt, const AthenaArray<Real> &prim, AthenaArray<Real> &cons, int k,
+                           int j, int i, Real z, Real y, Real x, Real r) {
     const Real rDoubleDot =
-        gravitationalAcceleration(r * codeLength) /
-        codeAcceleration;  // radial acceleration in code units
+        gravitationalAcceleration(r * codeLength) / codeAcceleration;  // radial acceleration in code units
 
     const Real deltaU = dt * rDoubleDot * x / r;  // sin(theta) * cos(phi) = x/r
     const Real deltaV = dt * rDoubleDot * y / r;  // sin(theta) * sin(phi) = y/r
@@ -1756,8 +1442,7 @@ void gravitySourceFunction(MeshBlock *pmb, const Real dt,
     cons(IM3, k, j, i) += prim(IDN, k, j, i) * deltaW;
     if (NON_BAROTROPIC_EOS)
         cons(IEN, k, j, i) += dt * prim(IDN, k, j, i) * rDoubleDot / r *
-                              (prim(IVX, k, j, i) * x + prim(IVY, k, j, i) * y +
-                               prim(IVZ, k, j, i) * z);
+                              (prim(IVX, k, j, i) * x + prim(IVY, k, j, i) * y + prim(IVZ, k, j, i) * z);
 }
 
 /*
@@ -1766,11 +1451,9 @@ Enclosed mass profile of the three main components: SMBH, stars, dark matter
 
 static Real massFuncOfR(const Real distanceFromSMBH) {
     const Real haloMassFuncOfR =
-        haloMass * (log(1 + distanceFromSMBH / haloRadius) -
-                    (distanceFromSMBH / (haloRadius + distanceFromSMBH)));
-    const Real stellarMassFuncOfR =
-        stellarMass * (log(1. + distanceFromSMBH / stellarRadius) -
-                       (distanceFromSMBH / (stellarRadius + distanceFromSMBH)));
+        haloMass * (log(1 + distanceFromSMBH / haloRadius) - (distanceFromSMBH / (haloRadius + distanceFromSMBH)));
+    const Real stellarMassFuncOfR = stellarMass * (log(1. + distanceFromSMBH / stellarRadius) -
+                                                   (distanceFromSMBH / (stellarRadius + distanceFromSMBH)));
     return haloMassFuncOfR + SMBHMass + stellarMassFuncOfR;
 }
 
@@ -1779,18 +1462,15 @@ Gravitational Acceleration resulting from the enclosed mass
 */
 
 static Real gravitationalAcceleration(const Real distanceFromSMBH) {
-    Real gravitationalAccelerationFuncOfR = -gravitationalConstAstronomical *
-                                            massFuncOfR(distanceFromSMBH) /
-                                            SQR(distanceFromSMBH);
+    Real gravitationalAccelerationFuncOfR =
+        -gravitationalConstAstronomical * massFuncOfR(distanceFromSMBH) / SQR(distanceFromSMBH);
 
-    if (distanceFromSMBH <=
-        currentInnerRadius)  // softening by a potential factor, Eq 13 of Guo+23
+    if (distanceFromSMBH <= currentInnerRadius)  // softening by a potential factor, Eq 13 of Guo+23
     {
         const Real r_a = 0.5 * currentInnerRadius;
         const Real factorU = exp(-SQR(distanceFromSMBH / r_a));
         gravitationalAccelerationFuncOfR *=
-            pow(distanceFromSMBH, 3) * (1 - factorU) /
-            pow(SQR(distanceFromSMBH) + SQR(r_a) * factorU, 1.5);
+            pow(distanceFromSMBH, 3) * (1 - factorU) / pow(SQR(distanceFromSMBH) + SQR(r_a) * factorU, 1.5);
     }
     return gravitationalAccelerationFuncOfR;
 }
@@ -1816,19 +1496,17 @@ Density solver, including a 4th-order Runge-Kutta scheme
 // dN/dX function, solved analytically
 static Real dN_dX(const Real dimensionlessX, const Real numberDensity) {
     return (2 * pow(numberDensity, 2 - gammaAdiabatic) * scaledRadius *
-                gravitationalAcceleration(dimensionlessX * scaledRadius) *
-                conversionNtoRho / scaledEntropyAstronomical -
+                gravitationalAcceleration(dimensionlessX * scaledRadius) * conversionNtoRho /
+                scaledEntropyAstronomical -
             numberDensity * pow(dimensionlessX, etaPower - 1) * etaPower) /
            ((1 + pow(dimensionlessX, etaPower)) * gammaAdiabatic);
 }
 
 // RK4 differentiator
-static Real rungeKutta4(
-    Real x0, Real y0, Real xn, int n,
-    Real (*differentialFunction)(
-        Real, Real)) {  // (x0,y0) are initial conditions, xn is the final value
-                        // of x, n is the number of iterations, and
-                        // differentialFunction is the dy/dx expression
+static Real rungeKutta4(Real x0, Real y0, Real xn, int n,
+                        Real (*differentialFunction)(Real, Real)) {  // (x0,y0) are initial conditions, xn is the final
+                                                                     // value of x, n is the number of iterations, and
+                                                                     // differentialFunction is the dy/dx expression
     Real k1, k2, k3, k4;
     Real h = (xn - x0) / n;
 
@@ -1849,16 +1527,14 @@ static Real rungeKutta4(
 static Real numberDensityFromEntropy(const Real dimensionlessX) {
     int numOfIterations = 10000;
 
-    return rungeKutta4(1.0, initialNumberDensityAstronomical, dimensionlessX,
-                       numOfIterations, &dN_dX);
+    return rungeKutta4(1.0, initialNumberDensityAstronomical, dimensionlessX, numOfIterations, &dN_dX);
 }
 
 /*
 Gas pressure profile
 */
 
-static Real pressureFromEntropyAndNumberDensity(const Real entropy,
-                                                const Real numberDensity) {
+static Real pressureFromEntropyAndNumberDensity(const Real entropy, const Real numberDensity) {
     return entropy * pow(numberDensity, gammaAdiabatic);
 }
 
@@ -1868,24 +1544,18 @@ pressure
 */
 
 static void tabulatedNumberDensitiesAndPressures() {
-    const Real a = log10(simulationBoxWidth * codeLength /
-                         scaledRadius);  // set largest radius = box width to
-                                         // account for ghost zones
-    const Real b = log10(
-        simulationBoxWidth / pow(2., numberOfRefinementLevels) /
-        (numberOfZones * 2) * codeLength /
-        scaledRadius);  // set smallest radius = 1/2 width of the smallest cell
+    const Real a = log10(simulationBoxWidth * codeLength / scaledRadius);  // set largest radius = box width to
+                                                                           // account for ghost zones
+    const Real b = log10(simulationBoxWidth / pow(2., numberOfRefinementLevels) / (numberOfZones * 2) * codeLength /
+                         scaledRadius);  // set smallest radius = 1/2 width of the smallest cell
     const Real spacing = (a - b) / (numberOfTabulatedEntries - 1);
 
     for (int i = 0; i < numberOfTabulatedEntries; ++i) {
-        dimensionlessXArray[i] =
-            pow(10., b + spacing *
-                             i);  // basically the python np.logspace() function
-        numberDensityFuncOfXArray[i] =
-            numberDensityFromEntropy(dimensionlessXArray[i]);
+        dimensionlessXArray[i] = pow(10., b + spacing * i);  // basically the python np.logspace() function
+        numberDensityFuncOfXArray[i] = numberDensityFromEntropy(dimensionlessXArray[i]);
         entropyFuncOfXArray[i] = coreEntropy(dimensionlessXArray[i]);
-        pressureFuncOfXArray[i] = pressureFromEntropyAndNumberDensity(
-            entropyFuncOfXArray[i], numberDensityFuncOfXArray[i]);
+        pressureFuncOfXArray[i] =
+            pressureFromEntropyAndNumberDensity(entropyFuncOfXArray[i], numberDensityFuncOfXArray[i]);
     }
 }
 
@@ -1899,49 +1569,35 @@ Cooling function, part of the source function
 */
 
 // Source function copied from Guo+23, added 03/06
-void coolingSourceFunction(const Real dt, const AthenaArray<Real> &prim,
-                           AthenaArray<Real> &cons, int k, int j, int i) {
+void coolingSourceFunction(const Real dt, const AthenaArray<Real> &prim, AthenaArray<Real> &cons, int k, int j, int i) {
     // Added 07/09/2024: some minor optimizations
 
-    const Real primitiveNumberDensityCode =
-        prim(IDN, k, j, i) / conversionNtoRhoCode;
-    const Real primitiveNumberDensityAstronomical =
-        primitiveNumberDensityCode * codeNumberDensity;
+    const Real primitiveNumberDensityCode = prim(IDN, k, j, i) / conversionNtoRhoCode;
+    const Real primitiveNumberDensityAstronomical = primitiveNumberDensityCode * codeNumberDensity;
     const Real primitiveTemperatureCode =
-        prim(IPR, k, j, i) /
-        (primitiveNumberDensityCode *
-         codeBoltzmannConst);  // trying to calculate temperature via pressure
-                               // instead of energy to bypass thermal energy
-                               // requirement
+        prim(IPR, k, j, i) / (primitiveNumberDensityCode * codeBoltzmannConst);  // trying to calculate temperature via
+                                                                                 // pressure instead of energy to bypass
+                                                                                 // thermal energy requirement
 
-    const Real conservedDensityCode = fmax(
-        cons(IDN, k, j, i), densityFloorAstronomical /
-                                codeDensity);  // take the bigger between cell
-                                               // density and floor density
-    const Real conservedNumberDensityCode =
-        conservedDensityCode / conversionNtoRhoCode;
+    const Real conservedDensityCode =
+        fmax(cons(IDN, k, j, i), densityFloorAstronomical / codeDensity);  // take the bigger between cell
+                                                                           // density and floor density
+    const Real conservedNumberDensityCode = conservedDensityCode / conversionNtoRhoCode;
     const Real kineticEnergyDensityCode =
-        0.5 *
-        (SQR(cons(IM1, k, j, i)) + SQR(cons(IM2, k, j, i)) +
-         SQR(cons(IM3, k, j, i))) /
+        0.5 * (SQR(cons(IM1, k, j, i)) + SQR(cons(IM2, k, j, i)) + SQR(cons(IM3, k, j, i))) /
         conservedDensityCode;  // unit: mass / length / time^2 (checked)
-    const Real thermalEnergyDensityCode =
-        cons(IEN, k, j, i) - kineticEnergyDensityCode;
+    const Real thermalEnergyDensityCode = cons(IEN, k, j, i) - kineticEnergyDensityCode;
     const Real conservedTemperatureCode =
-        gammaMinus1 * thermalEnergyDensityCode /
-        (conservedNumberDensityCode * codeBoltzmannConst);
+        gammaMinus1 * thermalEnergyDensityCode / (conservedNumberDensityCode * codeBoltzmannConst);
 
-    const Real emissivityAstronomical = emissivityFromTemperature(
-        primitiveTemperatureCode *
-        codeTemperature);  // let's try with no softening function and see how
-                           // that goes
+    const Real emissivityAstronomical =
+        emissivityFromTemperature(primitiveTemperatureCode * codeTemperature);  // let's try with no softening function
+                                                                                // and see how that goes
     // softening function for emissivity, from Guo+23 [added 03/24/2023]
     // emissivityAstronomical *= exp(-1.0e1 * pow(temperatureFloor /
     // codeTemperature / primitiveTemperatureCode, 4.0));
     const Real coolingRateCode =
-        coolingFunction(primitiveNumberDensityAstronomical,
-                        emissivityAstronomical) /
-        (codeEnergyDensity / codeTime);
+        coolingFunction(primitiveNumberDensityAstronomical, emissivityAstronomical) / (codeEnergyDensity / codeTime);
     Real coolingLossCode = coolingRateCode * dt;
 
     // Make sure cooling is not too fast
@@ -1951,12 +1607,10 @@ void coolingSourceFunction(const Real dt, const AthenaArray<Real> &prim,
     } else if (gammaMinus1 * (thermalEnergyDensityCode - coolingLossCode) /
                    (conservedNumberDensityCode * codeBoltzmannConst) <
                temperatureFloor / codeTemperature) {
-        coolingLossCode =
-            thermalEnergyDensityCode -
-            (conservedNumberDensityCode * codeBoltzmannConst) *
-                (temperatureFloor / codeTemperature) /
-                gammaMinus1;  // cooling just enough to reach floor temperature
-                              // if naive cooling goes below floor
+        coolingLossCode = thermalEnergyDensityCode - (conservedNumberDensityCode * codeBoltzmannConst) *
+                                                         (temperatureFloor / codeTemperature) /
+                                                         gammaMinus1;  // cooling just enough to reach floor temperature
+                                                                       // if naive cooling goes below floor
     }
 
     cons(IEN, k, j, i) -= coolingLossCode;
@@ -1971,21 +1625,16 @@ static Real emissivityFromTemperature(const Real temperature) {
 
     // Modified 08/02/2023: interpolate all data points instead of if-else
     // clause to speed up computation
-    const Real emissivityCGS =
-        pow(10., interpolate1D(logTemperature, logTemperatureArray,
-                               logEmissivityHydroArray));
+    const Real emissivityCGS = pow(10., interpolate1D(logTemperature, logTemperatureArray, logEmissivityHydroArray));
 
-    return emissivityCGS / (solarMassCGS * pow(MpcCGS, 5) *
-                            pow(MyrCGS, -3));  // convert to astronomical units
+    return emissivityCGS / (solarMassCGS * pow(MpcCGS, 5) * pow(MyrCGS, -3));  // convert to astronomical units
 }
 
 /*
 Cooling function as a function of number density and emissivity
 */
 
-static Real coolingFunction(const Real numberDensity, const Real emissivity) {
-    return SQR(numberDensity) * emissivity;
-}
+static Real coolingFunction(const Real numberDensity, const Real emissivity) { return SQR(numberDensity) * emissivity; }
 
 // END
 // COOLING-------------------------------------------------------------------------------------
@@ -1997,156 +1646,103 @@ static Real coolingFunction(const Real numberDensity, const Real emissivity) {
 Rewrite jet feedback source function, 04/19/2023
 */
 
-void jetFeedbackSourceFunction(MeshBlock *pmb, AthenaArray<Real> &cons,
-                               const AthenaArray<Real> &prim, int k, int j,
-                               int i, const Real dt, Real z, Real y, Real x,
-                               Real polarDistance) {
+void jetFeedbackSourceFunction(MeshBlock *pmb, AthenaArray<Real> &cons, const AthenaArray<Real> &prim, int k, int j,
+                               int i, const Real dt, Real z, Real y, Real x, Real polarDistance) {
     const Real cellHeightCode = pmb->pcoord->GetEdge3Length(k, j, i);
     pmb->pmy_mesh->ruser_mesh_data[7](0) = cellHeightCode;
-    const Real &jetPrecessionAnglePhi =
-        pmb->pmy_mesh->ruser_mesh_data[7](1);  // current azimuthal angle of jet
-    const Real &jetMassLaunchRateCode = pmb->pmy_mesh->ruser_mesh_data[5](
-        0);  // mass launch equals mass accreted
+    const Real &jetPrecessionAnglePhi = pmb->pmy_mesh->ruser_mesh_data[7](1);  // current azimuthal angle of jet
+    const Real &jetMassLaunchRateCode = pmb->pmy_mesh->ruser_mesh_data[5](0);  // mass launch equals mass accreted
 
     if ((z < jetLaunchingHeight / codeLength + 0.5 * cellHeightCode) &&
-        (z >
-         jetLaunchingHeight / codeLength - 0.5 * cellHeightCode)) {  // top jet
-        const Real jetPlatformVolumeCode =
-            PI * SQR(jetLaunchingWidth / codeLength) *
-            cellHeightCode;  // density = mass / volume, where volume = pi * R^2
-                             // * h, and mass = mass rate * dt
+        (z > jetLaunchingHeight / codeLength - 0.5 * cellHeightCode)) {  // top jet
+        const Real jetPlatformVolumeCode = PI * SQR(jetLaunchingWidth / codeLength) *
+                                           cellHeightCode;  // density = mass / volume, where volume = pi * R^2
+                                                            // * h, and mass = mass rate * dt
 
         // Added 06/14/2023: adding the Gaussian profile of the jet, following
         // Li & Bryan (2014)
         Real profileWeight = 1.;
-        const Real jetSmoothingRadiusCode =
-            0.35 * jetLaunchingWidth /
-            codeLength;  // this gives a 99.5% CDF profile
-        profileWeight =
-            4.152 *
-            exp(-0.5 *
-                SQR(polarDistance /
-                    jetSmoothingRadiusCode));  // the factor 4.152 is
-                                               // numerically calculated to
-                                               // ensure total mass of the jet
-                                               // base equal to accreted mass,
-                                               // will differs for different
-                                               // smoothing factor
+        const Real jetSmoothingRadiusCode = 0.35 * jetLaunchingWidth / codeLength;  // this gives a 99.5% CDF profile
+        profileWeight = 4.152 * exp(-0.5 * SQR(polarDistance / jetSmoothingRadiusCode));  // the factor 4.152 is
+                                                                                          // numerically calculated to
+                                                                                          // ensure total mass of the
+                                                                                          // jet base equal to accreted
+                                                                                          // mass, will differs for
+                                                                                          // different smoothing factor
 
         // Added 06/17/2023: rewrote again to be consistent with Li & Bryan
         // (2014)
-        const Real cellKineticEnergyDensityCode =
-            computeKineticEnergyDensityCode(cons, k, j, i);  // KE = p^2 / 2 rho
-        const Real cellThermalEnergyDensityCode =
-            cons(IEN, k, j, i) - cellKineticEnergyDensityCode;
+        const Real cellKineticEnergyDensityCode = computeKineticEnergyDensityCode(cons, k, j, i);  // KE = p^2 / 2 rho
+        const Real cellThermalEnergyDensityCode = cons(IEN, k, j, i) - cellKineticEnergyDensityCode;
 
         // Added 07/04/2023: jet precession
-        Real jetVelocityXAstronomical, jetVelocityYAstronomical,
-            jetVelocityZAstronomical;
+        Real jetVelocityXAstronomical, jetVelocityYAstronomical, jetVelocityZAstronomical;
 
-        jetVelocityXAstronomical = jetVelocityAstronomical *
-                                   cos(jetPrecessionAnglePhi) *
-                                   sin(jetPrecessionAngleTheta);
-        jetVelocityYAstronomical = jetVelocityAstronomical *
-                                   sin(jetPrecessionAnglePhi) *
-                                   sin(jetPrecessionAngleTheta);
-        jetVelocityZAstronomical =
-            jetVelocityAstronomical * cos(jetPrecessionAngleTheta);
+        jetVelocityXAstronomical = jetVelocityAstronomical * cos(jetPrecessionAnglePhi) * sin(jetPrecessionAngleTheta);
+        jetVelocityYAstronomical = jetVelocityAstronomical * sin(jetPrecessionAnglePhi) * sin(jetPrecessionAngleTheta);
+        jetVelocityZAstronomical = jetVelocityAstronomical * cos(jetPrecessionAngleTheta);
 
-        const Real jetDensityCode = 0.5 * dt * jetMassLaunchRateCode *
-                                    profileWeight / jetPlatformVolumeCode;
-        cons(IDN, k, j, i) += jetDensityCode;  // inject density
-        cons(IM1, k, j, i) += jetDensityCode * jetVelocityXAstronomical /
-                              codeVelocity;  // inject momentum
-        cons(IM2, k, j, i) +=
-            jetDensityCode * jetVelocityYAstronomical / codeVelocity;
-        cons(IM3, k, j, i) +=
-            jetDensityCode * jetVelocityZAstronomical / codeVelocity;
+        const Real jetDensityCode = 0.5 * dt * jetMassLaunchRateCode * profileWeight / jetPlatformVolumeCode;
+        cons(IDN, k, j, i) += jetDensityCode;                                            // inject density
+        cons(IM1, k, j, i) += jetDensityCode * jetVelocityXAstronomical / codeVelocity;  // inject momentum
+        cons(IM2, k, j, i) += jetDensityCode * jetVelocityYAstronomical / codeVelocity;
+        cons(IM3, k, j, i) += jetDensityCode * jetVelocityZAstronomical / codeVelocity;
 
         const Real jetKineticEnergyDensityCode =
-            0.5 * jetDensityCode *
-            SQR(jetVelocityAstronomical / codeVelocity);  // KE = 1/2 rho v^2
-        const Real jetThermalEnergyDensityCode = (1. - jetKineticFraction) /
-                                                 jetKineticFraction *
-                                                 jetKineticEnergyDensityCode;
+            0.5 * jetDensityCode * SQR(jetVelocityAstronomical / codeVelocity);  // KE = 1/2 rho v^2
+        const Real jetThermalEnergyDensityCode =
+            (1. - jetKineticFraction) / jetKineticFraction * jetKineticEnergyDensityCode;
 
         const Real updatedKineticEnergyDensityCode =
             computeKineticEnergyDensityCode(cons, k, j, i);  // KE = p^2 / 2 rho
-        const Real updatedThermalEnergyDensityCode =
-            cellThermalEnergyDensityCode + jetThermalEnergyDensityCode;
+        const Real updatedThermalEnergyDensityCode = cellThermalEnergyDensityCode + jetThermalEnergyDensityCode;
 
-        cons(IEN, k, j, i) = updatedKineticEnergyDensityCode +
-                             updatedThermalEnergyDensityCode;  // update energy
-    } else if ((z >
-                -1. * jetLaunchingHeight / codeLength - 0.5 * cellHeightCode) &&
-               (z < -1. * jetLaunchingHeight / codeLength +
-                        0.5 * cellHeightCode)) {  // bottom jet
-        const Real jetPlatformVolumeCode =
-            PI * SQR(jetLaunchingWidth / codeLength) *
-            cellHeightCode;  // density = mass / volume, where volume = pi * R^2
-                             // * h, and mass = mass rate * dt
+        cons(IEN, k, j, i) = updatedKineticEnergyDensityCode + updatedThermalEnergyDensityCode;  // update energy
+    } else if ((z > -1. * jetLaunchingHeight / codeLength - 0.5 * cellHeightCode) &&
+               (z < -1. * jetLaunchingHeight / codeLength + 0.5 * cellHeightCode)) {  // bottom jet
+        const Real jetPlatformVolumeCode = PI * SQR(jetLaunchingWidth / codeLength) *
+                                           cellHeightCode;  // density = mass / volume, where volume = pi * R^2
+                                                            // * h, and mass = mass rate * dt
 
         // Added 06/14/2023: adding the Gaussian profile of the jet, following
         // Li & Bryan (2014)
         Real profileWeight = 1.;
-        const Real jetSmoothingRadiusCode =
-            0.35 * jetLaunchingWidth /
-            codeLength;  // this gives a 99.5% CDF profile
-        profileWeight =
-            4.152 *
-            exp(-0.5 *
-                SQR(polarDistance /
-                    jetSmoothingRadiusCode));  // the factor 4.152 is
-                                               // numerically calculated to
-                                               // ensure total mass of the jet
-                                               // base equal to accreted mass,
-                                               // will differs for different
-                                               // smoothing factor
+        const Real jetSmoothingRadiusCode = 0.35 * jetLaunchingWidth / codeLength;  // this gives a 99.5% CDF profile
+        profileWeight = 4.152 * exp(-0.5 * SQR(polarDistance / jetSmoothingRadiusCode));  // the factor 4.152 is
+                                                                                          // numerically calculated to
+                                                                                          // ensure total mass of the
+                                                                                          // jet base equal to accreted
+                                                                                          // mass, will differs for
+                                                                                          // different smoothing factor
 
         // Added 06/17/2023: rewrote again to be consistent with Li & Bryan
         // (2014)
-        const Real cellKineticEnergyDensityCode =
-            computeKineticEnergyDensityCode(cons, k, j, i);  // KE = p^2 / 2 rho
-        const Real cellThermalEnergyDensityCode =
-            cons(IEN, k, j, i) - cellKineticEnergyDensityCode;
+        const Real cellKineticEnergyDensityCode = computeKineticEnergyDensityCode(cons, k, j, i);  // KE = p^2 / 2 rho
+        const Real cellThermalEnergyDensityCode = cons(IEN, k, j, i) - cellKineticEnergyDensityCode;
 
         // Added 07/04/2023: jet precession
-        Real jetVelocityXAstronomical, jetVelocityYAstronomical,
-            jetVelocityZAstronomical;
+        Real jetVelocityXAstronomical, jetVelocityYAstronomical, jetVelocityZAstronomical;
 
-        jetVelocityXAstronomical = jetVelocityAstronomical *
-                                   cos(jetPrecessionAnglePhi) *
-                                   sin(jetPrecessionAngleTheta);
-        jetVelocityYAstronomical = jetVelocityAstronomical *
-                                   sin(jetPrecessionAnglePhi) *
-                                   sin(jetPrecessionAngleTheta);
-        jetVelocityZAstronomical =
-            jetVelocityAstronomical * cos(jetPrecessionAngleTheta);
+        jetVelocityXAstronomical = jetVelocityAstronomical * cos(jetPrecessionAnglePhi) * sin(jetPrecessionAngleTheta);
+        jetVelocityYAstronomical = jetVelocityAstronomical * sin(jetPrecessionAnglePhi) * sin(jetPrecessionAngleTheta);
+        jetVelocityZAstronomical = jetVelocityAstronomical * cos(jetPrecessionAngleTheta);
 
-        const Real jetDensityCode = 0.5 * dt * jetMassLaunchRateCode *
-                                    profileWeight / jetPlatformVolumeCode;
-        cons(IDN, k, j, i) += jetDensityCode;  // inject density
-        cons(IM1, k, j, i) += -jetDensityCode * jetVelocityXAstronomical /
-                              codeVelocity;  // inject momentum
-        cons(IM2, k, j, i) +=
-            -jetDensityCode * jetVelocityYAstronomical / codeVelocity;
-        cons(IM3, k, j, i) +=
-            -jetDensityCode * jetVelocityZAstronomical / codeVelocity;
+        const Real jetDensityCode = 0.5 * dt * jetMassLaunchRateCode * profileWeight / jetPlatformVolumeCode;
+        cons(IDN, k, j, i) += jetDensityCode;                                             // inject density
+        cons(IM1, k, j, i) += -jetDensityCode * jetVelocityXAstronomical / codeVelocity;  // inject momentum
+        cons(IM2, k, j, i) += -jetDensityCode * jetVelocityYAstronomical / codeVelocity;
+        cons(IM3, k, j, i) += -jetDensityCode * jetVelocityZAstronomical / codeVelocity;
 
         const Real jetKineticEnergyDensityCode =
-            0.5 * jetDensityCode *
-            SQR(jetVelocityAstronomical / codeVelocity);  // KE = 1/2 rho v^2
-        const Real jetThermalEnergyDensityCode = (1. - jetKineticFraction) /
-                                                 jetKineticFraction *
-                                                 jetKineticEnergyDensityCode;
+            0.5 * jetDensityCode * SQR(jetVelocityAstronomical / codeVelocity);  // KE = 1/2 rho v^2
+        const Real jetThermalEnergyDensityCode =
+            (1. - jetKineticFraction) / jetKineticFraction * jetKineticEnergyDensityCode;
 
         const Real updatedKineticEnergyDensityCode =
             computeKineticEnergyDensityCode(cons, k, j, i);  // KE = p^2 / 2 rho
-        const Real updatedThermalEnergyDensityCode =
-            cellThermalEnergyDensityCode + jetThermalEnergyDensityCode;
+        const Real updatedThermalEnergyDensityCode = cellThermalEnergyDensityCode + jetThermalEnergyDensityCode;
 
-        cons(IEN, k, j, i) = updatedKineticEnergyDensityCode +
-                             updatedThermalEnergyDensityCode;  // update energy
+        cons(IEN, k, j, i) = updatedKineticEnergyDensityCode + updatedThermalEnergyDensityCode;  // update energy
     }
 }
 
@@ -2160,8 +1756,7 @@ void jetFeedbackSourceFunction(MeshBlock *pmb, AthenaArray<Real> &cons,
 CROSS PRODUCT
 */
 
-static void crossProduct(std::vector<Real> r, std::vector<Real> p, Real *x,
-                         Real *y, Real *z) {
+static void crossProduct(std::vector<Real> r, std::vector<Real> p, Real *x, Real *y, Real *z) {
     *x = r[1] * p[2] - r[2] * p[1];
     *y = r[2] * p[0] - r[0] * p[2];
     *z = r[0] * p[1] - r[1] * p[0];
@@ -2195,11 +1790,8 @@ static void crossProduct(std::vector<Real> r, std::vector<Real> p, Real *x,
 // }
 
 // Added 07/09/2024: optimized linear interpolator, by GPT-4
-static Real interpolate1D(const Real inputX,
-                          const std::vector<Real> &tabulatedX,
-                          const std::vector<Real> &tabulatedY) {
-    auto upperIndexPointer =
-        std::lower_bound(tabulatedX.begin(), tabulatedX.end(), inputX);
+static Real interpolate1D(const Real inputX, const std::vector<Real> &tabulatedX, const std::vector<Real> &tabulatedY) {
+    auto upperIndexPointer = std::lower_bound(tabulatedX.begin(), tabulatedX.end(), inputX);
     int upperIndexX = (upperIndexPointer - tabulatedX.begin());
     int lowerIndexX = upperIndexX - 1;
 
@@ -2217,8 +1809,7 @@ static Real interpolate1D(const Real inputX,
 }
 
 // Added 02/08/2024: Hopefully a faster linear interpolator
-static Real simpleInterpolate(Real inputX, std::vector<Real> tabulatedX,
-                              std::vector<Real> tabulatedY) {
+static Real simpleInterpolate(Real inputX, std::vector<Real> tabulatedX, std::vector<Real> tabulatedY) {
     // go backwards since temperature is more likely to be on the higher end of
     // the tabulated cooling curve
     int upperIndexX = tabulatedX.size() - 1;
@@ -2232,9 +1823,8 @@ static Real simpleInterpolate(Real inputX, std::vector<Real> tabulatedX,
     Real lowerBoundY = tabulatedY[upperIndexX];
     Real upperBoundY = tabulatedY[upperIndexX + 1];
 
-    Real interpolatedY = (lowerBoundY * (upperBoundX - inputX) +
-                          upperBoundY * (inputX - lowerBoundX)) /
-                         (upperBoundX - lowerBoundX);
+    Real interpolatedY =
+        (lowerBoundY * (upperBoundX - inputX) + upperBoundY * (inputX - lowerBoundX)) / (upperBoundX - lowerBoundX);
 
     return interpolatedY;
 }
@@ -2244,47 +1834,35 @@ Enforce a temperature and density floor if a cell has lower temperature/density
 than floor temperature/density
 */
 
-void enforceFloors(MeshBlock *pmb, AthenaArray<Real> &cons, int k, int j,
-                   int i) {
+void enforceFloors(MeshBlock *pmb, AthenaArray<Real> &cons, int k, int j, int i) {
     // Added 11/23/2023: enforce density floor correctly by fixing velocity and
     // temperature
     Real numberDensityCode = cons(IDN, k, j, i) / conversionNtoRhoCode;
 
-    if (numberDensityCode <
-        numberDensityFloorAstronomical / codeNumberDensity) {
+    if (numberDensityCode < numberDensityFloorAstronomical / codeNumberDensity) {
         cons(IDN, k, j, i) =
-            numberDensityFloorAstronomical * conversionNtoRho /
-            codeDensity;  // hard reset of the density first; then calculate the
-                          // new internal energy
-        cons(IM1, k, j, i) *= cons(IDN, k, j, i) /
-                              numberDensityCode;  // keep the velocity constant
+            numberDensityFloorAstronomical * conversionNtoRho / codeDensity;  // hard reset of the density first; then
+                                                                              // calculate the new internal energy
+        cons(IM1, k, j, i) *= cons(IDN, k, j, i) / numberDensityCode;  // keep the velocity constant
         cons(IM2, k, j, i) *= cons(IDN, k, j, i) / numberDensityCode;
         cons(IM3, k, j, i) *= cons(IDN, k, j, i) / numberDensityCode;
-        cons(IEN, k, j, i) *=
-            cons(IDN, k, j, i) /
-            numberDensityCode;  // keep the temperature constant
+        cons(IEN, k, j, i) *= cons(IDN, k, j, i) / numberDensityCode;  // keep the temperature constant
 
-        numberDensityCode = cons(IDN, k, j, i) /
-                            conversionNtoRhoCode;  // update the number density
+        numberDensityCode = cons(IDN, k, j, i) / conversionNtoRhoCode;  // update the number density
     }
 
     // Added 11/23/2023: enforce temperature floor correctly by fixing velocity
     // and density
 
-    const Real kineticEnergyDensityCode =
-        computeKineticEnergyDensityCode(cons, k, j, i);
+    const Real kineticEnergyDensityCode = computeKineticEnergyDensityCode(cons, k, j, i);
     const Real temperatureCode =
-        gammaMinus1 * (cons(IEN, k, j, i) - kineticEnergyDensityCode) /
-        (numberDensityCode * codeBoltzmannConst);
+        gammaMinus1 * (cons(IEN, k, j, i) - kineticEnergyDensityCode) / (numberDensityCode * codeBoltzmannConst);
 
     if (temperatureCode < temperatureFloor / codeTemperature) {
-        const Real fractionTemperatureChange =
-            temperatureFloor / codeTemperature / temperatureCode;
-        cons(IEN, k, j, i) =
-            fractionTemperatureChange *
-                (cons(IEN, k, j, i) - kineticEnergyDensityCode) +
-            kineticEnergyDensityCode;  // the new internal energy, assuming
-                                       // velocity and density are constant
+        const Real fractionTemperatureChange = temperatureFloor / codeTemperature / temperatureCode;
+        cons(IEN, k, j, i) = fractionTemperatureChange * (cons(IEN, k, j, i) - kineticEnergyDensityCode) +
+                             kineticEnergyDensityCode;  // the new internal energy, assuming
+                                                        // velocity and density are constant
     }
 }
 
@@ -2292,16 +1870,13 @@ void enforceFloors(MeshBlock *pmb, AthenaArray<Real> &cons, int k, int j,
 Cooling time, for refinement condition
 */
 
-static Real coolingTime(
-    AthenaArray<Real> &w, int k, int j,
-    int i) {  // function is 5/2 nkT / n^2 Lambda, return code units
+static Real coolingTime(AthenaArray<Real> &w, int k, int j,
+                        int i) {  // function is 5/2 nkT / n^2 Lambda, return code units
     Real primitiveNumberDensityCode = w(IDN, k, j, i) / conversionNtoRhoCode;
     Real primitiveTemperatureAstronomical =
-        w(IPR, k, j, i) / (primitiveNumberDensityCode * codeBoltzmannConst) *
-        codeTemperature;
+        w(IPR, k, j, i) / (primitiveNumberDensityCode * codeBoltzmannConst) * codeTemperature;
 
-    return (5. / 2.) * boltzmannConstAstronomical *
-           primitiveTemperatureAstronomical /
+    return (5. / 2.) * boltzmannConstAstronomical * primitiveTemperatureAstronomical /
            (primitiveNumberDensityCode * codeNumberDensity *
             emissivityFromTemperature(primitiveTemperatureAstronomical)) /
            codeTime;
@@ -2311,12 +1886,10 @@ static Real coolingTime(
 Sound crossing time, for refinement condition
 */
 
-static Real soundCrossingTime(
-    AthenaArray<Real> &w, int k, int j, int i,
-    Real cellWidth) {  // function is delta_x / c_s, where c_s = sqrt(gamma * P
-                       // / rho), return code units
-    Real soundSpeedCode =
-        sqrt(gammaAdiabatic * w(IPR, k, j, i) / w(IDN, k, j, i));
+static Real soundCrossingTime(AthenaArray<Real> &w, int k, int j, int i,
+                              Real cellWidth) {  // function is delta_x / c_s, where c_s = sqrt(gamma * P
+                                                 // / rho), return code units
+    Real soundSpeedCode = sqrt(gammaAdiabatic * w(IPR, k, j, i) / w(IDN, k, j, i));
     return cellWidth / soundSpeedCode;
 }
 
@@ -2324,12 +1897,8 @@ static Real soundCrossingTime(
 Consolidate the kinetic energy density calculation
 */
 
-static Real computeKineticEnergyDensityCode(AthenaArray<Real> &cons, int k,
-                                            int j, int i) {
-    return 0.5 *
-           (SQR(cons(IM1, k, j, i)) + SQR(cons(IM2, k, j, i)) +
-            SQR(cons(IM3, k, j, i))) /
-           cons(IDN, k, j, i);
+static Real computeKineticEnergyDensityCode(AthenaArray<Real> &cons, int k, int j, int i) {
+    return 0.5 * (SQR(cons(IM1, k, j, i)) + SQR(cons(IM2, k, j, i)) + SQR(cons(IM3, k, j, i))) / cons(IDN, k, j, i);
 }
 
 // END MISC.
@@ -2351,8 +1920,7 @@ Real hotAccretionRate(MeshBlock *pmb, int iout) {  // unit is Msun yr^-1
 }
 
 Real jetPower(MeshBlock *pmb, int iout) {  // unit is erg s^-1
-    return pmb->pmy_mesh->ruser_mesh_data[6](0) * codePower *
-           (solarMassCGS * pow(MpcCGS, 2) * pow(MyrCGS, -3));
+    return pmb->pmy_mesh->ruser_mesh_data[6](0) * codePower * (solarMassCGS * pow(MpcCGS, 2) * pow(MyrCGS, -3));
 }
 
 /*
