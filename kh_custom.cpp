@@ -63,7 +63,7 @@ Real T_cold, T_hot;                            // temp (K) for cold and hot gass
 static const Real k_B = 1.38064852e-16;        // Boltzmann constant in CGS units, erg/K
 static const Real mu_e = 1.166667;             // mean molecular weight per electron (0.7 Hydrogen, 0.28 Helium)
 static const Real m_H = 1.673534e-24;          // mass of hydrogen in grams (g)
-static const Real ke_to_ergs = 4.780457606e15  // g*(kPc/Myr)^2 to ergs (TODO: CURSED. FIXED LATER)
+static const Real ke_to_ergs = 4.780457606e15; // g*(kPc/Myr)^2 to ergs (TODO: CURSED. FIXED LATER)
 }  // namespace
 
 //----------------------------------------------------------------------------------------
@@ -310,7 +310,8 @@ static Real Lambda_cool(Real temperature) {
     lambda += 0.00439 * std::pow(temperature, 0.35);
     // convert to ergs*cm^3/Myr
     lambda *= 1e-22;
-    lambda *= (31557600 * 1e6) return lambda;
+    lambda *= (31557600 * 1e6); 
+    return lambda;
 }
 
 void Cooling(MeshBlock *pmb, const Real time, const Real dt, const AthenaArray<Real> &prim,
