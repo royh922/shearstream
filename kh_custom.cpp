@@ -307,8 +307,8 @@ static Real Lambda_cool(Real temperature) {
     lambda += 6.42 * std::pow(temperature, -0.2) * std::exp(-1 * std::pow(temperature / 2.1e6, 4.4));
     lambda += 0.00439 * std::pow(temperature, 0.35);
     // convert to ergs*cm^3/Myr
-    lambda *= 1e-22;
-    return lambda;
+    // lambda *= 1e-22;
+    return lambda; //in units of 1e-22 ergs*cm^3/s
 }
 
 void Cooling(MeshBlock *pmb, const Real time, const Real dt, const AthenaArray<Real> &prim,
