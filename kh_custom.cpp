@@ -63,9 +63,9 @@ Real T_cold, T_hot;                            // temp (K) for cold and hot gass
 static const Real k_B = 1.38064852e-16;        // Boltzmann constant in CGS units, erg/K
 static const Real mu_e = 1.166667;             // mean molecular weight per electron (0.7 Hydrogen, 0.28 Helium)
 static const Real m_H = 1.673534e-24;          // mass of hydrogen in grams (g)
-static const Real ke_to_ergs = 1.045924975e-16; // g*(kPc/Myr)^2 to ergs (TODO: CURSED. FIXED LATER)
+static const Real ke_to_ergs = 9.560915212e15; // g*(kPc/Myr)^2 to ergs (TODO: CURSED. FIXED LATER)
 static const Real energy_to_code = 1e12;       // energy code unit in 10^-12 ergs
-static const Real density_to_code = 1e24;      // density code unit in 10^-24 g/cm^3
+static const Real density_code_to_cgs = 1e-28;      // density code unit in 10^-24 g/cm^3
 }  // namespace
 
 //----------------------------------------------------------------------------------------
@@ -78,9 +78,7 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
     // Read Problem Parameters
     iprob = pin->GetOrAddInteger("problem", "iprob", 1);
     gamma_adi = pin->GetReal("hydro", "gamma");
-    n_e = pin->GetReal("problem", "n_e");  // (cm^-3)
-    rho_0 = n_e * mu_e * m_H;              // (g/cm^3)
-    rho_0 *= density_to_code;               // convert to code units (10^-24 g/cm^3)
+    rho_0 = pin->GetReal("problem", "rho_0"); 
     pgas_0 = pin->GetReal("problem", "pgas_0");
     density_contrast = pin->GetReal("problem", "density_contrast");
     vel_shear = pin->GetReal("problem", "vel_shear");
@@ -88,12 +86,6 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
     // hot gas is the rho_0, cold is increased by the contrast amount
     Real rho_hot = rho_0;
     Real rho_cold = rho_hot * density_contrast;
-
-    // T is calculated by the pressure/density
-    T_hot = pgas_0 / n_e / k_B;
-    T_cold = pgas_0 / n_e / k_B / density_contrast;
-
-    std::cout<<"T_hot: "<<T_hot<<" T_cold: "<<T_cold<<std::endl;
 
     // Initial conditions and Boundary values
     smoothing_thickness = pin->GetReal("problem", "smoothing_thickness");
@@ -253,18 +245,15 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
 
                     // sets energy based on pressure and momentum
                     if (NON_BAROTROPIC_EOS) {
-                        Real thermal_energy = pgas_0 / (gamma_adi - 1.0);
+                        Real thermal_energy = pgas_0 / (gamma_adi - 1.0);  
                         Real kinetic_energy = 0.5 *
                                               (SQR(phydro->u(IM1, k, j, i)) + SQR(phydro->u(IM2, k, j, i)) +
                                                SQR(phydro->u(IM3, k, j, i))) /
-                                              phydro->u(IDN, k, j, i) / density_to_code;  // convert to g*(kPc/Myr)^2
-                        kinetic_energy *= ke_to_ergs;  // convert to ergs
-                        // std::cout<<"Kinetic Energy: "<<kinetic_energy<<" Thermal Energy: "<<thermal_energy<<std::endl;
+                                              phydro->u(IDN, k, j, i);
                         Real energy = thermal_energy + kinetic_energy;
-                        energy *= energy_to_code;  // convert to code units (10^-12 ergs)
                         phydro->u(IEN, k, j, i) = energy;
                     } else {
-                        phydro->u(IEN, k, j, i) = pgas_0 / (gamma_adi - 1.0) * energy_to_code;
+                        phydro->u(IEN, k, j, i) = pgas_0 / (gamma_adi - 1.0);
                     }
 
                 }  // i for
@@ -319,8 +308,6 @@ static Real Lambda_cool(Real temperature) {
     lambda += 0.00439 * std::pow(temperature, 0.35);
     // convert to ergs*cm^3/Myr
     lambda *= 1e-22;
-    lambda *= energy_to_code;  // convert to code units (10^-12 ergs)
-    lambda *= (31557600 * 1e6); 
     return lambda;
 }
 
@@ -330,11 +317,11 @@ void Cooling(MeshBlock *pmb, const Real time, const Real dt, const AthenaArray<R
     for (int k = pmb->ks; k <= pmb->ke; ++k) {
         for (int j = pmb->js; j <= pmb->je; ++j) {
             for (int i = pmb->is; i <= pmb->ie; ++i) {
-                Real number_density = (prim(IDN, k, j, i) / density_to_code) / m_H / mu_e;
+                Real number_density = (prim(IDN, k, j, i) * density_code_to_cgs) / m_H / mu_e;
                 Real temperature = prim(IPR, k, j, i) / number_density / k_B;
-                //std::cout<<"Temp in cooling: "<<temperature<<std::endl;
+                std::cout<<"Temp in cooling: "<<temperature<<std::endl;
                 cons(IEN, k, j, i) -= (dt * SQR(number_density) * Lambda_cool(temperature));
-                //std::cout<<"Cooling: "<<(dt * SQR(number_density) * Lambda_cool(temperature))<<std::endl;
+                std::cout<<"Cooling: "<<(dt * SQR(number_density) * Lambda_cool(temperature))<<std::endl;
             }
         }
     }
