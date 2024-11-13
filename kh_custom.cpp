@@ -318,10 +318,12 @@ void Cooling(MeshBlock *pmb, const Real time, const Real dt, const AthenaArray<R
         for (int j = pmb->js; j <= pmb->je; ++j) {
             for (int i = pmb->is; i <= pmb->ie; ++i) {
                 Real number_density = (prim(IDN, k, j, i) * density_code_to_cgs) / m_H / mu_e;
-                Real temperature = prim(IPR, k, j, i) / number_density / k_B;
-                std::cout<<"Temp in cooling: "<<temperature<<std::endl;
+                Real pressure = prim(IPR, k, j, i) * 1e-12;  // in g/cm/s^2
+                Real temperature = pressure / number_density / k_B;
+                // std::cout<<"Temp in cooling: "<<temperature<<std::endl;
+                // std::cout<<"Time step: "<<dt<<std::endl;
+                // std::cout<<"Cooling%: "<<(dt * SQR(number_density) * Lambda_cool(temperature))/cons(IEN, k, j, i)<<std::endl;
                 cons(IEN, k, j, i) -= (dt * SQR(number_density) * Lambda_cool(temperature));
-                std::cout<<"Cooling: "<<(dt * SQR(number_density) * Lambda_cool(temperature))<<std::endl;
             }
         }
     }
