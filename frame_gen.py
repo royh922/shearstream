@@ -52,11 +52,19 @@ if comm.rank == 0:
     
     # Load the first dataset to get the domain center
     first = yt.load(fns[0], units_override=unit_base, unit_system="cgs")
-    # first = yt.load(fns[0])
     axis_center = first.domain_center[axis_map[axis]]
 
     perp_axis_1 = (axis_map[axis] + 1) % 3
     perp_axis_2 = (axis_map[axis] + 2) % 3
+
+    # Iterate through time series to find min/max values
+    Max = -np.inf
+    Min = np.inf
+    ts = yt.load(fns, units_override=unit_base, unit_system="cgs")
+    for ds in ts:
+        temp_Min, temp_Max = ds.r[field].min(), ds.r[field].max()
+        Min = min(Min, temp_Min)
+        Max = max(Max, temp_Max)
 
 else: 
     fns = None
@@ -68,6 +76,8 @@ else:
     axis_center = None
     storage = None
     buffer = None
+    Max = None
+    Min = None
 
 
 # Broadcast the necessary variables to all ranks
@@ -79,6 +89,8 @@ perp_axis_1 = comm.bcast(perp_axis_1, root=0)
 perp_axis_2 = comm.bcast(perp_axis_2, root=0)
 axis_center = comm.bcast(axis_center, root=0)
 buffer = comm.bcast(buffer, root=0)
+Max = comm.bcast(Max, root=0)
+Min = comm.bcast(Min, root=0)
 
 
 # ONLY ENABLE PARALLELISM AFTER BROADCASTING VARIABLES BECAUSE YT IS ASS AND SUCKS AT ACTUALLY DOING SHIT
@@ -90,34 +102,21 @@ storage = {"min": np.inf, "max": -np.inf}
 for sto, fn in yt.parallel_objects(fns, -1, storage=storage, dynamic=True):
 
     ds = yt.load(fn, units_override=unit_base, unit_system='cgs')
-    slc = ds.proj([('gas', 'temperature')], str(axis))
+    
+    # Check for NaN or Inf in data
+    if np.isnan(ds.r[field]).any() or np.isinf(ds.r[field]).any():
+        print(f"Invalid data (NaN or Inf) found in {ds}")
+        quit(2)
+
+    plot = ds.proj([field], str(axis))
+    plot.save()
 #    slc = ds.proj([('athena_pp', 'press'), ('athena_pp', 'rho')], str(axis))    # For Projection Plot
 #    slc = ds.slice(axis, axis_center)  # For Slice Plot
-    frb = yt.FixedResolutionBuffer(
-        slc,
-        (
-            ds.domain_left_edge[perp_axis_1],
-            ds.domain_right_edge[perp_axis_1],
-            ds.domain_left_edge[perp_axis_2],
-            ds.domain_right_edge[perp_axis_2],
-        ),
-        buffer
-    )  # Resolution
-    
-    field_data = frb[('gas', 'temperature')]
-    # field_data = frb[field].d
-    # field_data = frb[('athena_pp', 'press')].d/frb[('athena_pp', 'rho')].d
-
-    np.save(f'{fn}.npy', field_data)
 
     # Find min/max values
     # storage["min"] = min(storage["min"], field_data.min())
     # storage["max"] = max(storage["max"], field_data.max())
 
-    # Check for NaN or Inf in data
-    if np.isnan(field_data).any() or np.isinf(field_data).any():
-        print(f"Invalid data (NaN or Inf) found in {ds}")
-        quit(2)
 
 #local_max = storage["max"]
 #global_max = comm.reduce(local_max, op=MPI.MAX, root=0)
