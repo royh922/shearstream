@@ -33,12 +33,12 @@ if comm.rank == 0:
     import glob 
     fns = glob.glob(f"{args.directory}/{args.prefix}.*.athdf")
     fns.sort()
-
+    # fns = fns[:400]
     # Define the unit base for the simulation
     unit_base = {
-        "length_unit": (1.0, "pc"),
-        "time_unit": (1.0, "s*pc/km"),
-        "mass_unit": (2.38858753789e-24, "g/cm**3*pc**3"),
+        "length_unit": (1e18, "cm"),
+        "time_unit": (1e10, "s"),
+        "mass_unit": (1e26, "g"),
     }
 
     # Define the field and axis
@@ -51,7 +51,7 @@ if comm.rank == 0:
     axis_map = {"x": 0, "y": 1, "z": 2}
     
     # Load the first dataset to get the domain center
-    first = yt.load(fns[0], units_override=unit_base)
+    first = yt.load(fns[0], units_override=unit_base, unit_system="cgs")
     # first = yt.load(fns[0])
     axis_center = first.domain_center[axis_map[axis]]
 
@@ -89,8 +89,9 @@ storage = {"min": np.inf, "max": -np.inf}
 
 for sto, fn in yt.parallel_objects(fns, -1, storage=storage, dynamic=True):
 
-    ds = yt.load(fn, units_override=unit_base)
-    slc = ds.proj([('athena_pp', 'press'), ('athena_pp', 'rho')], str(axis))    # For Projection Plot
+    ds = yt.load(fn, units_override=unit_base, unit_system='cgs')
+    slc = ds.proj([('gas', 'temperature')], str(axis))
+#    slc = ds.proj([('athena_pp', 'press'), ('athena_pp', 'rho')], str(axis))    # For Projection Plot
 #    slc = ds.slice(axis, axis_center)  # For Slice Plot
     frb = yt.FixedResolutionBuffer(
         slc,
@@ -102,23 +103,23 @@ for sto, fn in yt.parallel_objects(fns, -1, storage=storage, dynamic=True):
         ),
         buffer
     )  # Resolution
-
+    
+    field_data = frb[('gas', 'temperature')]
     # field_data = frb[field].d
-    field_data = frb[('athena_pp', 'press')].d/frb[('athena_pp', 'rho')].d
+    # field_data = frb[('athena_pp', 'press')].d/frb[('athena_pp', 'rho')].d
 
     np.save(f'{fn}.npy', field_data)
 
     # Find min/max values
     # storage["min"] = min(storage["min"], field_data.min())
-    storage["max"] = max(storage["max"], field_data.max())
+    # storage["max"] = max(storage["max"], field_data.max())
 
     # Check for NaN or Inf in data
     if np.isnan(field_data).any() or np.isinf(field_data).any():
         print(f"Invalid data (NaN or Inf) found in {ds}")
         quit(2)
 
-local_max = storage["max"]
-global_max = comm.reduce(local_max, op=MPI.MAX, root=0)
+#local_max = storage["max"]
+#global_max = comm.reduce(local_max, op=MPI.MAX, root=0)
 
-np.save('global_max.npy', global_max)
-
+#np.save('global_max.npy', global_max)

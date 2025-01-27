@@ -51,7 +51,7 @@ storage = {"min": np.inf, "max": -np.inf}
 buffer = (args.resolution_x, args.resolution_y)
 
 
-ts = yt.load(f"{args.directory}/{args.prefix}.*.athdf", units_override=unit_base)
+ts = yt.load(f"{args.directory}/{args.prefix}.*.athdf", units_override=unit_base, unit_system='cgs')
 
 axis_map = {"x": 0, "y": 1, "z": 2}
 axis_center = ts[0].domain_center[axis_map[axis]]

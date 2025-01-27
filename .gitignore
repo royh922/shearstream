@@ -5,3 +5,4 @@ IsolatedGalaxy/
 *.mp4
 .vscode/
 *~
+.DS_Store
