@@ -108,7 +108,9 @@ for sto, fn in yt.parallel_objects(fns, -1, storage=storage, dynamic=True):
         print(f"Invalid data (NaN or Inf) found in {ds}")
         quit(2)
 
-    plot = ds.proj([field], str(axis))
+    plot = ds.proj([field], str(axis), weight_field=('gas','density'))
+    plot.set_zlim(field, zmin=Min, zmax=Max)
+    plot.set_cmap(field, 'RdBu_r')
     plot.save()
 #    slc = ds.proj([('athena_pp', 'press'), ('athena_pp', 'rho')], str(axis))    # For Projection Plot
 #    slc = ds.slice(axis, axis_center)  # For Slice Plot
