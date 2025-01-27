@@ -60,7 +60,7 @@ if comm.rank == 0:
     # Iterate through time series to find min/max values
     Max = -np.inf
     Min = np.inf
-    ts = yt.load(fns, units_override=unit_base, unit_system="cgs")
+    ts = yt.load(f"{args.directory}/{args.prefix}.*.athdf", units_override=unit_base, unit_system="cgs")
     for ds in ts:
         temp_Min, temp_Max = ds.r[field].min(), ds.r[field].max()
         Min = min(Min, temp_Min)
