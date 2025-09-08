@@ -1,0 +1,75 @@
+ Boundary : {
+     type = "reflecting";
+ }
+
+ Domain : {
+     lower = ( 0.000000000000000, 0.000000000000000, 0.000000000000000 );
+     upper = ( 1.000000000000000, 1.000000000000000, 1.000000000000000 );
+ }
+
+ Field : {
+     gamma = 1.400000000000000;
+     ghost_depth = 3;
+     list = ( "density", "velocity_x", "velocity_y", "velocity_z", "total_energy", "internal_energy", "pressure" );
+ }
+
+ Group : {
+     conserved : {
+         field_list = ( "density", "internal_energy", "total_energy", "velocity_x", "velocity_y" );
+     };
+     list = ( "conserved", "make_field_conservative" );
+     make_field_conservative : {
+         field_list = ( "velocity_x", "velocity_y", "internal_energy", "total_energy" );
+     };
+ }
+
+ Initial : {
+     list = ( "value" );
+     value : {
+         density = ( 0.1250000000000000, "(((( x  -  0.2500000000000000 ) * ( x  -  0.2500000000000000 )) + (( y  -  0.2500000000000000 ) * ( y  -  0.2500000000000000 ))) + (( z  -  0.2500000000000000 ) * ( z  -  0.2500000000000000 ))) >  0.04000000000000000 ", 1.000000000000000 );
+         internal_energy = 0.000000000000000;
+         total_energy = ( 2.800000000000000, "(((( x  -  0.2500000000000000 ) * ( x  -  0.2500000000000000 )) + (( y  -  0.2500000000000000 ) * ( y  -  0.2500000000000000 ))) + (( z  -  0.2500000000000000 ) * ( z  -  0.2500000000000000 ))) >  0.04000000000000000 ", 2.500000000000000 );
+         velocity_x = 0.000000000000000;
+         velocity_y = 0.000000000000000;
+         velocity_z = 0.000000000000000;
+     };
+ }
+
+ Mesh : {
+     root_blocks = ( 2, 2, 2 );
+     root_rank = 3;
+     root_size = ( 128, 128, 128 );
+ }
+
+ Method : {
+     flux_correct : {
+         enable = true;
+     };
+     list = ( "ppm", "flux_correct" );
+     ppm : {
+         courant = 0.8000000000000000;
+         diffusion = true;
+         dual_energy = false;
+         flattening = 3;
+         steepening = true;
+     };
+ }
+
+ Output : {
+     cycle_step : {
+         colormap = ( "navy", "lime", "yellow", "red" );
+         field_list = ( "density" );
+         name = ( "DEFERRED%04d.png", "cycle" );
+         schedule : {
+             step = 1;
+             var = "cycle";
+         };
+         type = "image";
+     };
+     list = ( "cycle_step" );
+ }
+
+ Stopping : {
+     cycle = 10;
+     time = 2.500000000000000;
+ }

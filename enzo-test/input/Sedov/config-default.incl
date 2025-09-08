@@ -1,0 +1,91 @@
+# FILE: config-default
+
+Adapt {
+   list = ["te_slope"];
+
+   te_slope {
+      type = "slope";
+      field_list = ["total_energy"];
+      min_refine = 1e3;
+   };
+}
+
+Field {
+    ghost_depth = 4; # must be even for ProlongLinear
+    padding   = 0;
+    alignment = 8;
+}
+
+Method {
+
+      # list of methods to apply and in what order
+ 
+      list = ["ppm"];
+
+#      gamma = 1.4;
+
+      ppm {
+
+         courant   = 0.8;
+         diffusion   = true;
+         flattening  = 3;
+         steepening  = true;
+
+         dual_energy = false;
+      }
+   }
+
+   Boundary { type = "periodic"; }
+
+   Output { 
+
+   list = ["mesh","de","te","h5_de", "h5_te"];
+
+    h5_de {
+       type = "data";
+       name = ["sedov-de-c%03d-p%03d.h5", "cycle", "proc"]; 
+       field_list = ["density"];
+       include "config-output-schedule.incl"
+    };
+    h5_te {
+       type = "data";
+       name = ["sedov-te-c%03d-p%03d.h5", "cycle", "proc"]; 
+       field_list = ["total_energy"];
+       include "config-output-schedule.incl"
+    };
+
+
+    mesh {
+         name = ["sedov-mesh-%03d.png", "cycle"]; 
+         type     = "image";
+         image_type  = "mesh";
+#	 image_block_size  = 5; # DEPRECIATED
+	image_size = [513,513];
+#	image_size = [1201,1201];
+          colormap = ["white", "lime", "red", "blue"];
+       include "config-output-schedule.incl"
+      };
+
+      de {
+        axis = "z";    
+	type     = "image";
+        name     = ["sedov-de-%03d.png","cycle"];
+         image_reduce_type = "avg";
+        field_list = ["density"];
+        colormap = ["black", "red", "yellow", "white"];
+        
+       include "config-output-schedule.incl"
+      };
+
+      te {
+
+       image_log = true;
+        axis = "z";
+	type     = "image";
+        name     = ["sedov-te-%03d.png","cycle"];
+        field_list = ["total_energy"];
+       colormap = ["black", "red", "yellow", "white"];
+       include "config-output-schedule.incl"
+      };
+   }
+

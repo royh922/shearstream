@@ -1,0 +1,328 @@
+/scratch/10334/jthsu2001/enzo-test
+Mon Sep  8 10:05:11 AM CDT 2025
+TACC:  Starting up job 2348100 
+TACC:  Starting parallel tasks... 
+Charm++> Running on MPI library: Intel(R) MPI Library 2021.11 for Linux* OS
+ (MPI standard: 3.1)
+Charm++> Level of thread support used: MPI_THREAD_SINGLE (desired: MPI_THREAD_SINGLE)
+Charm++> Running in non-SMP mode: 8 processes (PEs)
+Converse/Charm++ Commit ID: v8.0.0
+Charm++> MPI timer is synchronized
+Isomalloc> Synchronized global address space.
+CharmLB> Load balancer assumes all CPUs are same.
+Charm++> Running on 1 hosts (2 sockets x 56 cores x 1 PUs = 112-way SMP)
+Charm++> cpu topology info is gathered in 0.002 seconds.
+[0] No TreeLB configuration file found. Choosing a default configuration.
+[0] TreeLB: Using PE_Root tree with: GreedyRefine 
+0 00000.00 Parameters  Adapt:list = [ "slope" ]
+0 00000.00 Parameters  Adapt:max_level = 3
+0 00000.00 Parameters  Adapt:slope:field_list = [ "density" ]
+0 00000.00 Parameters  Adapt:slope:max_coarsen = 2.000000000000000
+0 00000.00 Parameters  Adapt:slope:min_refine = 10.00000000000000
+0 00000.00 Parameters  Adapt:slope:type = "slope"
+0 00000.00 Parameters  Boundary:type = "reflecting"
+0 00000.00 Parameters  Domain:lower = [ 0.000000000000000 0.000000000000000 ]
+0 00000.00 Parameters  Domain:upper = [ 1.000000000000000 1.000000000000000 ]
+0 00000.00 Parameters  Field:ghost_depth = 4
+0 00000.00 Parameters  Field:list = [ "density" "velocity_x" "velocity_y" "total_energy" "internal_energy" "pressure" ]
+0 00000.00 Parameters  Group:conserved:field_list = [ "density" "internal_energy" "total_energy" "velocity_x" "velocity_y" ]
+0 00000.00 Parameters  Group:list = [ "conserved" "make_field_conservative" ]
+0 00000.00 Parameters  Group:make_field_conservative:field_list = [ "velocity_x" "velocity_y" "internal_energy" "total_energy" ]
+0 00000.00 Parameters  Initial:list = [ "value" ]
+0 00000.00 Parameters  Initial:value:density = [ 1.000000000000000 ((((((( 0.2000000000000000  <  x ) && ( x  <  0.3000000000000000 )) && ( 0.3000000000000000  <  y )) && ( y  <  0.7000000000000000 )) || (((( 0.4000000000000000  <  x ) && ( x  <  0.5000000000000000 )) && ( 0.3000000000000000  <  y )) && ( y  <  0.7000000000000000 ))) || (((( 0.6000000000000000  <  x ) && ( x  <  0.7000000000000000 )) && ( 0.3000000000000000  <  y )) && ( y  <  0.5000000000000000 ))) || (((( 0.2000000000000000  <  x ) && ( x  <  0.5000000000000000 )) && ( 0.4500000000000000  <  y )) && ( y  <  0.5500000000000000 ))) || (((( x  -  0.6500000000000000 ) * ( x  -  0.6500000000000000 )) + (( y  -  0.6000000000000000 ) * ( y  -  0.6000000000000000 ))) <  0.002500000000000000 ) 0.1250000000000000 ]
+0 00000.00 Parameters  Initial:value:total_energy = [ 2.500000000000000 ((((((( 0.2000000000000000  <  x ) && ( x  <  0.3000000000000000 )) && ( 0.3000000000000000  <  y )) && ( y  <  0.7000000000000000 )) || (((( 0.4000000000000000  <  x ) && ( x  <  0.5000000000000000 )) && ( 0.3000000000000000  <  y )) && ( y  <  0.7000000000000000 ))) || (((( 0.6000000000000000  <  x ) && ( x  <  0.7000000000000000 )) && ( 0.3000000000000000  <  y )) && ( y  <  0.5000000000000000 ))) || (((( 0.2000000000000000  <  x ) && ( x  <  0.5000000000000000 )) && ( 0.4500000000000000  <  y )) && ( y  <  0.5500000000000000 ))) || (((( x  -  0.6500000000000000 ) * ( x  -  0.6500000000000000 )) + (( y  -  0.6000000000000000 ) * ( y  -  0.6000000000000000 ))) <  0.002500000000000000 ) 3.500000000000000 ]
+0 00000.00 Parameters  Initial:value:velocity_x = 0.000000000000000
+0 00000.00 Parameters  Initial:value:velocity_y = 0.000000000000000
+0 00000.00 Parameters  Mesh:root_blocks = [ 4 4 ]
+0 00000.00 Parameters  Mesh:root_rank = 2
+0 00000.00 Parameters  Mesh:root_size = [ 80 80 ]
+0 00000.00 Parameters  Method:list = [ "ppm" "flux_correct" ]
+0 00000.00 Parameters  Method:ppm:courant = 0.8000000000000000
+0 00000.00 Parameters  Method:ppm:diffusion = true
+0 00000.00 Parameters  Method:ppm:flattening = 3
+0 00000.00 Parameters  Method:ppm:steepening = true
+0 00000.00 Parameters  Output:density:colormap = [ "black" "blue" "cyan" "lime" "yellow" "red" ]
+0 00000.00 Parameters  Output:density:field_list = [ "density" ]
+0 00000.00 Parameters  Output:density:image_size = [ 640 640 ]
+0 00000.00 Parameters  Output:density:image_type = "data"
+0 00000.00 Parameters  Output:density:name = [ "hi-de-%04d.png" "count" ]
+0 00000.00 Parameters  Output:density:schedule:step = 10
+0 00000.00 Parameters  Output:density:schedule:var = "cycle"
+0 00000.00 Parameters  Output:density:type = "image"
+0 00000.00 Parameters  Output:list = [ "density" "mesh_age" "mesh_level" ]
+0 00000.00 Parameters  Output:mesh_age:colormap = [ "black" "red" "yellow" "white" ]
+0 00000.00 Parameters  Output:mesh_age:image_max = 1.000000000000000
+0 00000.00 Parameters  Output:mesh_age:image_mesh_color = "age"
+0 00000.00 Parameters  Output:mesh_age:image_min = 0.000000000000000
+0 00000.00 Parameters  Output:mesh_age:image_size = [ 641 641 ]
+0 00000.00 Parameters  Output:mesh_age:image_type = "mesh"
+0 00000.00 Parameters  Output:mesh_age:name = [ "hi-mesh-age-%04d.png" "count" ]
+0 00000.00 Parameters  Output:mesh_age:schedule:step = 10
+0 00000.00 Parameters  Output:mesh_age:schedule:var = "cycle"
+0 00000.00 Parameters  Output:mesh_age:type = "image"
+0 00000.00 Parameters  Output:mesh_level:colormap = [ "black" "blue" "cyan" "lime" "yellow" "red" ]
+0 00000.00 Parameters  Output:mesh_level:image_mesh_color = "level"
+0 00000.00 Parameters  Output:mesh_level:image_size = [ 641 641 ]
+0 00000.00 Parameters  Output:mesh_level:image_type = "mesh"
+0 00000.00 Parameters  Output:mesh_level:name = [ "hi-mesh-level-%04d.png" "count" ]
+0 00000.00 Parameters  Output:mesh_level:schedule:step = 10
+0 00000.00 Parameters  Output:mesh_level:schedule:var = "cycle"
+0 00000.00 Parameters  Output:mesh_level:type = "image"
+0 00000.00 Parameters  Physics:fluid_props:dual_energy:type = "disabled"
+0 00000.00 Parameters  Physics:fluid_props:eos:gamma = 1.400000000000000
+0 00000.00 Parameters  Physics:fluid_props:eos:type = "ideal"
+0 00000.00 Parameters  Physics:list = [ "fluid_props" ]
+0 00000.00 Parameters  Stopping:time = 0.1000000000000000
+0 00000.99 WARNING parameters_Config.cpp:1023
+0 00000.99 WARNING Config::read()
+0 00000.99 WARNING output_axis[0] set to z
+0 00000.99 WARNING parameters_Config.cpp:1023
+0 00000.99 WARNING Config::read()
+0 00000.99 WARNING output_axis[1] set to z
+0 00000.99 WARNING parameters_Config.cpp:1023
+0 00000.99 WARNING Config::read()
+0 00000.99 WARNING output_axis[2] set to z
+UNIT TEST BEGIN
+0 00000.99  ==============================================
+0 00000.99   
+0 00000.99    .oooooo.             oooo  oooo            
+0 00000.99   d8P'  `Y8b            `888  `888            
+0 00000.99  888           .ooooo.   888   888   .ooooo.  
+0 00000.99  888          d88' `88b  888   888  d88' `88b 
+0 00000.99  888          888ooo888  888   888  888   888 
+0 00000.99  `88b    ooo  888    .o  888   888  888   888 
+0 00000.99   `Y8bood8P'  `Y8bod8P' o888o o888o `Y8bod8P' 
+0 00000.99   
+0 00000.99  A Parallel Adaptive Mesh Refinement Framework
+0 00000.99   
+0 00000.99    Laboratory for Computational Astrophysics
+0 00000.99          San Diego Supercomputer Center
+0 00000.99       University of California, San Diego
+0 00000.99   
+0 00000.99  See 'LICENSE_CELLO' for software license information
+0 00000.99   
+0 00000.99  BEGIN CELLO: Sep 08 10:05:12
+0 00000.99 Define Simulation processors 8
+0 00000.99 Define CELLO_PREC          double
+0 00000.99 Define CC                  /opt/intel/oneapi/compiler/2024.0/bin/icx
+0 00000.99 Define CFLAGS              
+0 00000.99 Define CPPDEFINES          CONFIG_PRECISION_DOUBLE;SMALL_INTS;CONFIG_USE_GRACKLE;NO_FREETYPE;CELLO_VERSION="1.0.0";BYPASS_CHARM_MEM_LEAK;CONFIG_NODE_SIZE=64;CONFIG_NODE_SIZE_3=192;CONFIG_USE_PERFORMANCE;CONFIG_HAVE_VERSION_CONTROL
+0 00000.99 Define CXX                 /opt/intel/oneapi/compiler/2024.0/bin/icpx
+0 00000.99 Define CXXFLAGS            
+0 00000.99 Define FORTRANFLAGS        
+0 00000.99 Define FORTRAN             /opt/intel/oneapi/compiler/2024.0/bin/ifx
+0 00000.99 Define BUILD HOST          Linux-5.14.0-503.23.2.el9_5.x86_64
+0 00000.99 Define BUILD DIR           /home1/10334/jthsu2001/enzo-e/build-icx-mpi
+0 00000.99 Define CELLO_VERSION       1.0.0
+0 00000.99 Define CHANGESET           4798687a1
+0 00000.99 Define CHARM_PATH          /home1/10334/jthsu2001/charm/mpi-linux-x86_64-icx
+0 00000.99 Define CONFIG_NODE_SIZE    64
+0 00000.99 Define CONFIG_SMP_MODE     no
+0 00000.99 CHARM CkNumPes()           8
+0 00000.99 CHARM CkNumNodes()         8
+0 00000.99  BEGIN ENZO-E
+0 00000.99 Memory bytes 0 bytes_high 0
+0 00000.99 WARNING problem_InitialValue.cpp:158
+0 00000.99 WARNING InitialValue::enforce_block
+0 00000.99 WARNING Uninitialized field internal_energy
+0 00000.99 WARNING problem_InitialValue.cpp:158
+0 00000.99 WARNING InitialValue::enforce_block
+0 00000.99 WARNING Uninitialized field pressure
+0 00001.33  -------------------------------------
+0 00001.33 Simulation cycle 0000
+0 00001.33 Simulation time-sim 0.000000000000e+00
+0 00001.33 Simulation dt 0.000000000000e+00
+0 00001.33 Performance counter num-msg-coarsen 0
+0 00001.33 Performance counter num-msg-refine 0
+0 00001.33 Performance counter num-msg-refresh 0
+0 00001.33 Performance counter num-data-msg 0
+0 00001.33 Performance counter num-field-face 444
+0 00001.33 Performance counter num-particle-data 460
+0 00001.33 Performance simulation num-particles total 0
+0 00001.33 performance simulation num-blocks-level 0 16
+0 00001.33 performance simulation num-blocks-level 1 64
+0 00001.33 performance simulation num-blocks-level 2 136
+0 00001.33 performance simulation num-blocks-level 3 244
+0 00001.33 Performance simulation num-leaf-blocks 349
+0 00001.33 Performance simulation num-total-blocks 460
+0 00001.33 Performance simulation time-usec 2682297
+0 00001.33 Performance cycle time-usec 0
+0 00001.33 Performance cycle bytes-curr 0
+0 00001.33 Performance cycle bytes-high 0
+0 00001.33 Performance cycle bytes-highest 0
+0 00001.33 Performance cycle bytes-available 0
+0 00001.33 Performance initial time-usec -10039
+0 00001.33 Performance adapt_apply time-usec 9512
+0 00001.33 Performance adapt_apply_sync time-usec 2694
+0 00001.33 Performance adapt_update time-usec 26715
+0 00001.33 Performance adapt_update_sync time-usec 87819
+0 00001.33 Performance adapt_notify time-usec 43717
+0 00001.33 Performance adapt_notify_sync time-usec 2103
+0 00001.33 Performance adapt_end time-usec 169
+0 00001.33 Performance adapt_end_sync time-usec 1288
+0 00001.33 Performance refresh_store time-usec 0
+0 00001.33 Performance refresh_child time-usec 0
+0 00001.33 Performance refresh_exit time-usec 0
+0 00001.33 Performance refresh_store_sync time-usec 0
+0 00001.33 Performance refresh_child_sync time-usec 0
+0 00001.33 Performance refresh_exit_sync time-usec 0
+0 00001.33 Performance control time-usec 1486
+0 00001.33 Performance compute time-usec 0
+0 00001.33 Performance output time-usec 291626
+0 00001.33 Performance stopping time-usec 0
+0 00001.33 Performance block time-usec -11808499
+0 00001.33 Performance exit time-usec 0
+0 00001.33 Performance grackle time-usec 0
+0 00001.33 Performance simulation max-proc-blocks 102
+0 00001.33 Performance simulation max-node-blocks 102
+0 00001.33 Performance simulation max-proc-particles 0
+0 00001.33 Performance simulation max-node-particles 0
+0 00001.33 Performance simulation balance-eff-blocks-core 0.563725 (58/102)
+0 00001.33 Performance simulation balance-eff-blocks-node 0.563725 (58/102)
+0 00001.62 Method Field density sum                  nan conserved to -nan digits of 15
+0 00001.62 Method Field internal_energy sum                  nan conserved to -nan digits of 15
+0 00001.62 Method Field total_energy sum                  nan conserved to -nan digits of 15
+0 00001.62 Method Field velocity_x sum                  nan conserved to -nan digits of 15
+0 00001.62 Method Field velocity_y sum                  nan conserved to -nan digits of 15
+0 00001.65  -------------------------------------
+0 00001.65 Simulation cycle 0001
+0 00001.65 Simulation time-sim 4.464285913855e-04
+0 00001.65 Simulation dt 4.464285913855e-04
+0 00001.65 Performance counter num-msg-coarsen 0
+0 00001.65 Performance counter num-msg-refine 0
+0 00001.65 Performance counter num-msg-refresh 0
+0 00001.65 Performance counter num-data-msg 0
+0 00001.65 Performance counter num-field-face 444
+0 00001.65 Performance counter num-particle-data 524
+0 00001.65 Performance simulation num-particles total 0
+0 00001.65 performance simulation num-blocks-level 0 16
+0 00001.65 performance simulation num-blocks-level 1 64
+0 00001.65 performance simulation num-blocks-level 2 196
+0 00001.65 performance simulation num-blocks-level 3 248
+0 00001.65 Performance simulation num-leaf-blocks 397
+0 00001.65 Performance simulation num-total-blocks 524
+0 00001.65 Performance simulation time-usec 5297669
+0 00001.65 Performance cycle time-usec 2591214
+0 00001.65 Performance cycle bytes-curr 0
+0 00001.65 Performance cycle bytes-high 0
+0 00001.65 Performance cycle bytes-highest 0
+0 00001.65 Performance cycle bytes-available 0
+0 00001.65 Performance initial time-usec -10039
+0 00001.65 Performance adapt_apply time-usec 15733
+0 00001.65 Performance adapt_apply_sync time-usec 3336
+0 00001.65 Performance adapt_update time-usec 80484
+0 00001.65 Performance adapt_update_sync time-usec 197359
+0 00001.65 Performance adapt_notify time-usec 74626
+0 00001.65 Performance adapt_notify_sync time-usec 3139
+0 00001.65 Performance adapt_end time-usec 348
+0 00001.65 Performance adapt_end_sync time-usec 2574
+0 00001.65 Performance refresh_store time-usec 0
+0 00001.65 Performance refresh_child time-usec 829
+0 00001.65 Performance refresh_exit time-usec 0
+0 00001.65 Performance refresh_store_sync time-usec 0
+0 00001.65 Performance refresh_child_sync time-usec 5340
+0 00001.65 Performance refresh_exit_sync time-usec 0
+0 00001.65 Performance control time-usec 6576
+0 00001.65 Performance compute time-usec 1002230
+0 00001.65 Performance output time-usec 292238
+0 00001.65 Performance stopping time-usec 48349
+0 00001.65 Performance block time-usec -85424634
+0 00001.65 Performance exit time-usec 0
+0 00001.65 Performance grackle time-usec 0
+0 00001.65 Performance simulation max-proc-blocks 114
+0 00001.65 Performance simulation max-node-blocks 114
+0 00001.65 Performance simulation max-proc-particles 0
+0 00001.65 Performance simulation max-node-particles 0
+0 00001.65 Performance simulation balance-eff-blocks-core 0.574561 (66/114)
+0 00001.65 Performance simulation balance-eff-blocks-node 0.574561 (66/114)
+ yeuler_sweep dslice            1           7           1
+ -7.450585877422089E-009
+ yeuler_sweep dslice            2           7           1
+ -7.450585877422089E-009
+ yeuler_sweep dslice            4           8           1
+ -1.907349988172768E-006
+ yeuler_sweep dslice            6           8           1
+ -1.907349988172768E-006
+ yeuler_sweep dslice            8           8           1
+ -1.907349988172768E-006
+ yeuler_sweep dslice           10           8           1
+ -1.907349988172768E-006
+ yeuler_sweep dslice           12           8           1
+ -1.907349988172768E-006
+ yeuler_sweep dslice           14           8           1
+ -1.907349988172768E-006
+ yeuler_sweep dslice           26           7           1
+ -1.907349988172768E-006
+ yeuler_sweep dslice           28           7           1
+ -1.907349988172768E-006
+ xeuler_sweep dslice            1           7           1
+ -7.450585877422089E-009
+ FAIL  0/1 /home1/10334/jthsu2001/enzo-e/src/Cello/error_Error.cpp 66  
+ yeuler_sweep dslice           28           7           1
+ -1.831055554077921E-004
+ xeuler_sweep dslice           28           7           1
+ -1.831055554077921E-004
+ FAIL  0/8 /home1/10334/jthsu2001/enzo-e/src/Cello/error_Error.cpp 66  
+[7] Stack Traceback:
+  [7:0] enzo-e 0xbea7f6 
+[0] Stack Traceback:
+  [7:1] enzo-e 0x9b9c3d 
+  [0:0] enzo-e 0xbea7f6 
+  [7:2] enzo-e 0x7b0d81 EnzoMethodPpm::SolveHydroEquations(EnzoBlock&, double, double, bool, bool, bool, int, bool, bool, bool, double)
+  [0:1] enzo-e 0x9b9c3d 
+  [7:3] enzo-e 0x7adea4 EnzoMethodPpm::compute(Block*)
+  [0:2] enzo-e 0x7b0d81 EnzoMethodPpm::SolveHydroEquations(EnzoBlock&, double, double, bool, bool, bool, int, bool, bool, bool, double)
+ yeuler_sweep eslice            2           6           1
+ -5.960467091212752E-028
+  [7:4] enzo-e 0x9a5a07 Block::compute_continue_()
+  [0:3] enzo-e 0x7adea4 EnzoMethodPpm::compute(Block*)
+  [7:5] enzo-e 0x97b425 Block::p_compute_continue()
+  [0:4] enzo-e 0x9a5a07 Block::compute_continue_()
+ yeuler_sweep eslice           12           1           1
+ -2.115209246776836E-007
+  [7:6] enzo-e 0x96d871 CkIndex_Block::_call_p_compute_continue_void(void*, void*)
+  [0:5] enzo-e 0x97b425 Block::p_compute_continue()
+  [7:7] enzo-e 0xaf3a2c CkDeliverMessageFree
+  [0:6] enzo-e 0x96d871 CkIndex_Block::_call_p_compute_continue_void(void*, void*)
+  [7:8] enzo-e 0xb2fe9b CkLocRec::invokeEntry(CkMigratable*, void*, int, bool)
+  [0:7] enzo-e 0xaf3a2c CkDeliverMessageFree
+  [7:9] enzo-e 0xaf6081 _processHandler(void*, CkCoreState*)
+ xeuler_sweep eslice           12           1           1
+ -2.115209246776836E-007
+ FAIL  0/1 /home1/10334/jthsu2001/enzo-e/src/Cello/error_Error.cpp 66  
+  [0:8] enzo-e 0xb2fe9b CkLocRec::invokeEntry(CkMigratable*, void*, int, bool)
+  [7:10] enzo-e 0xbb44b7 CsdScheduleForever
+  [0:9] enzo-e 0xaf6081 _processHandler(void*, CkCoreState*)
+  [7:11] enzo-e 0xbb4270 CsdScheduler
+  [0:10] enzo-e 0xbb44b7 CsdScheduleForever
+  [7:12] enzo-e 0xbecdba ConverseInit
+  [0:11] enzo-e 0xbb4270 CsdScheduler
+  [7:13] enzo-e 0xba1f04 charm_main
+  [7:14] libc.so.6 0x14e173a295d0 
+  [7:15] libc.so.6 0x14e173a29680 __libc_start_main
+  [7:16] enzo-e 0x65c7c5 _start
+  [0:12] enzo-e 0xbecdba ConverseInit
+  [0:13] enzo-e 0xba1f04 charm_main
+  [0:14] libc.so.6 0x14b86e4295d0 
+  [0:15] libc.so.6 0x14b86e429680 __libc_start_main
+  [0:16] enzo-e 0x65c7c5 _start
+[2] Stack Traceback:
+  [2:0] enzo-e 0xbea7f6 
+  [2:1] enzo-e 0x9b9c3d 
+  [2:2] enzo-e 0x7b0d81 EnzoMethodPpm::SolveHydroEquations(EnzoBlock&, double, double, bool, bool, bool, int, bool, bool, bool, double)
+  [2:3] enzo-e 0x7adea4 EnzoMethodPpm::compute(Block*)
+  [2:4] enzo-e 0x9a5a07 Block::compute_continue_()
+  [2:5] enzo-e 0x97b425 Block::p_compute_continue()
+  [2:6] enzo-e 0x96d871 CkIndex_Block::_call_p_compute_continue_void(void*, void*)
+  [2:7] enzo-e 0xaf3a2c CkDeliverMessageFree
+  [2:8] enzo-e 0xb2fe9b CkLocRec::invokeEntry(CkMigratable*, void*, int, bool)
+  [2:9] enzo-e 0xaf6081 _processHandler(void*, CkCoreState*)
+  [2:10] enzo-e 0xbb44b7 CsdScheduleForever
+  [2:11] enzo-e 0xbb4270 CsdScheduler
+  [2:12] enzo-e 0xbecdba ConverseInit
+  [2:13] enzo-e 0xba1f04 charm_main
+  [2:14] libc.so.6 0x151fc88295d0 
+  [2:15] libc.so.6 0x151fc8829680 __libc_start_main
+  [2:16] enzo-e 0x65c7c5 _start
+TACC:  MPI job exited with code: 1 
+TACC:  Shutdown complete. Exiting. 

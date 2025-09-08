@@ -1,0 +1,67 @@
+include "input/dots.incl"
+
+Mesh { 
+   root_size   = [32, 32];
+   root_blocks = [4,4];
+}
+
+Adapt {
+   max_level   = 5; 
+   list = ["slope"];
+   slope {
+       type = "slope";
+       field_list = ["density"];
+       min_refine = 4.0;
+       max_coarsen = 1.0; 
+   }
+} 
+
+Field {
+    ghost_depth = 4; # must be even for ProlongLinear
+}
+
+Stopping { cycle = 2000; }
+
+Boundary { 
+   list = ["out_x","reflect_x","period_x","period_y"];
+
+   out_x {
+     type = "outflow";
+     mask = (y <= 0.333);
+   }
+   reflect_x {
+     type = "reflecting";
+     mask = (0.333 < y && y <= 0.666);
+   }
+   period_x {
+     type = "periodic";
+     mask = (0.666 < y);
+   }
+   period_y {
+     type = "periodic";
+   }
+}
+
+include "input/initial-box.incl"
+
+Output { 
+#   list = ["cycle_step","mesh"];
+   list = ["cycle_step"];
+
+   cycle_step {  
+      name = ["boundary_masked-2d-%04d.png","cycle"]; 
+      include "input/colormap_blackbody.incl"
+   } ;
+    mesh {
+	type     = "image";
+	name = ["boundary_masked-mesh-2d-%04d.png","cycle"];
+	image_type  = "data+mesh";
+	image_reduce_type = "max";
+        field_list = ["density"];
+        include "input/schedule_cycle_10.incl"
+	image_min = 0.0;
+	image_max = 6.0;
+       include "input/colormap_blackbody.incl"
+      }
+}
+

@@ -1,0 +1,14 @@
+# File:    adapt_slope.incl
+
+Adapt {
+   max_level = 3; 
+   list = ["slope"];
+   slope {
+      type = "slope";
+      field_list = ["density"];
+      min_refine = 10.0;
+      max_coarsen = 2.0;
+   }
+}
+
+Field { ghost_depth = 4; }

@@ -1,0 +1,9 @@
+
+Currently Loaded Modules:
+  1) intel/24.0      4) cmake/4.1.0     7) TACC
+  2) impi/21.11      5) xalt/3.1.1      8) hdf5/1.14.6
+  3) autotools/1.4   6) python/3.9.18   9) boost/1.86.0
+
+ 
+
+slurmstepd: error: *** JOB 2348166 ON c519-083 CANCELLED AT 2025-09-08T10:24:04 ***

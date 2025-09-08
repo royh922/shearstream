@@ -1,0 +1,20 @@
+Method {
+    gravity {
+        solver = "bcg";
+    }
+ }
+
+Solver {
+     list = [ "bcg", "diagonal" ];
+     bcg {
+         iter_max = 200;
+         res_tol = 0.02;                  
+         monitor_iter = 10;
+         type = "bicgstab";
+         precondition = "diagonal";
+     };
+     diagonal {
+        type = "diagonal";
+     }
+ }
+

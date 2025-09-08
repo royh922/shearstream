@@ -1,0 +1,105 @@
+# For VL integrator test problems
+# Author: Matthew Abruzzo (matthewabruzzo@gmail.com)
+
+   Physics {
+
+      list = ["fluid_props"];
+
+      fluid_props {
+         eos {
+            gamma = 1.6666666666666667;
+         }
+
+         floors {
+            density  = 1.0e-200;
+            pressure = 1.0e-200;
+         }
+      }
+   }
+
+   Method {
+      list = ["mhd_vlct"];
+      mhd_vlct{
+        courant = 0.4;
+
+        # options include "no_bfield" and "constrained_transport"
+        mhd_choice = "no_bfield";
+
+        # default is hlle. Options are hll, hlle, hllc, and hlld
+        riemann_solver = "hllc";
+
+        # specify the temporal integrator. Options include:
+        #    - "vl": the default scheme. This is a predictor-corrector scheme
+        #    - "euler": a single-step scheme (FOR TESTING PURPOSES)
+        time_scheme = "vl";
+
+        # Reconstruction algorithms choices are:
+        #    - "nn" Nearest Neighbor
+        #    - "plm"/"plm_enzo" Piecewise Linear Method with Enzo's slope
+        #      limiter. The "theta_limiter" value affects the diffusiveness
+        #      of the limiter.
+        #    - "plm_athena" Piecewise Linear method with Athena's slope limiter
+        #
+        # Recommendations vary based on the value assigned to time_scheme:
+        #    - "euler": you should ALWAYS use "nn"
+        #    - "vl": you can choose whatever you want. Note that the predictor
+        #            step (aka the half-timestep) always uses "nn". This choice
+        #            only affects reconstruction for the full timestep.
+
+        reconstruct_method = "plm"; # (this is the default)
+
+        # modifies slope limiter used in piecewise linear reconstruction. If
+        # "plm" or "plm_enzo" is not used, then this parameter is meainingless.
+        # This should have a value in the range [1.,2.]. A value of 1. is most
+        # dissipative and is the same as the minmod limiter. A value of 2. is
+        # least dissipative and is the same as the MC limiter. The default
+        # value is 1.5.
+        theta_limiter = 2.;
+      };
+   }
+
+   Field {
+      # The VL method always uses the following fields:
+      #    - velocity_x/y/z
+      #    - (specific) total_energy
+      #    - pressure (this is a field used to temporarily write data)
+      # When the dual energy formalism is in use, it also requires:
+      #    - (specific) internal_energy
+      # When using VL+CT (i.e. mhd_choice = "constrained_transport";), the
+      # integrator further requires:
+      #    - bfieldi_x/y/z (The interface magnetic fields -- aka longitudinal.
+      #      The x/y/z component is the only component tracked at the faces
+      #      between cells along the x/y/z component)
+      #    - bfield_x/y/z (the cell-centered magenetic fields. Each component
+      #      is the average value of the corresponding interface values)
+      list = ["density", "velocity_x", "velocity_y", "velocity_z",
+	      "total_energy", "pressure"];
+
+      courant=0.4;
+
+      # The VL method reconstructs interface values (to compute fluxes) twice
+      # per timestep. Can perform nearest-neighbor or PLM reconstruction. Each
+      # time a method is used, it requires a certain number of ghost zones:
+      # 1. Nearest-neighbor requires 1 ghost zone
+      # 2. PLM requires 2 ghost zones
+      # It's standard to use nearest-neighbor + PLM (requires 3 ghost zones)
+      ghost_depth = 3;
+      padding = 0;
+      alignment = 8;
+   }
+
+   Group {
+      list = ["derived"];
+      derived {
+         field_list = ["pressure"];
+      }
+   }
+
+   Output {
+      list = ["data"];
+      data {
+	 type = "data";
+	 field_list = ["density", "velocity_x", "velocity_y", "velocity_z",
+                       "pressure", "total_energy"];
+      };
+   }

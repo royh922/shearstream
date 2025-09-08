@@ -1,0 +1,4 @@
+# File:    colormap_greyscale.incl
+
+ colormap = [ "black", "white" ];
+

@@ -1,0 +1,11 @@
+# Default: 64^3 domain, 16^3 block sizes, with sedov blast in each block
+
+include "config-default.incl"
+
+include "config-dimension.incl"
+include "config-max-level.incl"
+include "config-adapt-interval.incl"
+include "config-stopping-cycle.incl"
+include "config-stopping-interval.incl"
+include "config-trace.incl"
+

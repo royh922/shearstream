@@ -1,0 +1,67 @@
+charm configuration (v8.0.0):
+cmake -DNETWORK=mpi -DSMP=OFF -DCMAKE_CXX_COMPILER=icpx -DCMAKE_C_COMPILER=icx -DCMAKE_Fortran_COMPILER=ifx ..
+
+enzo-e configuration:
+cmake ..   -DCMAKE_BUILD_TYPE=Debug   -DCHARM_ROOT=$HOME/charm/mpi-linux-x86_64-icx   -DHDF5_ROOT=$TACC_HDF5_DIR   -DEnzo-E_CONFIG=stampede_icx
+
+stampede_icx.cmake:
+
+# Stampede3 machine configuration for Enzo-E using Intel (oneAPI) toolchain.
+# Loaded modules at test time (2025-09-06):
+#   module load intel-oneapi boost hdf5
+# Charm++ was built separately (pure MPI, no SMP)
+if(NOT __processedUserDefaults)
+
+  message(STATUS
+"Loading Stampede3 config.
+Compilers: icpx/icx/ifx")
+
+  set(CMAKE_CXX_COMPILER icpx CACHE STRING "")
+  set(CMAKE_C_COMPILER   icx  CACHE STRING "")
+  set(CMAKE_Fortran_COMPILER ifx CACHE STRING "")
+
+  # Enforce C++ standard (adjust if project requires a different one)
+  set(CMAKE_CXX_STANDARD 17)
+  set(CMAKE_CXX_STANDARD_REQUIRED ON)
+  set(CMAKE_CXX_EXTENSIONS OFF)
+
+  # Architecture flags (pick one appropriate for Stampede3 nodes)
+  set(CONFIG_ARCH_FLAGS "-xCORE-AVX512" CACHE STRING
+      "Architecture optimization flags (e.g., -xCORE-AVX512, -xCORE-AVX2, -xHost)")
+
+  # Base (Release) flags (user can override by defining these before configuring)
+  if(NOT DEFINED ENZOE_CXX_FLIST_INIT)
+    set(ENZOE_CXX_FLIST_INIT
+        "-O3 ${CONFIG_ARCH_FLAGS} -fp-model precise -fno-fast-math -qno-openmp-simd"
+        CACHE STRING "Base C++ flags for Enzo-E")
+  endif()
+  if(NOT DEFINED ENZOE_C_FLIST_INIT)
+    set(ENZOE_C_FLIST_INIT
+        "-O3 ${CONFIG_ARCH_FLAGS} -fp-model precise -fno-fast-math"
+        CACHE STRING "Base C flags for Enzo-E")
+  endif()
+  if(NOT DEFINED ENZOE_Fortran_FLIST_INIT)
+    set(ENZOE_Fortran_FLIST_INIT
+        "-O3 ${CONFIG_ARCH_FLAGS} -fp-model precise -fno-fast-math"
+        CACHE STRING "Base Fortran flags for Enzo-E")
+  endif()
+
+  # Debug overrides (apply if user sets CMAKE_BUILD_TYPE=Debug)
+  if(CMAKE_BUILD_TYPE MATCHES "[Dd]ebug")
+    set(ENZOE_CXX_FLIST_INIT
+        "-O0 -g -fstack-protector -fno-omit-frame-pointer -fp-model precise -ftrapuv"
+        CACHE STRING "Debug C++ flags" FORCE)
+    set(ENZOE_C_FLIST_INIT
+        "-O0 -g -fstack-protector -fno-omit-frame-pointer -fp-model precise -ftrapuv"
+        CACHE STRING "Debug C flags" FORCE)
+    set(ENZOE_Fortran_FLIST_INIT
+        "-O0 -g -fstack-protector -ftrapuv -traceback"
+        CACHE STRING "Debug Fortran flags" FORCE)
+    message(STATUS "Debug build: enabled -ftrapuv and stack protections.")
+  endif()
+
+  set(__processedUserDefaults ON)
+endif()
+
+
+Run seems to work perfectly. Expected this to break too as other inputs with ppm all failed

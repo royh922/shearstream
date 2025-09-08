@@ -1,0 +1,49 @@
+# FILE: trace-on
+
+Particle {
+   list += ["trace"];
+   trace {
+      attributes = ["id", "int64",
+		              "x", "default",
+                    "y", "default",
+                    "z", "default",
+                    "is_local", "int64"];
+      position = ["x","y","z"];
+   }
+}
+
+Initial {
+   list += ["trace"];
+   trace {
+      field = "total_energy";
+      mass_per_particle = 0.5e-7;
+   }
+}
+
+Method {
+   list += ["trace"];
+}
+
+Output {
+#   list += ["trace_h5","trace_png"];
+   list += ["trace_png"];
+   trace_h5 {
+      type = "data";
+      field_list = ["density"];
+      particle_list = ["trace"];
+      name = ["trace-p%02d-c%06d.h5", "proc","cycle"];
+      include "config-output-schedule.incl"
+   }
+   trace_png {
+      type = "image";
+#      field_list = ["density"];
+      particle_list = ["trace"];
+      image_size = [1024,1024];
+      colormap =   # blackbody
+          [ "black", "red", "yellow", "white" ];
+
+
+      name = ["trace-p%02d-c%06d.png", "proc","cycle"];
+      include "config-output-schedule.incl"
+   }
+}
