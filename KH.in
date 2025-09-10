@@ -1,0 +1,153 @@
+### Problem: Kelvin Helmholtz Test
+### Summary: Kelvin Helmholtz instability in a shear stream
+###    Date: 2025-09-10
+###  Author: Jui-Teng (Roy) Hsu
+
+
+Domain { 
+    lower = [0.0, 0.0, 0.0];
+    upper = [1.0, 1.0, 1.0];
+} 
+
+Mesh {
+    root_rank   = 3;
+    root_size   = [1024, 512, 512];
+    root_blocks = [16, 8, 8];
+}
+
+Physics {
+    list = ["fluid_props"];
+    fluid_props {
+
+        dual_energy { type = "disabled"; }
+
+        eos {gamma = 1.666666666667;}
+
+        floors {
+            density  = 1e-10;
+            pressure = 1e-10;
+        }
+
+        mol_weight = 0.6; # Fully ionized Hydrogen 
+    }
+}
+
+Field {
+
+    ghost_depth  = 4;
+
+    list = [
+        "density",
+        "velocity_x",
+        "velocity_y",
+        "total_energy",
+        "internal_energy",
+        "pressure"
+    ];
+}
+
+Method {
+
+    list = ["ppm"];
+
+    ppm {
+        courant = 0.3;
+        diffusion   = true;
+        flattening  = 0;
+        steepening  = false;
+    }
+}
+
+include "input/flux_correct.incl"
+
+Initial {
+
+    list = ["value"];
+
+    value {       
+        density       = [0.5, y < (0.3 + 0.02*sin(2.0*pi*x)) || y > (0.7 + 0.02*sin(2.0*pi*x)), 1.0];
+        velocity_x    = [1.0, y < (0.3 + 0.02*sin(2.0*pi*x)) || y > (0.7 + 0.02*sin(2.0*pi*x)), -1.0];
+        velocity_y    = 0.0;
+        total_energy   = [20.0, y < (0.3 + 0.02*sin(2.0*pi*x)) || y > (0.7 + 0.02*sin(2.0*pi*x)), 10.0];
+    }
+}
+
+Boundary { type = "periodic"; }
+
+Stopping {
+    time = 10.0;
+}
+
+Output { 
+
+    #list = ["density", "pressure", "energy", "hdf5"];
+    list = ["density", "mesh"];
+
+    density {
+
+        name       = ["kh-de-%04d.png","count"];
+        type       = "image";
+        field_list = ["density"];
+
+        image_type = "data";
+        # image_size = [2048,1024];  
+
+        image_specify_bounds = true;
+        image_min = 0.4;
+        image_max = 1.1;
+
+        include "input/Schedule/schedule_cycle_25.incl"
+
+        include "input/Colormap/colormap_blackbody.incl"
+
+    }
+
+    mesh {
+        name = ["kh-mesh-%04d.png","count"];
+        type = "image";
+        image_type  = "mesh";
+        image_reduce_type = "max";
+        image_size = [1921, 1081];
+        include "input/Schedule/schedule_cycle_25.incl"
+        image_min = 0.0;
+        image_max = 4.0;
+        include "input/Colormap/colormap_rainbow.incl"
+    }
+
+    pressure {
+
+        name = ["kh-pr-%04d.png","count"];
+        type = "image";
+        field_list = ["pressure"];
+
+        image_type = "data";
+    #	 image_size = [2048,1024];
+
+        include "input/Schedule/schedule_cycle_25.incl"
+
+        include "input/Colormap/colormap_blackbody.incl"
+
+    }
+
+    energy {
+
+        name       = ["kh-te-%04d.png","count"];
+        type       = "image";
+        field_list = ["total_energy"];
+
+        image_type = "data";
+    #	 image_size = [2048,1024];
+
+        include "input/Schedule/schedule_cycle_25.incl"
+
+        include "input/Colormap/colormap_blackbody.incl"
+
+    }
+
+    hdf5 {
+        field_list = ["density", "pressure", "total_energy"];
+        name = ["KH%02d.h5", "count"];
+        type = "data";
+        include "input/Schedule/schedule_cycle_25.incl"
+    }
+}
