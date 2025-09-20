@@ -1,0 +1,153 @@
+### Problem: Kelvin Helmholtz Test
+### Summary: Kelvin Helmholtz instability in a shear stream
+###    Date: 2025-09-10
+###  Author: Jui-Teng (Roy) Hsu
+
+
+Domain { 
+    lower = [-4.0, -2.0, -2.0];
+    upper = [4.0, 2.0, 2.0];
+} 
+
+Mesh {
+    root_rank   = 3;
+    root_size   = [1024, 512, 512];
+    root_blocks = [16, 8, 8];
+}
+
+Physics {
+    list = ["fluid_props"];
+    fluid_props {
+
+        dual_energy { type = "disabled"; }
+
+        eos {gamma = 1.666666666667;}
+
+        floors {
+            density  = 1e-10;
+            pressure = 1e-10;
+        }
+
+        mol_weight = 0.6; # Fully ionized Hydrogen 
+    }
+}
+
+Field {
+
+    ghost_depth  = 4;
+
+    list = [
+        "density",
+        "velocity_x",
+        "velocity_y",
+        "total_energy",
+        "internal_energy",
+        "pressure"
+    ];
+}
+
+Method {
+
+    list = ["ppm"];
+
+    ppm {
+        courant = 0.3;
+        diffusion   = true;
+        flattening  = 0;
+        steepening  = false;
+    }
+}
+
+include "input/flux_correct.incl"
+
+Initial {
+
+    list = ["value"];
+
+    value {       
+        # Density defined by tanh function 
+        # rho * [0.5 * (c + 1) + 0.5 * (c - 1) * tanh((r - R) / s)]
+        # rho = diffuse density, c = density contrast, r = radius from axis, 
+        # R = cylinder radius, s = smoothing thickness of tanh
+        density = [1.0 * (0.5 * (100 + 1) + 0.5 * (100 - 1) * tanh((sqrt(y*y + z*z) - 1.0) / 0.1))];
+
+        # Shear velocity in the x direction, also smoothed by tanh
+        velocity_x = [1.0 * -1.0 * tanh((sqrt(y*y + z*z) - 1.0) / 0.1)];
+        
+        # Perturbation defined by sine and gaussian
+        # mag * exp(-1 * ((r - R) / s)^2) * sin(2 * Pi * x / lambda) * sin(theta)
+        # mag = magnitude of perturbation, lambda = period of perturbation along the flow axis
+        # theta = angle around the cylinder axis = atan2(y/z)
+        velocity_y = [0.01 * exp(-1 * pow((sqrt(y*y + z*z) - 1) / 0.1, 2)) * sin(2 * M_PI * x / 1.0) * sin(atan2(y, z))]
+        velocity_z = [0.01 * exp(-1 * pow((sqrt(y*y + z*z) - 1) / 0.1, 2)) * sin(2 * M_PI * x / 1.0) * cos(atan2(y, z))]
+        total_energy   = [20.0, y < (0.3 + 0.02*sin(2.0*pi*x)) || y > (0.7 + 0.02*sin(2.0*pi*x)), 10.0];
+    }
+}
+
+Boundary { type = "periodic"; }
+
+Stopping {
+    time = 10.0;
+}
+
+Output { 
+
+    #list = ["density", "pressure", "energy", "hdf5"];
+    list = ["density", "mesh"];
+
+    density {
+
+        name       = ["kh-de-%04d.png","count"];
+        type       = "image";
+        field_list = ["density"];
+
+        image_type = "data";
+        # image_size = [2048,1024];  
+
+        image_specify_bounds = true;
+        image_min = 0.4;
+        image_max = 1.1;
+
+        include "input/Schedule/schedule_cycle_25.incl"
+
+        include "input/Colormap/colormap_blackbody.incl"
+
+    }
+
+    pressure {
+
+        name = ["kh-pr-%04d.png","count"];
+        type = "image";
+        field_list = ["pressure"];
+
+        image_type = "data";
+    #	 image_size = [2048,1024];
+
+        include "input/Schedule/schedule_cycle_25.incl"
+
+        include "input/Colormap/colormap_blackbody.incl"
+
+    }
+
+    energy {
+
+        name       = ["kh-te-%04d.png","count"];
+        type       = "image";
+        field_list = ["total_energy"];
+
+        image_type = "data";
+    #	 image_size = [2048,1024];
+
+        include "input/Schedule/schedule_cycle_25.incl"
+
+        include "input/Colormap/colormap_blackbody.incl"
+
+    }
+
+    hdf5 {
+        field_list = ["density", "pressure", "total_energy"];
+        name = ["KH%02d.h5", "count"];
+        type = "data";
+        include "input/Schedule/schedule_cycle_25.incl"
+    }
+}

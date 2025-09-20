@@ -1,0 +1,1603 @@
+/scratch/10334/jthsu2001/enzo-test
+Mon Sep  8 10:27:42 AM CDT 2025
+TACC:  Starting up job 2348186 
+TACC:  Starting parallel tasks... 
+Charm++> Running on MPI library: Intel(R) MPI Library 2021.11 for Linux* OS
+ (MPI standard: 3.1)
+Charm++> Level of thread support used: MPI_THREAD_SINGLE (desired: MPI_THREAD_SINGLE)
+Charm++> Running in non-SMP mode: 8 processes (PEs)
+Converse/Charm++ Commit ID: v8.0.0
+Charm++> MPI timer is synchronized
+Isomalloc> Synchronized global address space.
+CharmLB> Load balancer assumes all CPUs are same.
+Charm++> Running on 1 hosts (2 sockets x 56 cores x 1 PUs = 112-way SMP)
+Charm++> cpu topology info is gathered in 0.002 seconds.
+[0] No TreeLB configuration file found. Choosing a default configuration.
+[0] TreeLB: Using PE_Root tree with: GreedyRefine 
+0 00000.00 Parameters  Boundary:bfield_upwind:axis = "x"
+0 00000.00 Parameters  Boundary:bfield_upwind:face = "lower"
+0 00000.00 Parameters  Boundary:bfield_upwind:field_list = [ "bfield_x" "bfieldi_x" "bfield_y" "bfieldi_y" "bfield_z" "bfieldi_z" ]
+0 00000.00 Parameters  Boundary:bfield_upwind:type = "inflow"
+0 00000.00 Parameters  Boundary:bfield_upwind:value = 0.000000000000000
+0 00000.00 Parameters  Boundary:downwind:axis = "x"
+0 00000.00 Parameters  Boundary:downwind:face = "upper"
+0 00000.00 Parameters  Boundary:downwind:type = "outflow"
+0 00000.00 Parameters  Boundary:hydro_upwind:axis = "x"
+0 00000.00 Parameters  Boundary:hydro_upwind:face = "lower"
+0 00000.00 Parameters  Boundary:hydro_upwind:type = "inflow"
+0 00000.00 Parameters  Boundary:hydro_upwind:value:cloud_dye = 0.000000000000000
+0 00000.00 Parameters  Boundary:hydro_upwind:value:density = 0.08944866290871940
+0 00000.00 Parameters  Boundary:hydro_upwind:value:internal_energy = 71.98495595720811
+0 00000.00 Parameters  Boundary:hydro_upwind:value:metal_density = 0.001158360184667916
+0 00000.00 Parameters  Boundary:hydro_upwind:value:total_energy = 161.9661509037183
+0 00000.00 Parameters  Boundary:hydro_upwind:value:velocity_x = 13.41500614584355
+0 00000.00 Parameters  Boundary:hydro_upwind:value:velocity_y = 0.000000000000000
+0 00000.00 Parameters  Boundary:hydro_upwind:value:velocity_z = 0.000000000000000
+0 00000.00 Parameters  Boundary:list = [ "downwind" "hydro_upwind" "yedge" "zedge" "bfield_upwind" ]
+0 00000.00 Parameters  Boundary:yedge:axis = "y"
+0 00000.00 Parameters  Boundary:yedge:type = "outflow"
+0 00000.00 Parameters  Boundary:zedge:axis = "z"
+0 00000.00 Parameters  Boundary:zedge:type = "outflow"
+0 00000.00 Parameters  Domain:lower = [ -2.000000000000000 -2.000000000000000 -2.000000000000000 ]
+0 00000.00 Parameters  Domain:upper = [ 2.000000000000000 2.000000000000000 2.000000000000000 ]
+0 00000.00 Parameters  Field:alignment = 8
+0 00000.00 Parameters  Field:bfieldi_x:centering = [ false true true ]
+0 00000.00 Parameters  Field:bfieldi_y:centering = [ true false true ]
+0 00000.00 Parameters  Field:bfieldi_z:centering = [ true true false ]
+0 00000.00 Parameters  Field:courant = 0.4000000000000000
+0 00000.00 Parameters  Field:ghost_depth = 3
+0 00000.00 Parameters  Field:list = [ "density" "velocity_x" "velocity_y" "velocity_z" "cloud_dye" "metal_density" "temperature" "pressure" "total_energy" "internal_energy" "bfieldi_x" "bfieldi_y" "bfieldi_z" "bfield_x" "bfield_y" "bfield_z" ]
+0 00000.00 Parameters  Field:padding = 0
+0 00000.00 Parameters  Group:derived:field_list = [ "pressure" ]
+0 00000.00 Parameters  Group:list = [ "derived" ]
+0 00000.00 Parameters  Initial:cloud:cloud_center_x = 0.000000000000000
+0 00000.00 Parameters  Initial:cloud:cloud_center_y = 0.000000000000000
+0 00000.00 Parameters  Initial:cloud:cloud_center_z = 0.000000000000000
+0 00000.00 Parameters  Initial:cloud:cloud_density = 16.10075932356949
+0 00000.00 Parameters  Initial:cloud:cloud_radius = 1.000000000000000
+0 00000.00 Parameters  Initial:cloud:subsample_n = 2
+0 00000.00 Parameters  Initial:cloud:wind_density = 0.08944866290871940
+0 00000.00 Parameters  Initial:cloud:wind_internal_energy = 71.98495595720811
+0 00000.00 Parameters  Initial:cloud:wind_total_energy = 161.9661509037183
+0 00000.00 Parameters  Initial:cloud:wind_velocity = 13.41500614584355
+0 00000.00 Parameters  Initial:list = [ "value" "cloud" ]
+0 00000.00 Parameters  Initial:value:bfield_x = [ 0.000000000000000 ]
+0 00000.00 Parameters  Initial:value:bfield_y = [ 0.000000000000000 ]
+0 00000.00 Parameters  Initial:value:bfield_z = [ 0.000000000000000 ]
+0 00000.00 Parameters  Initial:value:bfieldi_x = [ 0.000000000000000 ]
+0 00000.00 Parameters  Initial:value:bfieldi_y = [ 0.000000000000000 ]
+0 00000.00 Parameters  Initial:value:bfieldi_z = [ 0.000000000000000 ]
+0 00000.00 Parameters  Initial:value:cloud_dye = [ 0.000000000000000 ]
+0 00000.00 Parameters  Initial:value:density = [ 0.000000000000000 ]
+0 00000.00 Parameters  Initial:value:pressure = [ 0.000000000000000 ]
+0 00000.00 Parameters  Initial:value:velocity_x = [ 0.000000000000000 ]
+0 00000.00 Parameters  Initial:value:velocity_y = [ 0.000000000000000 ]
+0 00000.00 Parameters  Initial:value:velocity_z = [ 0.000000000000000 ]
+0 00000.00 Parameters  Mesh:root_blocks = [ 1 1 1 ]
+0 00000.00 Parameters  Mesh:root_rank = 3
+0 00000.00 Parameters  Mesh:root_size = [ 32 32 32 ]
+0 00000.00 Parameters  Method:list = [ "mhd_vlct" ]
+0 00000.00 Parameters  Method:mhd_vlct:courant = 0.4000000000000000
+0 00000.00 Parameters  Method:mhd_vlct:mhd_choice = "constrained_transport"
+0 00000.00 Parameters  Method:mhd_vlct:reconstruct_method = "plm"
+0 00000.00 Parameters  Method:mhd_vlct:riemann_solver = "hlld"
+0 00000.00 Parameters  Method:mhd_vlct:theta_limiter = 1.500000000000000
+0 00000.00 Parameters  Method:mhd_vlct:time_scheme = "vl"
+0 00000.00 Parameters  Output:cycled:dir = [ "hlld_cloud_%.4f" "time" ]
+0 00000.00 Parameters  Output:cycled:field_list = [ "density" "velocity_x" "velocity_y" "velocity_z" "total_energy" "cloud_dye" "metal_density" "temperature" "internal_energy" ]
+0 00000.00 Parameters  Output:cycled:name = [ "cloud-data-%03d.h5" "proc" ]
+0 00000.00 Parameters  Output:cycled:schedule:list = [ 0.06250000000000000 ]
+0 00000.00 Parameters  Output:cycled:schedule:var = "time"
+0 00000.00 Parameters  Output:cycled:type = "data"
+0 00000.00 Parameters  Output:data:field_list = [ "density" "velocity_x" "velocity_y" "velocity_z" "total_energy" "internal_energy" "bfield_x" "bfield_y" "bfield_z" ]
+0 00000.00 Parameters  Output:data:type = "data"
+0 00000.00 Parameters  Output:list = [ "cycled" ]
+0 00000.00 Parameters  Physics:fluid_props:dual_energy:type = "modern"
+0 00000.00 Parameters  Physics:fluid_props:eos:gamma = 1.666666666666667
+0 00000.00 Parameters  Physics:fluid_props:floors:density = 1.000000000000000e-15
+0 00000.00 Parameters  Physics:fluid_props:floors:pressure = 1.000000000000000e-30
+0 00000.00 Parameters  Physics:list = [ "fluid_props" ]
+0 00000.00 Parameters  Stopping:time = 0.06250000000000000
+0 00000.00 Parameters  Units:density = 1.673735223805187e-27
+0 00000.00 Parameters  Units:length = 4.629000000000000e+22
+0 00000.00 Parameters  Units:time = 1.055968875226116e+16
+0 00000.98 WARNING parameters_Config.cpp:690
+0 00000.98 WARNING Config::read_mesh_()
+0 00000.98 WARNING Number of root blocks 1 x 1 x 1 cannot be be less than number of processes 8
+0 00000.98 WARNING EnzoConfig.cpp:1099
+0 00000.98 WARNING parse_eos_choice_
+0 00000.98 WARNING Going forward, "Physics:fluid_props:eos:type" must be set when there are other parameters in the subgroup. For backwards compatability, this is being set to "ideal" since the only other parameter in that group is "gamma"
+UNIT TEST BEGIN
+0 00000.98  ==============================================
+0 00000.98   
+0 00000.98    .oooooo.             oooo  oooo            
+0 00000.98   d8P'  `Y8b            `888  `888            
+0 00000.98  888           .ooooo.   888   888   .ooooo.  
+0 00000.98  888          d88' `88b  888   888  d88' `88b 
+0 00000.98  888          888ooo888  888   888  888   888 
+0 00000.98  `88b    ooo  888    .o  888   888  888   888 
+0 00000.98   `Y8bood8P'  `Y8bod8P' o888o o888o `Y8bod8P' 
+0 00000.98   
+0 00000.98  A Parallel Adaptive Mesh Refinement Framework
+0 00000.98   
+0 00000.98    Laboratory for Computational Astrophysics
+0 00000.98          San Diego Supercomputer Center
+0 00000.98       University of California, San Diego
+0 00000.98   
+0 00000.98  See 'LICENSE_CELLO' for software license information
+0 00000.98   
+0 00000.98  BEGIN CELLO: Sep 08 10:27:43
+0 00000.98 Define Simulation processors 8
+0 00000.98 Define CELLO_PREC          double
+0 00000.98 Define CC                  /opt/intel/oneapi/compiler/2024.0/bin/icx
+0 00000.98 Define CFLAGS              
+0 00000.98 Define CPPDEFINES          CONFIG_PRECISION_DOUBLE;SMALL_INTS;CONFIG_USE_GRACKLE;NO_FREETYPE;CELLO_VERSION="1.0.0";BYPASS_CHARM_MEM_LEAK;CONFIG_NODE_SIZE=64;CONFIG_NODE_SIZE_3=192;CONFIG_USE_PERFORMANCE;CONFIG_HAVE_VERSION_CONTROL
+0 00000.98 Define CXX                 /opt/intel/oneapi/compiler/2024.0/bin/icpx
+0 00000.98 Define CXXFLAGS            
+0 00000.98 Define FORTRANFLAGS        
+0 00000.98 Define FORTRAN             /opt/intel/oneapi/compiler/2024.0/bin/ifx
+0 00000.98 Define BUILD HOST          Linux-5.14.0-503.23.2.el9_5.x86_64
+0 00000.98 Define BUILD DIR           /home1/10334/jthsu2001/enzo-e/build-icx-mpi
+0 00000.98 Define CELLO_VERSION       1.0.0
+0 00000.98 Define CHANGESET           4798687a1
+0 00000.98 Define CHARM_PATH          /home1/10334/jthsu2001/charm/mpi-linux-x86_64-icx
+0 00000.98 Define CONFIG_NODE_SIZE    64
+0 00000.98 Define CONFIG_SMP_MODE     no
+0 00000.98 CHARM CkNumPes()           8
+0 00000.98 CHARM CkNumNodes()         8
+0 00000.98  BEGIN ENZO-E
+0 00000.98 Memory bytes 0 bytes_high 0
+0 00000.99 WARNING problem_InitialValue.cpp:158
+0 00000.99 WARNING InitialValue::enforce_block
+0 00000.99 WARNING Uninitialized field metal_density
+0 00000.99 WARNING problem_InitialValue.cpp:158
+0 00000.99 WARNING InitialValue::enforce_block
+0 00000.99 WARNING Uninitialized field temperature
+0 00000.99 WARNING problem_InitialValue.cpp:158
+0 00000.99 WARNING InitialValue::enforce_block
+0 00000.99 WARNING Uninitialized field total_energy
+0 00000.99 WARNING problem_InitialValue.cpp:158
+0 00000.99 WARNING InitialValue::enforce_block
+0 00000.99 WARNING Uninitialized field internal_energy
+0 00000.99 EnzoInitialCloud Not perturbing cloud.
+0 00001.00  -------------------------------------
+0 00001.00 Simulation cycle 0000
+0 00001.00 Simulation time-sim 0.000000000000e+00
+0 00001.00 Simulation dt 0.000000000000e+00
+0 00001.00 Performance counter num-msg-coarsen 0
+0 00001.00 Performance counter num-msg-refine 0
+0 00001.00 Performance counter num-msg-refresh 0
+0 00001.00 Performance counter num-data-msg 0
+0 00001.00 Performance counter num-field-face 0
+0 00001.00 Performance counter num-particle-data 1
+0 00001.00 Performance simulation num-particles total 0
+0 00001.00 performance simulation num-blocks-level 0 1
+0 00001.00 Performance simulation num-leaf-blocks 1
+0 00001.00 Performance simulation num-total-blocks 1
+0 00001.00 Performance simulation time-usec 134010
+0 00001.00 Performance cycle time-usec 0
+0 00001.00 Performance cycle bytes-curr 0
+0 00001.00 Performance cycle bytes-high 0
+0 00001.00 Performance cycle bytes-highest 0
+0 00001.00 Performance cycle bytes-available 0
+0 00001.00 Performance initial time-usec 104345
+0 00001.00 Performance adapt_apply time-usec 14
+0 00001.00 Performance adapt_apply_sync time-usec 3
+0 00001.00 Performance adapt_update time-usec 3
+0 00001.00 Performance adapt_update_sync time-usec 176
+0 00001.00 Performance adapt_notify time-usec 13
+0 00001.00 Performance adapt_notify_sync time-usec 13
+0 00001.00 Performance adapt_end time-usec 0
+0 00001.00 Performance adapt_end_sync time-usec 79
+0 00001.00 Performance refresh_store time-usec 0
+0 00001.00 Performance refresh_child time-usec 0
+0 00001.00 Performance refresh_exit time-usec 0
+0 00001.00 Performance refresh_store_sync time-usec 0
+0 00001.00 Performance refresh_child_sync time-usec 0
+0 00001.00 Performance refresh_exit_sync time-usec 0
+0 00001.00 Performance control time-usec 0
+0 00001.00 Performance compute time-usec 0
+0 00001.00 Performance output time-usec 29
+0 00001.00 Performance stopping time-usec 0
+0 00001.00 Performance block time-usec 434
+0 00001.00 Performance exit time-usec 0
+0 00001.00 Performance grackle time-usec 0
+0 00001.00 Performance simulation max-proc-blocks 1
+0 00001.00 Performance simulation max-node-blocks 1
+0 00001.00 Performance simulation max-proc-particles 0
+0 00001.00 Performance simulation max-node-particles 0
+0 00001.00 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00001.00 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00001.34  -------------------------------------
+0 00001.34 Simulation cycle 0001
+0 00001.34 Simulation time-sim 2.236301621770e-03
+0 00001.34 Simulation dt 2.236301621770e-03
+0 00001.34 Performance counter num-msg-coarsen 0
+0 00001.34 Performance counter num-msg-refine 0
+0 00001.34 Performance counter num-msg-refresh 0
+0 00001.34 Performance counter num-data-msg 0
+0 00001.34 Performance counter num-field-face 0
+0 00001.34 Performance counter num-particle-data 1
+0 00001.34 Performance simulation num-particles total 0
+0 00001.34 performance simulation num-blocks-level 0 1
+0 00001.34 Performance simulation num-leaf-blocks 1
+0 00001.34 Performance simulation num-total-blocks 1
+0 00001.34 Performance simulation time-usec 2847268
+0 00001.34 Performance cycle time-usec 332429
+0 00001.34 Performance cycle bytes-curr 0
+0 00001.34 Performance cycle bytes-high 0
+0 00001.34 Performance cycle bytes-highest 0
+0 00001.34 Performance cycle bytes-available 0
+0 00001.34 Performance initial time-usec 2478452
+0 00001.34 Performance adapt_apply time-usec 26
+0 00001.34 Performance adapt_apply_sync time-usec 6
+0 00001.34 Performance adapt_update time-usec 8
+0 00001.34 Performance adapt_update_sync time-usec 354
+0 00001.34 Performance adapt_notify time-usec 26
+0 00001.34 Performance adapt_notify_sync time-usec 37
+0 00001.34 Performance adapt_end time-usec 0
+0 00001.34 Performance adapt_end_sync time-usec 151
+0 00001.34 Performance refresh_store time-usec 0
+0 00001.34 Performance refresh_child time-usec 0
+0 00001.34 Performance refresh_exit time-usec 0
+0 00001.34 Performance refresh_store_sync time-usec 0
+0 00001.34 Performance refresh_child_sync time-usec 0
+0 00001.34 Performance refresh_exit_sync time-usec 0
+0 00001.34 Performance control time-usec 0
+0 00001.34 Performance compute time-usec 332015
+0 00001.34 Performance output time-usec 61
+0 00001.34 Performance stopping time-usec 9976
+0 00001.34 Performance block time-usec 434
+0 00001.34 Performance exit time-usec 0
+0 00001.34 Performance grackle time-usec 0
+0 00001.34 Performance simulation max-proc-blocks 1
+0 00001.34 Performance simulation max-node-blocks 1
+0 00001.34 Performance simulation max-proc-particles 0
+0 00001.34 Performance simulation max-node-particles 0
+0 00001.34 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00001.34 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00001.77  -------------------------------------
+0 00001.77 Simulation cycle 0002
+0 00001.77 Simulation time-sim 4.463601989699e-03
+0 00001.77 Simulation dt 2.227300367929e-03
+0 00001.77 Performance counter num-msg-coarsen 0
+0 00001.77 Performance counter num-msg-refine 0
+0 00001.77 Performance counter num-msg-refresh 0
+0 00001.77 Performance counter num-data-msg 0
+0 00001.77 Performance counter num-field-face 0
+0 00001.77 Performance counter num-particle-data 1
+0 00001.77 Performance simulation num-particles total 0
+0 00001.77 performance simulation num-blocks-level 0 1
+0 00001.77 Performance simulation num-leaf-blocks 1
+0 00001.77 Performance simulation num-total-blocks 1
+0 00001.77 Performance simulation time-usec 6246094
+0 00001.77 Performance cycle time-usec 757278
+0 00001.77 Performance cycle bytes-curr 0
+0 00001.77 Performance cycle bytes-high 0
+0 00001.77 Performance cycle bytes-highest 0
+0 00001.77 Performance cycle bytes-available 0
+0 00001.77 Performance initial time-usec 5452429
+0 00001.77 Performance adapt_apply time-usec 37
+0 00001.77 Performance adapt_apply_sync time-usec 9
+0 00001.77 Performance adapt_update time-usec 12
+0 00001.77 Performance adapt_update_sync time-usec 529
+0 00001.77 Performance adapt_notify time-usec 39
+0 00001.77 Performance adapt_notify_sync time-usec 59
+0 00001.77 Performance adapt_end time-usec 0
+0 00001.77 Performance adapt_end_sync time-usec 231
+0 00001.77 Performance refresh_store time-usec 0
+0 00001.77 Performance refresh_child time-usec 0
+0 00001.77 Performance refresh_exit time-usec 0
+0 00001.77 Performance refresh_store_sync time-usec 0
+0 00001.77 Performance refresh_child_sync time-usec 0
+0 00001.77 Performance refresh_exit_sync time-usec 0
+0 00001.77 Performance control time-usec 0
+0 00001.77 Performance compute time-usec 749757
+0 00001.77 Performance output time-usec 92
+0 00001.77 Performance stopping time-usec 19904
+0 00001.77 Performance block time-usec 434
+0 00001.77 Performance exit time-usec 0
+0 00001.77 Performance grackle time-usec 0
+0 00001.77 Performance simulation max-proc-blocks 1
+0 00001.77 Performance simulation max-node-blocks 1
+0 00001.77 Performance simulation max-proc-particles 0
+0 00001.77 Performance simulation max-node-particles 0
+0 00001.77 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00001.77 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00002.19  -------------------------------------
+0 00002.19 Simulation cycle 0003
+0 00002.19 Simulation time-sim 6.680716263821e-03
+0 00002.19 Simulation dt 2.217114274122e-03
+0 00002.19 Performance counter num-msg-coarsen 0
+0 00002.19 Performance counter num-msg-refine 0
+0 00002.19 Performance counter num-msg-refresh 0
+0 00002.19 Performance counter num-data-msg 0
+0 00002.19 Performance counter num-field-face 0
+0 00002.19 Performance counter num-particle-data 1
+0 00002.19 Performance simulation num-particles total 0
+0 00002.19 performance simulation num-blocks-level 0 1
+0 00002.19 Performance simulation num-leaf-blocks 1
+0 00002.19 Performance simulation num-total-blocks 1
+0 00002.19 Performance simulation time-usec 9641891
+0 00002.19 Performance cycle time-usec 1181766
+0 00002.19 Performance cycle bytes-curr 0
+0 00002.19 Performance cycle bytes-high 0
+0 00002.19 Performance cycle bytes-highest 0
+0 00002.19 Performance cycle bytes-available 0
+0 00002.19 Performance initial time-usec 8423736
+0 00002.19 Performance adapt_apply time-usec 47
+0 00002.19 Performance adapt_apply_sync time-usec 11
+0 00002.19 Performance adapt_update time-usec 18
+0 00002.19 Performance adapt_update_sync time-usec 710
+0 00002.19 Performance adapt_notify time-usec 51
+0 00002.19 Performance adapt_notify_sync time-usec 91
+0 00002.19 Performance adapt_end time-usec 1
+0 00002.19 Performance adapt_end_sync time-usec 317
+0 00002.19 Performance refresh_store time-usec 0
+0 00002.19 Performance refresh_child time-usec 0
+0 00002.19 Performance refresh_exit time-usec 0
+0 00002.19 Performance refresh_store_sync time-usec 0
+0 00002.19 Performance refresh_child_sync time-usec 0
+0 00002.19 Performance refresh_exit_sync time-usec 0
+0 00002.19 Performance control time-usec 0
+0 00002.19 Performance compute time-usec 1167112
+0 00002.19 Performance output time-usec 122
+0 00002.19 Performance stopping time-usec 29785
+0 00002.19 Performance block time-usec 434
+0 00002.19 Performance exit time-usec 0
+0 00002.19 Performance grackle time-usec 0
+0 00002.19 Performance simulation max-proc-blocks 1
+0 00002.19 Performance simulation max-node-blocks 1
+0 00002.19 Performance simulation max-proc-particles 0
+0 00002.19 Performance simulation max-node-particles 0
+0 00002.19 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00002.19 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00002.62  -------------------------------------
+0 00002.62 Simulation cycle 0004
+0 00002.62 Simulation time-sim 8.886741038095e-03
+0 00002.62 Simulation dt 2.206024774274e-03
+0 00002.62 Performance counter num-msg-coarsen 0
+0 00002.62 Performance counter num-msg-refine 0
+0 00002.62 Performance counter num-msg-refresh 0
+0 00002.62 Performance counter num-data-msg 0
+0 00002.62 Performance counter num-field-face 0
+0 00002.62 Performance counter num-particle-data 1
+0 00002.62 Performance simulation num-particles total 0
+0 00002.62 performance simulation num-blocks-level 0 1
+0 00002.62 Performance simulation num-leaf-blocks 1
+0 00002.62 Performance simulation num-total-blocks 1
+0 00002.62 Performance simulation time-usec 13079296
+0 00002.62 Performance cycle time-usec 1611424
+0 00002.62 Performance cycle bytes-curr 0
+0 00002.62 Performance cycle bytes-high 0
+0 00002.62 Performance cycle bytes-highest 0
+0 00002.62 Performance cycle bytes-available 0
+0 00002.62 Performance initial time-usec 11431486
+0 00002.62 Performance adapt_apply time-usec 61
+0 00002.62 Performance adapt_apply_sync time-usec 14
+0 00002.62 Performance adapt_update time-usec 24
+0 00002.62 Performance adapt_update_sync time-usec 904
+0 00002.62 Performance adapt_notify time-usec 62
+0 00002.62 Performance adapt_notify_sync time-usec 110
+0 00002.62 Performance adapt_end time-usec 2
+0 00002.62 Performance adapt_end_sync time-usec 398
+0 00002.62 Performance refresh_store time-usec 0
+0 00002.62 Performance refresh_child time-usec 0
+0 00002.62 Performance refresh_exit time-usec 0
+0 00002.62 Performance refresh_store_sync time-usec 0
+0 00002.62 Performance refresh_child_sync time-usec 0
+0 00002.62 Performance refresh_exit_sync time-usec 0
+0 00002.62 Performance control time-usec 0
+0 00002.62 Performance compute time-usec 1589619
+0 00002.62 Performance output time-usec 162
+0 00002.62 Performance stopping time-usec 39642
+0 00002.62 Performance block time-usec 434
+0 00002.62 Performance exit time-usec 0
+0 00002.62 Performance grackle time-usec 0
+0 00002.62 Performance simulation max-proc-blocks 1
+0 00002.62 Performance simulation max-node-blocks 1
+0 00002.62 Performance simulation max-proc-particles 0
+0 00002.62 Performance simulation max-node-particles 0
+0 00002.62 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00002.62 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00003.05  -------------------------------------
+0 00003.05 Simulation cycle 0005
+0 00003.05 Simulation time-sim 1.107982267521e-02
+0 00003.05 Simulation dt 2.193081637112e-03
+0 00003.05 Performance counter num-msg-coarsen 0
+0 00003.05 Performance counter num-msg-refine 0
+0 00003.05 Performance counter num-msg-refresh 0
+0 00003.05 Performance counter num-data-msg 0
+0 00003.05 Performance counter num-field-face 0
+0 00003.05 Performance counter num-particle-data 1
+0 00003.05 Performance simulation num-particles total 0
+0 00003.05 performance simulation num-blocks-level 0 1
+0 00003.05 Performance simulation num-leaf-blocks 1
+0 00003.05 Performance simulation num-total-blocks 1
+0 00003.05 Performance simulation time-usec 16539822
+0 00003.05 Performance cycle time-usec 2044003
+0 00003.05 Performance cycle bytes-curr 0
+0 00003.05 Performance cycle bytes-high 0
+0 00003.05 Performance cycle bytes-highest 0
+0 00003.05 Performance cycle bytes-available 0
+0 00003.05 Performance initial time-usec 14459427
+0 00003.05 Performance adapt_apply time-usec 72
+0 00003.05 Performance adapt_apply_sync time-usec 17
+0 00003.05 Performance adapt_update time-usec 30
+0 00003.05 Performance adapt_update_sync time-usec 1105
+0 00003.05 Performance adapt_notify time-usec 73
+0 00003.05 Performance adapt_notify_sync time-usec 124
+0 00003.05 Performance adapt_end time-usec 3
+0 00003.05 Performance adapt_end_sync time-usec 499
+0 00003.05 Performance refresh_store time-usec 0
+0 00003.05 Performance refresh_child time-usec 0
+0 00003.05 Performance refresh_exit time-usec 0
+0 00003.05 Performance refresh_store_sync time-usec 0
+0 00003.05 Performance refresh_child_sync time-usec 0
+0 00003.05 Performance refresh_exit_sync time-usec 0
+0 00003.05 Performance control time-usec 0
+0 00003.05 Performance compute time-usec 2014929
+0 00003.05 Performance output time-usec 196
+0 00003.05 Performance stopping time-usec 49648
+0 00003.05 Performance block time-usec 434
+0 00003.05 Performance exit time-usec 0
+0 00003.05 Performance grackle time-usec 0
+0 00003.05 Performance simulation max-proc-blocks 1
+0 00003.05 Performance simulation max-node-blocks 1
+0 00003.05 Performance simulation max-proc-particles 0
+0 00003.05 Performance simulation max-node-particles 0
+0 00003.05 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00003.05 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00003.48  -------------------------------------
+0 00003.48 Simulation cycle 0006
+0 00003.48 Simulation time-sim 1.325859334455e-02
+0 00003.48 Simulation dt 2.178770669339e-03
+0 00003.48 Performance counter num-msg-coarsen 0
+0 00003.48 Performance counter num-msg-refine 0
+0 00003.48 Performance counter num-msg-refresh 0
+0 00003.48 Performance counter num-data-msg 0
+0 00003.48 Performance counter num-field-face 0
+0 00003.48 Performance counter num-particle-data 1
+0 00003.48 Performance simulation num-particles total 0
+0 00003.48 performance simulation num-blocks-level 0 1
+0 00003.48 Performance simulation num-leaf-blocks 1
+0 00003.48 Performance simulation num-total-blocks 1
+0 00003.48 Performance simulation time-usec 19953620
+0 00003.48 Performance cycle time-usec 2470727
+0 00003.48 Performance cycle bytes-curr 0
+0 00003.48 Performance cycle bytes-high 0
+0 00003.48 Performance cycle bytes-highest 0
+0 00003.48 Performance cycle bytes-available 0
+0 00003.48 Performance initial time-usec 17446505
+0 00003.48 Performance adapt_apply time-usec 83
+0 00003.48 Performance adapt_apply_sync time-usec 19
+0 00003.48 Performance adapt_update time-usec 35
+0 00003.48 Performance adapt_update_sync time-usec 1259
+0 00003.48 Performance adapt_notify time-usec 86
+0 00003.48 Performance adapt_notify_sync time-usec 141
+0 00003.48 Performance adapt_end time-usec 4
+0 00003.48 Performance adapt_end_sync time-usec 580
+0 00003.48 Performance refresh_store time-usec 0
+0 00003.48 Performance refresh_child time-usec 0
+0 00003.48 Performance refresh_exit time-usec 0
+0 00003.48 Performance refresh_store_sync time-usec 0
+0 00003.48 Performance refresh_child_sync time-usec 0
+0 00003.48 Performance refresh_exit_sync time-usec 0
+0 00003.48 Performance control time-usec 0
+0 00003.48 Performance compute time-usec 2434543
+0 00003.48 Performance output time-usec 236
+0 00003.48 Performance stopping time-usec 59482
+0 00003.48 Performance block time-usec 434
+0 00003.48 Performance exit time-usec 0
+0 00003.48 Performance grackle time-usec 0
+0 00003.48 Performance simulation max-proc-blocks 1
+0 00003.48 Performance simulation max-node-blocks 1
+0 00003.48 Performance simulation max-proc-particles 0
+0 00003.48 Performance simulation max-node-particles 0
+0 00003.48 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00003.48 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00003.91  -------------------------------------
+0 00003.91 Simulation cycle 0007
+0 00003.91 Simulation time-sim 1.542659957047e-02
+0 00003.91 Simulation dt 2.168006225928e-03
+0 00003.91 Performance counter num-msg-coarsen 0
+0 00003.91 Performance counter num-msg-refine 0
+0 00003.91 Performance counter num-msg-refresh 0
+0 00003.91 Performance counter num-data-msg 0
+0 00003.91 Performance counter num-field-face 0
+0 00003.91 Performance counter num-particle-data 1
+0 00003.91 Performance simulation num-particles total 0
+0 00003.91 performance simulation num-blocks-level 0 1
+0 00003.91 Performance simulation num-leaf-blocks 1
+0 00003.91 Performance simulation num-total-blocks 1
+0 00003.91 Performance simulation time-usec 23377992
+0 00003.91 Performance cycle time-usec 2898765
+0 00003.91 Performance cycle bytes-curr 0
+0 00003.91 Performance cycle bytes-high 0
+0 00003.91 Performance cycle bytes-highest 0
+0 00003.91 Performance cycle bytes-available 0
+0 00003.91 Performance initial time-usec 20442835
+0 00003.91 Performance adapt_apply time-usec 94
+0 00003.91 Performance adapt_apply_sync time-usec 22
+0 00003.91 Performance adapt_update time-usec 41
+0 00003.91 Performance adapt_update_sync time-usec 1442
+0 00003.91 Performance adapt_notify time-usec 97
+0 00003.91 Performance adapt_notify_sync time-usec 167
+0 00003.91 Performance adapt_end time-usec 5
+0 00003.91 Performance adapt_end_sync time-usec 668
+0 00003.91 Performance refresh_store time-usec 0
+0 00003.91 Performance refresh_child time-usec 0
+0 00003.91 Performance refresh_exit time-usec 0
+0 00003.91 Performance refresh_store_sync time-usec 0
+0 00003.91 Performance refresh_child_sync time-usec 0
+0 00003.91 Performance refresh_exit_sync time-usec 0
+0 00003.91 Performance control time-usec 0
+0 00003.91 Performance compute time-usec 2855477
+0 00003.91 Performance output time-usec 266
+0 00003.91 Performance stopping time-usec 69383
+0 00003.91 Performance block time-usec 434
+0 00003.91 Performance exit time-usec 0
+0 00003.91 Performance grackle time-usec 0
+0 00003.91 Performance simulation max-proc-blocks 1
+0 00003.91 Performance simulation max-node-blocks 1
+0 00003.91 Performance simulation max-proc-particles 0
+0 00003.91 Performance simulation max-node-particles 0
+0 00003.91 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00003.91 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00004.34  -------------------------------------
+0 00004.34 Simulation cycle 0008
+0 00004.34 Simulation time-sim 1.758770309107e-02
+0 00004.34 Simulation dt 2.161103520595e-03
+0 00004.34 Performance counter num-msg-coarsen 0
+0 00004.34 Performance counter num-msg-refine 0
+0 00004.34 Performance counter num-msg-refresh 0
+0 00004.34 Performance counter num-data-msg 0
+0 00004.34 Performance counter num-field-face 0
+0 00004.34 Performance counter num-particle-data 1
+0 00004.34 Performance simulation num-particles total 0
+0 00004.34 performance simulation num-blocks-level 0 1
+0 00004.34 Performance simulation num-leaf-blocks 1
+0 00004.34 Performance simulation num-total-blocks 1
+0 00004.34 Performance simulation time-usec 26808865
+0 00004.34 Performance cycle time-usec 3327618
+0 00004.34 Performance cycle bytes-curr 0
+0 00004.34 Performance cycle bytes-high 0
+0 00004.34 Performance cycle bytes-highest 0
+0 00004.34 Performance cycle bytes-available 0
+0 00004.34 Performance initial time-usec 23444854
+0 00004.34 Performance adapt_apply time-usec 104
+0 00004.34 Performance adapt_apply_sync time-usec 25
+0 00004.34 Performance adapt_update time-usec 46
+0 00004.34 Performance adapt_update_sync time-usec 1623
+0 00004.34 Performance adapt_notify time-usec 112
+0 00004.34 Performance adapt_notify_sync time-usec 179
+0 00004.34 Performance adapt_end time-usec 5
+0 00004.34 Performance adapt_end_sync time-usec 745
+0 00004.34 Performance refresh_store time-usec 0
+0 00004.34 Performance refresh_child time-usec 0
+0 00004.34 Performance refresh_exit time-usec 0
+0 00004.34 Performance refresh_store_sync time-usec 0
+0 00004.34 Performance refresh_child_sync time-usec 0
+0 00004.34 Performance refresh_exit_sync time-usec 0
+0 00004.34 Performance control time-usec 0
+0 00004.34 Performance compute time-usec 3277241
+0 00004.34 Performance output time-usec 298
+0 00004.34 Performance stopping time-usec 79303
+0 00004.34 Performance block time-usec 434
+0 00004.34 Performance exit time-usec 0
+0 00004.34 Performance grackle time-usec 0
+0 00004.34 Performance simulation max-proc-blocks 1
+0 00004.34 Performance simulation max-node-blocks 1
+0 00004.34 Performance simulation max-proc-particles 0
+0 00004.34 Performance simulation max-node-particles 0
+0 00004.34 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00004.34 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00004.76  -------------------------------------
+0 00004.76 Simulation cycle 0009
+0 00004.76 Simulation time-sim 1.974544455492e-02
+0 00004.76 Simulation dt 2.157741463856e-03
+0 00004.76 Performance counter num-msg-coarsen 0
+0 00004.76 Performance counter num-msg-refine 0
+0 00004.76 Performance counter num-msg-refresh 0
+0 00004.76 Performance counter num-data-msg 0
+0 00004.76 Performance counter num-field-face 0
+0 00004.76 Performance counter num-particle-data 1
+0 00004.76 Performance simulation num-particles total 0
+0 00004.76 performance simulation num-blocks-level 0 1
+0 00004.76 Performance simulation num-leaf-blocks 1
+0 00004.76 Performance simulation num-total-blocks 1
+0 00004.76 Performance simulation time-usec 30236366
+0 00004.76 Performance cycle time-usec 3756057
+0 00004.76 Performance cycle bytes-curr 0
+0 00004.76 Performance cycle bytes-high 0
+0 00004.76 Performance cycle bytes-highest 0
+0 00004.76 Performance cycle bytes-available 0
+0 00004.76 Performance initial time-usec 26443914
+0 00004.76 Performance adapt_apply time-usec 114
+0 00004.76 Performance adapt_apply_sync time-usec 28
+0 00004.76 Performance adapt_update time-usec 51
+0 00004.76 Performance adapt_update_sync time-usec 1799
+0 00004.76 Performance adapt_notify time-usec 123
+0 00004.76 Performance adapt_notify_sync time-usec 198
+0 00004.76 Performance adapt_end time-usec 6
+0 00004.76 Performance adapt_end_sync time-usec 821
+0 00004.76 Performance refresh_store time-usec 0
+0 00004.76 Performance refresh_child time-usec 0
+0 00004.76 Performance refresh_exit time-usec 0
+0 00004.76 Performance refresh_store_sync time-usec 0
+0 00004.76 Performance refresh_child_sync time-usec 0
+0 00004.76 Performance refresh_exit_sync time-usec 0
+0 00004.76 Performance control time-usec 0
+0 00004.76 Performance compute time-usec 3698565
+0 00004.76 Performance output time-usec 328
+0 00004.76 Performance stopping time-usec 89214
+0 00004.76 Performance block time-usec 434
+0 00004.76 Performance exit time-usec 0
+0 00004.76 Performance grackle time-usec 0
+0 00004.76 Performance simulation max-proc-blocks 1
+0 00004.76 Performance simulation max-node-blocks 1
+0 00004.76 Performance simulation max-proc-particles 0
+0 00004.76 Performance simulation max-node-particles 0
+0 00004.76 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00004.76 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00005.19  -------------------------------------
+0 00005.19 Simulation cycle 0010
+0 00005.19 Simulation time-sim 2.190308977862e-02
+0 00005.19 Simulation dt 2.157645223695e-03
+0 00005.19 Performance counter num-msg-coarsen 0
+0 00005.19 Performance counter num-msg-refine 0
+0 00005.19 Performance counter num-msg-refresh 0
+0 00005.19 Performance counter num-data-msg 0
+0 00005.19 Performance counter num-field-face 0
+0 00005.19 Performance counter num-particle-data 1
+0 00005.19 Performance simulation num-particles total 0
+0 00005.19 performance simulation num-blocks-level 0 1
+0 00005.19 Performance simulation num-leaf-blocks 1
+0 00005.19 Performance simulation num-total-blocks 1
+0 00005.19 Performance simulation time-usec 33675385
+0 00005.19 Performance cycle time-usec 4185931
+0 00005.19 Performance cycle bytes-curr 0
+0 00005.19 Performance cycle bytes-high 0
+0 00005.19 Performance cycle bytes-highest 0
+0 00005.19 Performance cycle bytes-available 0
+0 00005.19 Performance initial time-usec 29453059
+0 00005.19 Performance adapt_apply time-usec 124
+0 00005.19 Performance adapt_apply_sync time-usec 31
+0 00005.19 Performance adapt_update time-usec 56
+0 00005.19 Performance adapt_update_sync time-usec 1970
+0 00005.19 Performance adapt_notify time-usec 133
+0 00005.19 Performance adapt_notify_sync time-usec 222
+0 00005.19 Performance adapt_end time-usec 7
+0 00005.19 Performance adapt_end_sync time-usec 898
+0 00005.19 Performance refresh_store time-usec 0
+0 00005.19 Performance refresh_child time-usec 0
+0 00005.19 Performance refresh_exit time-usec 0
+0 00005.19 Performance refresh_store_sync time-usec 0
+0 00005.19 Performance refresh_child_sync time-usec 0
+0 00005.19 Performance refresh_exit_sync time-usec 0
+0 00005.19 Performance control time-usec 0
+0 00005.19 Performance compute time-usec 4121349
+0 00005.19 Performance output time-usec 357
+0 00005.19 Performance stopping time-usec 99095
+0 00005.19 Performance block time-usec 434
+0 00005.19 Performance exit time-usec 0
+0 00005.19 Performance grackle time-usec 0
+0 00005.19 Performance simulation max-proc-blocks 1
+0 00005.19 Performance simulation max-node-blocks 1
+0 00005.19 Performance simulation max-proc-particles 0
+0 00005.19 Performance simulation max-node-particles 0
+0 00005.19 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00005.19 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00005.62  -------------------------------------
+0 00005.62 Simulation cycle 0011
+0 00005.62 Simulation time-sim 2.406390345084e-02
+0 00005.62 Simulation dt 2.160813672219e-03
+0 00005.62 Performance counter num-msg-coarsen 0
+0 00005.62 Performance counter num-msg-refine 0
+0 00005.62 Performance counter num-msg-refresh 0
+0 00005.62 Performance counter num-data-msg 0
+0 00005.62 Performance counter num-field-face 0
+0 00005.62 Performance counter num-particle-data 1
+0 00005.62 Performance simulation num-particles total 0
+0 00005.62 performance simulation num-blocks-level 0 1
+0 00005.62 Performance simulation num-leaf-blocks 1
+0 00005.62 Performance simulation num-total-blocks 1
+0 00005.62 Performance simulation time-usec 37113802
+0 00005.62 Performance cycle time-usec 4615737
+0 00005.62 Performance cycle bytes-curr 0
+0 00005.62 Performance cycle bytes-high 0
+0 00005.62 Performance cycle bytes-highest 0
+0 00005.62 Performance cycle bytes-available 0
+0 00005.62 Performance initial time-usec 32461667
+0 00005.62 Performance adapt_apply time-usec 135
+0 00005.62 Performance adapt_apply_sync time-usec 34
+0 00005.62 Performance adapt_update time-usec 62
+0 00005.62 Performance adapt_update_sync time-usec 2153
+0 00005.62 Performance adapt_notify time-usec 143
+0 00005.62 Performance adapt_notify_sync time-usec 247
+0 00005.62 Performance adapt_end time-usec 7
+0 00005.62 Performance adapt_end_sync time-usec 976
+0 00005.62 Performance refresh_store time-usec 0
+0 00005.62 Performance refresh_child time-usec 0
+0 00005.62 Performance refresh_exit time-usec 0
+0 00005.62 Performance refresh_store_sync time-usec 0
+0 00005.62 Performance refresh_child_sync time-usec 0
+0 00005.62 Performance refresh_exit_sync time-usec 0
+0 00005.62 Performance control time-usec 0
+0 00005.62 Performance compute time-usec 4544027
+0 00005.62 Performance output time-usec 384
+0 00005.62 Performance stopping time-usec 108964
+0 00005.62 Performance block time-usec 434
+0 00005.62 Performance exit time-usec 0
+0 00005.62 Performance grackle time-usec 0
+0 00005.62 Performance simulation max-proc-blocks 1
+0 00005.62 Performance simulation max-node-blocks 1
+0 00005.62 Performance simulation max-proc-particles 0
+0 00005.62 Performance simulation max-node-particles 0
+0 00005.62 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00005.62 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00006.05  -------------------------------------
+0 00006.05 Simulation cycle 0012
+0 00006.05 Simulation time-sim 2.623183630296e-02
+0 00006.05 Simulation dt 2.167932852125e-03
+0 00006.05 Performance counter num-msg-coarsen 0
+0 00006.05 Performance counter num-msg-refine 0
+0 00006.05 Performance counter num-msg-refresh 0
+0 00006.05 Performance counter num-data-msg 0
+0 00006.05 Performance counter num-field-face 0
+0 00006.05 Performance counter num-particle-data 1
+0 00006.05 Performance simulation num-particles total 0
+0 00006.05 performance simulation num-blocks-level 0 1
+0 00006.05 Performance simulation num-leaf-blocks 1
+0 00006.05 Performance simulation num-total-blocks 1
+0 00006.05 Performance simulation time-usec 40553990
+0 00006.05 Performance cycle time-usec 5045758
+0 00006.05 Performance cycle bytes-curr 0
+0 00006.05 Performance cycle bytes-high 0
+0 00006.05 Performance cycle bytes-highest 0
+0 00006.05 Performance cycle bytes-available 0
+0 00006.05 Performance initial time-usec 35471837
+0 00006.05 Performance adapt_apply time-usec 146
+0 00006.05 Performance adapt_apply_sync time-usec 37
+0 00006.05 Performance adapt_update time-usec 68
+0 00006.05 Performance adapt_update_sync time-usec 2333
+0 00006.05 Performance adapt_notify time-usec 153
+0 00006.05 Performance adapt_notify_sync time-usec 263
+0 00006.05 Performance adapt_end time-usec 8
+0 00006.05 Performance adapt_end_sync time-usec 1058
+0 00006.05 Performance refresh_store time-usec 0
+0 00006.05 Performance refresh_child time-usec 0
+0 00006.05 Performance refresh_exit time-usec 0
+0 00006.05 Performance refresh_store_sync time-usec 0
+0 00006.05 Performance refresh_child_sync time-usec 0
+0 00006.05 Performance refresh_exit_sync time-usec 0
+0 00006.05 Performance control time-usec 0
+0 00006.05 Performance compute time-usec 4966977
+0 00006.05 Performance output time-usec 420
+0 00006.05 Performance stopping time-usec 118839
+0 00006.05 Performance block time-usec 434
+0 00006.05 Performance exit time-usec 0
+0 00006.05 Performance grackle time-usec 0
+0 00006.05 Performance simulation max-proc-blocks 1
+0 00006.05 Performance simulation max-node-blocks 1
+0 00006.05 Performance simulation max-proc-particles 0
+0 00006.05 Performance simulation max-node-particles 0
+0 00006.05 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00006.05 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00006.48  -------------------------------------
+0 00006.48 Simulation cycle 0013
+0 00006.48 Simulation time-sim 2.840218870705e-02
+0 00006.48 Simulation dt 2.170352404083e-03
+0 00006.48 Performance counter num-msg-coarsen 0
+0 00006.48 Performance counter num-msg-refine 0
+0 00006.48 Performance counter num-msg-refresh 0
+0 00006.48 Performance counter num-data-msg 0
+0 00006.48 Performance counter num-field-face 0
+0 00006.48 Performance counter num-particle-data 1
+0 00006.48 Performance simulation num-particles total 0
+0 00006.48 performance simulation num-blocks-level 0 1
+0 00006.48 Performance simulation num-leaf-blocks 1
+0 00006.48 Performance simulation num-total-blocks 1
+0 00006.48 Performance simulation time-usec 43991468
+0 00006.48 Performance cycle time-usec 5475451
+0 00006.48 Performance cycle bytes-curr 0
+0 00006.48 Performance cycle bytes-high 0
+0 00006.48 Performance cycle bytes-highest 0
+0 00006.48 Performance cycle bytes-available 0
+0 00006.48 Performance initial time-usec 38479618
+0 00006.48 Performance adapt_apply time-usec 156
+0 00006.48 Performance adapt_apply_sync time-usec 40
+0 00006.48 Performance adapt_update time-usec 73
+0 00006.48 Performance adapt_update_sync time-usec 2510
+0 00006.48 Performance adapt_notify time-usec 164
+0 00006.48 Performance adapt_notify_sync time-usec 277
+0 00006.48 Performance adapt_end time-usec 8
+0 00006.48 Performance adapt_end_sync time-usec 1173
+0 00006.48 Performance refresh_store time-usec 0
+0 00006.48 Performance refresh_child time-usec 0
+0 00006.48 Performance refresh_exit time-usec 0
+0 00006.48 Performance refresh_store_sync time-usec 0
+0 00006.48 Performance refresh_child_sync time-usec 0
+0 00006.48 Performance refresh_exit_sync time-usec 0
+0 00006.48 Performance control time-usec 0
+0 00006.48 Performance compute time-usec 5389459
+0 00006.48 Performance output time-usec 453
+0 00006.48 Performance stopping time-usec 128863
+0 00006.48 Performance block time-usec 434
+0 00006.48 Performance exit time-usec 0
+0 00006.48 Performance grackle time-usec 0
+0 00006.48 Performance simulation max-proc-blocks 1
+0 00006.48 Performance simulation max-node-blocks 1
+0 00006.48 Performance simulation max-proc-particles 0
+0 00006.48 Performance simulation max-node-particles 0
+0 00006.48 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00006.48 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00006.92  -------------------------------------
+0 00006.92 Simulation cycle 0014
+0 00006.92 Simulation time-sim 3.056791723748e-02
+0 00006.92 Simulation dt 2.165728530433e-03
+0 00006.92 Performance counter num-msg-coarsen 0
+0 00006.92 Performance counter num-msg-refine 0
+0 00006.92 Performance counter num-msg-refresh 0
+0 00006.92 Performance counter num-data-msg 0
+0 00006.92 Performance counter num-field-face 0
+0 00006.92 Performance counter num-particle-data 1
+0 00006.92 Performance simulation num-particles total 0
+0 00006.92 performance simulation num-blocks-level 0 1
+0 00006.92 Performance simulation num-leaf-blocks 1
+0 00006.92 Performance simulation num-total-blocks 1
+0 00006.92 Performance simulation time-usec 47501290
+0 00006.92 Performance cycle time-usec 5914167
+0 00006.92 Performance cycle bytes-curr 0
+0 00006.92 Performance cycle bytes-high 0
+0 00006.92 Performance cycle bytes-highest 0
+0 00006.92 Performance cycle bytes-available 0
+0 00006.92 Performance initial time-usec 41550727
+0 00006.92 Performance adapt_apply time-usec 169
+0 00006.92 Performance adapt_apply_sync time-usec 43
+0 00006.92 Performance adapt_update time-usec 79
+0 00006.92 Performance adapt_update_sync time-usec 2684
+0 00006.92 Performance adapt_notify time-usec 177
+0 00006.92 Performance adapt_notify_sync time-usec 289
+0 00006.92 Performance adapt_end time-usec 8
+0 00006.92 Performance adapt_end_sync time-usec 1259
+0 00006.92 Performance refresh_store time-usec 0
+0 00006.92 Performance refresh_child time-usec 0
+0 00006.92 Performance refresh_exit time-usec 0
+0 00006.92 Performance refresh_store_sync time-usec 0
+0 00006.92 Performance refresh_child_sync time-usec 0
+0 00006.92 Performance refresh_exit_sync time-usec 0
+0 00006.92 Performance control time-usec 0
+0 00006.92 Performance compute time-usec 5821001
+0 00006.92 Performance output time-usec 491
+0 00006.92 Performance stopping time-usec 138783
+0 00006.92 Performance block time-usec 434
+0 00006.92 Performance exit time-usec 0
+0 00006.92 Performance grackle time-usec 0
+0 00006.92 Performance simulation max-proc-blocks 1
+0 00006.92 Performance simulation max-node-blocks 1
+0 00006.92 Performance simulation max-proc-particles 0
+0 00006.92 Performance simulation max-node-particles 0
+0 00006.92 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00006.92 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00007.35  -------------------------------------
+0 00007.35 Simulation cycle 0015
+0 00007.35 Simulation time-sim 3.272707241079e-02
+0 00007.35 Simulation dt 2.159155173311e-03
+0 00007.35 Performance counter num-msg-coarsen 0
+0 00007.35 Performance counter num-msg-refine 0
+0 00007.35 Performance counter num-msg-refresh 0
+0 00007.35 Performance counter num-data-msg 0
+0 00007.35 Performance counter num-field-face 0
+0 00007.35 Performance counter num-particle-data 1
+0 00007.35 Performance simulation num-particles total 0
+0 00007.35 performance simulation num-blocks-level 0 1
+0 00007.35 Performance simulation num-leaf-blocks 1
+0 00007.35 Performance simulation num-total-blocks 1
+0 00007.35 Performance simulation time-usec 50954577
+0 00007.35 Performance cycle time-usec 6345836
+0 00007.35 Performance cycle bytes-curr 0
+0 00007.35 Performance cycle bytes-high 0
+0 00007.35 Performance cycle bytes-highest 0
+0 00007.35 Performance cycle bytes-available 0
+0 00007.35 Performance initial time-usec 44572339
+0 00007.35 Performance adapt_apply time-usec 179
+0 00007.35 Performance adapt_apply_sync time-usec 46
+0 00007.35 Performance adapt_update time-usec 84
+0 00007.35 Performance adapt_update_sync time-usec 2861
+0 00007.35 Performance adapt_notify time-usec 190
+0 00007.35 Performance adapt_notify_sync time-usec 311
+0 00007.35 Performance adapt_end time-usec 8
+0 00007.35 Performance adapt_end_sync time-usec 1338
+0 00007.35 Performance refresh_store time-usec 0
+0 00007.35 Performance refresh_child time-usec 0
+0 00007.35 Performance refresh_exit time-usec 0
+0 00007.35 Performance refresh_store_sync time-usec 0
+0 00007.35 Performance refresh_child_sync time-usec 0
+0 00007.35 Performance refresh_exit_sync time-usec 0
+0 00007.35 Performance control time-usec 0
+0 00007.35 Performance compute time-usec 6245547
+0 00007.35 Performance output time-usec 523
+0 00007.35 Performance stopping time-usec 148703
+0 00007.35 Performance block time-usec 434
+0 00007.35 Performance exit time-usec 0
+0 00007.35 Performance grackle time-usec 0
+0 00007.35 Performance simulation max-proc-blocks 1
+0 00007.35 Performance simulation max-node-blocks 1
+0 00007.35 Performance simulation max-proc-particles 0
+0 00007.35 Performance simulation max-node-particles 0
+0 00007.35 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00007.35 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00007.79  -------------------------------------
+0 00007.79 Simulation cycle 0016
+0 00007.79 Simulation time-sim 3.487749610620e-02
+0 00007.79 Simulation dt 2.150423695413e-03
+0 00007.79 Performance counter num-msg-coarsen 0
+0 00007.79 Performance counter num-msg-refine 0
+0 00007.79 Performance counter num-msg-refresh 0
+0 00007.79 Performance counter num-data-msg 0
+0 00007.79 Performance counter num-field-face 0
+0 00007.79 Performance counter num-particle-data 1
+0 00007.79 Performance simulation num-particles total 0
+0 00007.79 performance simulation num-blocks-level 0 1
+0 00007.79 Performance simulation num-leaf-blocks 1
+0 00007.79 Performance simulation num-total-blocks 1
+0 00007.79 Performance simulation time-usec 54407431
+0 00007.79 Performance cycle time-usec 6777447
+0 00007.79 Performance cycle bytes-curr 0
+0 00007.79 Performance cycle bytes-high 0
+0 00007.79 Performance cycle bytes-highest 0
+0 00007.79 Performance cycle bytes-available 0
+0 00007.79 Performance initial time-usec 47593583
+0 00007.79 Performance adapt_apply time-usec 189
+0 00007.79 Performance adapt_apply_sync time-usec 49
+0 00007.79 Performance adapt_update time-usec 89
+0 00007.79 Performance adapt_update_sync time-usec 3044
+0 00007.79 Performance adapt_notify time-usec 206
+0 00007.79 Performance adapt_notify_sync time-usec 323
+0 00007.79 Performance adapt_end time-usec 9
+0 00007.79 Performance adapt_end_sync time-usec 1419
+0 00007.79 Performance refresh_store time-usec 0
+0 00007.79 Performance refresh_child time-usec 0
+0 00007.79 Performance refresh_exit time-usec 0
+0 00007.79 Performance refresh_store_sync time-usec 0
+0 00007.79 Performance refresh_child_sync time-usec 0
+0 00007.79 Performance refresh_exit_sync time-usec 0
+0 00007.79 Performance control time-usec 0
+0 00007.79 Performance compute time-usec 6670035
+0 00007.79 Performance output time-usec 550
+0 00007.79 Performance stopping time-usec 158670
+0 00007.79 Performance block time-usec 434
+0 00007.79 Performance exit time-usec 0
+0 00007.79 Performance grackle time-usec 0
+0 00007.79 Performance simulation max-proc-blocks 1
+0 00007.79 Performance simulation max-node-blocks 1
+0 00007.79 Performance simulation max-proc-particles 0
+0 00007.79 Performance simulation max-node-particles 0
+0 00007.79 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00007.79 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00008.22  -------------------------------------
+0 00008.22 Simulation cycle 0017
+0 00008.22 Simulation time-sim 3.702058939405e-02
+0 00008.22 Simulation dt 2.143093287849e-03
+0 00008.22 Performance counter num-msg-coarsen 0
+0 00008.22 Performance counter num-msg-refine 0
+0 00008.22 Performance counter num-msg-refresh 0
+0 00008.22 Performance counter num-data-msg 0
+0 00008.22 Performance counter num-field-face 0
+0 00008.22 Performance counter num-particle-data 1
+0 00008.22 Performance simulation num-particles total 0
+0 00008.22 performance simulation num-blocks-level 0 1
+0 00008.22 Performance simulation num-leaf-blocks 1
+0 00008.22 Performance simulation num-total-blocks 1
+0 00008.22 Performance simulation time-usec 57850537
+0 00008.22 Performance cycle time-usec 7207829
+0 00008.22 Performance cycle bytes-curr 0
+0 00008.22 Performance cycle bytes-high 0
+0 00008.22 Performance cycle bytes-highest 0
+0 00008.22 Performance cycle bytes-available 0
+0 00008.22 Performance initial time-usec 50606304
+0 00008.22 Performance adapt_apply time-usec 199
+0 00008.22 Performance adapt_apply_sync time-usec 52
+0 00008.22 Performance adapt_update time-usec 94
+0 00008.22 Performance adapt_update_sync time-usec 3212
+0 00008.22 Performance adapt_notify time-usec 217
+0 00008.22 Performance adapt_notify_sync time-usec 344
+0 00008.22 Performance adapt_end time-usec 10
+0 00008.22 Performance adapt_end_sync time-usec 1495
+0 00008.22 Performance refresh_store time-usec 0
+0 00008.22 Performance refresh_child time-usec 0
+0 00008.22 Performance refresh_exit time-usec 0
+0 00008.22 Performance refresh_store_sync time-usec 0
+0 00008.22 Performance refresh_child_sync time-usec 0
+0 00008.22 Performance refresh_exit_sync time-usec 0
+0 00008.22 Performance control time-usec 0
+0 00008.22 Performance compute time-usec 7093333
+0 00008.22 Performance output time-usec 580
+0 00008.22 Performance stopping time-usec 168588
+0 00008.22 Performance block time-usec 434
+0 00008.22 Performance exit time-usec 0
+0 00008.22 Performance grackle time-usec 0
+0 00008.22 Performance simulation max-proc-blocks 1
+0 00008.22 Performance simulation max-node-blocks 1
+0 00008.22 Performance simulation max-proc-particles 0
+0 00008.22 Performance simulation max-node-particles 0
+0 00008.22 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00008.22 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00008.65  -------------------------------------
+0 00008.65 Simulation cycle 0018
+0 00008.65 Simulation time-sim 3.915798313874e-02
+0 00008.65 Simulation dt 2.137393744684e-03
+0 00008.65 Performance counter num-msg-coarsen 0
+0 00008.65 Performance counter num-msg-refine 0
+0 00008.65 Performance counter num-msg-refresh 0
+0 00008.65 Performance counter num-data-msg 0
+0 00008.65 Performance counter num-field-face 0
+0 00008.65 Performance counter num-particle-data 1
+0 00008.65 Performance simulation num-particles total 0
+0 00008.65 performance simulation num-blocks-level 0 1
+0 00008.65 Performance simulation num-leaf-blocks 1
+0 00008.65 Performance simulation num-total-blocks 1
+0 00008.65 Performance simulation time-usec 61290373
+0 00008.65 Performance cycle time-usec 7637796
+0 00008.65 Performance cycle bytes-curr 0
+0 00008.65 Performance cycle bytes-high 0
+0 00008.65 Performance cycle bytes-highest 0
+0 00008.65 Performance cycle bytes-available 0
+0 00008.65 Performance initial time-usec 53616172
+0 00008.65 Performance adapt_apply time-usec 209
+0 00008.65 Performance adapt_apply_sync time-usec 55
+0 00008.65 Performance adapt_update time-usec 99
+0 00008.65 Performance adapt_update_sync time-usec 3384
+0 00008.65 Performance adapt_notify time-usec 227
+0 00008.65 Performance adapt_notify_sync time-usec 371
+0 00008.65 Performance adapt_end time-usec 11
+0 00008.65 Performance adapt_end_sync time-usec 1560
+0 00008.65 Performance refresh_store time-usec 0
+0 00008.65 Performance refresh_child time-usec 0
+0 00008.65 Performance refresh_exit time-usec 0
+0 00008.65 Performance refresh_store_sync time-usec 0
+0 00008.65 Performance refresh_child_sync time-usec 0
+0 00008.65 Performance refresh_exit_sync time-usec 0
+0 00008.65 Performance control time-usec 0
+0 00008.65 Performance compute time-usec 7516226
+0 00008.65 Performance output time-usec 607
+0 00008.65 Performance stopping time-usec 178486
+0 00008.65 Performance block time-usec 434
+0 00008.65 Performance exit time-usec 0
+0 00008.65 Performance grackle time-usec 0
+0 00008.65 Performance simulation max-proc-blocks 1
+0 00008.65 Performance simulation max-node-blocks 1
+0 00008.65 Performance simulation max-proc-particles 0
+0 00008.65 Performance simulation max-node-particles 0
+0 00008.65 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00008.65 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00009.08  -------------------------------------
+0 00009.08 Simulation cycle 0019
+0 00009.08 Simulation time-sim 4.129092141142e-02
+0 00009.08 Simulation dt 2.132938272684e-03
+0 00009.08 Performance counter num-msg-coarsen 0
+0 00009.08 Performance counter num-msg-refine 0
+0 00009.08 Performance counter num-msg-refresh 0
+0 00009.08 Performance counter num-data-msg 0
+0 00009.08 Performance counter num-field-face 0
+0 00009.08 Performance counter num-particle-data 1
+0 00009.08 Performance simulation num-particles total 0
+0 00009.08 performance simulation num-blocks-level 0 1
+0 00009.08 Performance simulation num-leaf-blocks 1
+0 00009.08 Performance simulation num-total-blocks 1
+0 00009.08 Performance simulation time-usec 64733975
+0 00009.08 Performance cycle time-usec 8068256
+0 00009.08 Performance cycle bytes-curr 0
+0 00009.08 Performance cycle bytes-high 0
+0 00009.08 Performance cycle bytes-highest 0
+0 00009.08 Performance cycle bytes-available 0
+0 00009.08 Performance initial time-usec 56629315
+0 00009.08 Performance adapt_apply time-usec 219
+0 00009.08 Performance adapt_apply_sync time-usec 58
+0 00009.08 Performance adapt_update time-usec 104
+0 00009.08 Performance adapt_update_sync time-usec 3536
+0 00009.08 Performance adapt_notify time-usec 238
+0 00009.08 Performance adapt_notify_sync time-usec 394
+0 00009.08 Performance adapt_end time-usec 12
+0 00009.08 Performance adapt_end_sync time-usec 1633
+0 00009.08 Performance refresh_store time-usec 0
+0 00009.08 Performance refresh_child time-usec 0
+0 00009.08 Performance refresh_exit time-usec 0
+0 00009.08 Performance refresh_store_sync time-usec 0
+0 00009.08 Performance refresh_child_sync time-usec 0
+0 00009.08 Performance refresh_exit_sync time-usec 0
+0 00009.08 Performance control time-usec 0
+0 00009.08 Performance compute time-usec 7939565
+0 00009.08 Performance output time-usec 635
+0 00009.08 Performance stopping time-usec 188405
+0 00009.08 Performance block time-usec 434
+0 00009.08 Performance exit time-usec 0
+0 00009.08 Performance grackle time-usec 0
+0 00009.08 Performance simulation max-proc-blocks 1
+0 00009.08 Performance simulation max-node-blocks 1
+0 00009.08 Performance simulation max-proc-particles 0
+0 00009.08 Performance simulation max-node-particles 0
+0 00009.08 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00009.08 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00009.52  -------------------------------------
+0 00009.52 Simulation cycle 0020
+0 00009.52 Simulation time-sim 4.342403229008e-02
+0 00009.52 Simulation dt 2.133110878661e-03
+0 00009.52 Performance counter num-msg-coarsen 0
+0 00009.52 Performance counter num-msg-refine 0
+0 00009.52 Performance counter num-msg-refresh 0
+0 00009.52 Performance counter num-data-msg 0
+0 00009.52 Performance counter num-field-face 0
+0 00009.52 Performance counter num-particle-data 1
+0 00009.52 Performance simulation num-particles total 0
+0 00009.52 performance simulation num-blocks-level 0 1
+0 00009.52 Performance simulation num-leaf-blocks 1
+0 00009.52 Performance simulation num-total-blocks 1
+0 00009.52 Performance simulation time-usec 68246307
+0 00009.52 Performance cycle time-usec 8507284
+0 00009.52 Performance cycle bytes-curr 0
+0 00009.52 Performance cycle bytes-high 0
+0 00009.52 Performance cycle bytes-highest 0
+0 00009.52 Performance cycle bytes-available 0
+0 00009.52 Performance initial time-usec 59702618
+0 00009.52 Performance adapt_apply time-usec 231
+0 00009.52 Performance adapt_apply_sync time-usec 60
+0 00009.52 Performance adapt_update time-usec 109
+0 00009.52 Performance adapt_update_sync time-usec 3702
+0 00009.52 Performance adapt_notify time-usec 250
+0 00009.52 Performance adapt_notify_sync time-usec 413
+0 00009.52 Performance adapt_end time-usec 12
+0 00009.52 Performance adapt_end_sync time-usec 1712
+0 00009.52 Performance refresh_store time-usec 0
+0 00009.52 Performance refresh_child time-usec 0
+0 00009.52 Performance refresh_exit time-usec 0
+0 00009.52 Performance refresh_store_sync time-usec 0
+0 00009.52 Performance refresh_child_sync time-usec 0
+0 00009.52 Performance refresh_exit_sync time-usec 0
+0 00009.52 Performance control time-usec 0
+0 00009.52 Performance compute time-usec 8371421
+0 00009.52 Performance output time-usec 677
+0 00009.52 Performance stopping time-usec 198322
+0 00009.52 Performance block time-usec 434
+0 00009.52 Performance exit time-usec 0
+0 00009.52 Performance grackle time-usec 0
+0 00009.52 Performance simulation max-proc-blocks 1
+0 00009.52 Performance simulation max-node-blocks 1
+0 00009.52 Performance simulation max-proc-particles 0
+0 00009.52 Performance simulation max-node-particles 0
+0 00009.52 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00009.52 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00009.95  -------------------------------------
+0 00009.95 Simulation cycle 0021
+0 00009.95 Simulation time-sim 4.555025870310e-02
+0 00009.95 Simulation dt 2.126226413018e-03
+0 00009.95 Performance counter num-msg-coarsen 0
+0 00009.95 Performance counter num-msg-refine 0
+0 00009.95 Performance counter num-msg-refresh 0
+0 00009.95 Performance counter num-data-msg 0
+0 00009.95 Performance counter num-field-face 0
+0 00009.95 Performance counter num-particle-data 1
+0 00009.95 Performance simulation num-particles total 0
+0 00009.95 performance simulation num-blocks-level 0 1
+0 00009.95 Performance simulation num-leaf-blocks 1
+0 00009.95 Performance simulation num-total-blocks 1
+0 00009.95 Performance simulation time-usec 71699047
+0 00009.95 Performance cycle time-usec 8938881
+0 00009.95 Performance cycle bytes-curr 0
+0 00009.95 Performance cycle bytes-high 0
+0 00009.95 Performance cycle bytes-highest 0
+0 00009.95 Performance cycle bytes-available 0
+0 00009.95 Performance initial time-usec 62723759
+0 00009.95 Performance adapt_apply time-usec 242
+0 00009.95 Performance adapt_apply_sync time-usec 63
+0 00009.95 Performance adapt_update time-usec 114
+0 00009.95 Performance adapt_update_sync time-usec 3848
+0 00009.95 Performance adapt_notify time-usec 261
+0 00009.95 Performance adapt_notify_sync time-usec 429
+0 00009.95 Performance adapt_end time-usec 13
+0 00009.95 Performance adapt_end_sync time-usec 1786
+0 00009.95 Performance refresh_store time-usec 0
+0 00009.95 Performance refresh_child time-usec 0
+0 00009.95 Performance refresh_exit time-usec 0
+0 00009.95 Performance refresh_store_sync time-usec 0
+0 00009.95 Performance refresh_child_sync time-usec 0
+0 00009.95 Performance refresh_exit_sync time-usec 0
+0 00009.95 Performance control time-usec 0
+0 00009.95 Performance compute time-usec 8795902
+0 00009.95 Performance output time-usec 706
+0 00009.95 Performance stopping time-usec 208313
+0 00009.95 Performance block time-usec 434
+0 00009.95 Performance exit time-usec 0
+0 00009.95 Performance grackle time-usec 0
+0 00009.95 Performance simulation max-proc-blocks 1
+0 00009.95 Performance simulation max-node-blocks 1
+0 00009.95 Performance simulation max-proc-particles 0
+0 00009.95 Performance simulation max-node-particles 0
+0 00009.95 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00009.95 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00010.38  -------------------------------------
+0 00010.38 Simulation cycle 0022
+0 00010.38 Simulation time-sim 4.766888128518e-02
+0 00010.38 Simulation dt 2.118622582074e-03
+0 00010.38 Performance counter num-msg-coarsen 0
+0 00010.38 Performance counter num-msg-refine 0
+0 00010.38 Performance counter num-msg-refresh 0
+0 00010.38 Performance counter num-data-msg 0
+0 00010.38 Performance counter num-field-face 0
+0 00010.38 Performance counter num-particle-data 1
+0 00010.38 Performance simulation num-particles total 0
+0 00010.38 performance simulation num-blocks-level 0 1
+0 00010.38 Performance simulation num-leaf-blocks 1
+0 00010.38 Performance simulation num-total-blocks 1
+0 00010.38 Performance simulation time-usec 75148373
+0 00010.38 Performance cycle time-usec 9370051
+0 00010.38 Performance cycle bytes-curr 0
+0 00010.38 Performance cycle bytes-high 0
+0 00010.38 Performance cycle bytes-highest 0
+0 00010.38 Performance cycle bytes-available 0
+0 00010.38 Performance initial time-usec 65741912
+0 00010.38 Performance adapt_apply time-usec 252
+0 00010.38 Performance adapt_apply_sync time-usec 65
+0 00010.38 Performance adapt_update time-usec 118
+0 00010.38 Performance adapt_update_sync time-usec 3986
+0 00010.38 Performance adapt_notify time-usec 271
+0 00010.38 Performance adapt_notify_sync time-usec 442
+0 00010.38 Performance adapt_end time-usec 13
+0 00010.38 Performance adapt_end_sync time-usec 1859
+0 00010.38 Performance refresh_store time-usec 0
+0 00010.38 Performance refresh_child time-usec 0
+0 00010.38 Performance refresh_exit time-usec 0
+0 00010.38 Performance refresh_store_sync time-usec 0
+0 00010.38 Performance refresh_child_sync time-usec 0
+0 00010.38 Performance refresh_exit_sync time-usec 0
+0 00010.38 Performance control time-usec 0
+0 00010.38 Performance compute time-usec 9220017
+0 00010.38 Performance output time-usec 737
+0 00010.38 Performance stopping time-usec 218218
+0 00010.38 Performance block time-usec 434
+0 00010.38 Performance exit time-usec 0
+0 00010.38 Performance grackle time-usec 0
+0 00010.38 Performance simulation max-proc-blocks 1
+0 00010.38 Performance simulation max-node-blocks 1
+0 00010.38 Performance simulation max-proc-particles 0
+0 00010.38 Performance simulation max-node-particles 0
+0 00010.38 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00010.38 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00010.81  -------------------------------------
+0 00010.81 Simulation cycle 0023
+0 00010.81 Simulation time-sim 4.978085650475e-02
+0 00010.81 Simulation dt 2.111975219578e-03
+0 00010.81 Performance counter num-msg-coarsen 0
+0 00010.81 Performance counter num-msg-refine 0
+0 00010.81 Performance counter num-msg-refresh 0
+0 00010.81 Performance counter num-data-msg 0
+0 00010.81 Performance counter num-field-face 0
+0 00010.81 Performance counter num-particle-data 1
+0 00010.81 Performance simulation num-particles total 0
+0 00010.81 performance simulation num-blocks-level 0 1
+0 00010.81 Performance simulation num-leaf-blocks 1
+0 00010.81 Performance simulation num-total-blocks 1
+0 00010.81 Performance simulation time-usec 78593262
+0 00010.81 Performance cycle time-usec 9800656
+0 00010.81 Performance cycle bytes-curr 0
+0 00010.81 Performance cycle bytes-high 0
+0 00010.81 Performance cycle bytes-highest 0
+0 00010.81 Performance cycle bytes-available 0
+0 00010.81 Performance initial time-usec 68756198
+0 00010.81 Performance adapt_apply time-usec 263
+0 00010.81 Performance adapt_apply_sync time-usec 68
+0 00010.81 Performance adapt_update time-usec 122
+0 00010.81 Performance adapt_update_sync time-usec 4117
+0 00010.81 Performance adapt_notify time-usec 282
+0 00010.81 Performance adapt_notify_sync time-usec 467
+0 00010.81 Performance adapt_end time-usec 14
+0 00010.81 Performance adapt_end_sync time-usec 1927
+0 00010.81 Performance refresh_store time-usec 0
+0 00010.81 Performance refresh_child time-usec 0
+0 00010.81 Performance refresh_exit time-usec 0
+0 00010.81 Performance refresh_store_sync time-usec 0
+0 00010.81 Performance refresh_child_sync time-usec 0
+0 00010.81 Performance refresh_exit_sync time-usec 0
+0 00010.81 Performance control time-usec 0
+0 00010.81 Performance compute time-usec 9643583
+0 00010.81 Performance output time-usec 766
+0 00010.81 Performance stopping time-usec 228083
+0 00010.81 Performance block time-usec 434
+0 00010.81 Performance exit time-usec 0
+0 00010.81 Performance grackle time-usec 0
+0 00010.81 Performance simulation max-proc-blocks 1
+0 00010.81 Performance simulation max-node-blocks 1
+0 00010.81 Performance simulation max-proc-particles 0
+0 00010.81 Performance simulation max-node-particles 0
+0 00010.81 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00010.81 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00011.24  -------------------------------------
+0 00011.24 Simulation cycle 0024
+0 00011.24 Simulation time-sim 5.188618820342e-02
+0 00011.24 Simulation dt 2.105331698662e-03
+0 00011.24 Performance counter num-msg-coarsen 0
+0 00011.24 Performance counter num-msg-refine 0
+0 00011.24 Performance counter num-msg-refresh 0
+0 00011.24 Performance counter num-data-msg 0
+0 00011.24 Performance counter num-field-face 0
+0 00011.24 Performance counter num-particle-data 1
+0 00011.24 Performance simulation num-particles total 0
+0 00011.24 performance simulation num-blocks-level 0 1
+0 00011.24 Performance simulation num-leaf-blocks 1
+0 00011.24 Performance simulation num-total-blocks 1
+0 00011.24 Performance simulation time-usec 82048135
+0 00011.24 Performance cycle time-usec 10232512
+0 00011.24 Performance cycle bytes-curr 0
+0 00011.24 Performance cycle bytes-high 0
+0 00011.24 Performance cycle bytes-highest 0
+0 00011.24 Performance cycle bytes-available 0
+0 00011.24 Performance initial time-usec 71779213
+0 00011.24 Performance adapt_apply time-usec 273
+0 00011.24 Performance adapt_apply_sync time-usec 71
+0 00011.24 Performance adapt_update time-usec 127
+0 00011.24 Performance adapt_update_sync time-usec 4261
+0 00011.24 Performance adapt_notify time-usec 293
+0 00011.24 Performance adapt_notify_sync time-usec 488
+0 00011.24 Performance adapt_end time-usec 15
+0 00011.24 Performance adapt_end_sync time-usec 1990
+0 00011.24 Performance refresh_store time-usec 0
+0 00011.24 Performance refresh_child time-usec 0
+0 00011.24 Performance refresh_exit time-usec 0
+0 00011.24 Performance refresh_store_sync time-usec 0
+0 00011.24 Performance refresh_child_sync time-usec 0
+0 00011.24 Performance refresh_exit_sync time-usec 0
+0 00011.24 Performance control time-usec 0
+0 00011.24 Performance compute time-usec 10068374
+0 00011.24 Performance output time-usec 798
+0 00011.24 Performance stopping time-usec 237882
+0 00011.24 Performance block time-usec 434
+0 00011.24 Performance exit time-usec 0
+0 00011.24 Performance grackle time-usec 0
+0 00011.24 Performance simulation max-proc-blocks 1
+0 00011.24 Performance simulation max-node-blocks 1
+0 00011.24 Performance simulation max-proc-particles 0
+0 00011.24 Performance simulation max-node-particles 0
+0 00011.24 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00011.24 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00011.67  -------------------------------------
+0 00011.67 Simulation cycle 0025
+0 00011.67 Simulation time-sim 5.398594611250e-02
+0 00011.67 Simulation dt 2.099757909088e-03
+0 00011.67 Performance counter num-msg-coarsen 0
+0 00011.67 Performance counter num-msg-refine 0
+0 00011.67 Performance counter num-msg-refresh 0
+0 00011.67 Performance counter num-data-msg 0
+0 00011.67 Performance counter num-field-face 0
+0 00011.67 Performance counter num-particle-data 1
+0 00011.67 Performance simulation num-particles total 0
+0 00011.67 performance simulation num-blocks-level 0 1
+0 00011.67 Performance simulation num-leaf-blocks 1
+0 00011.67 Performance simulation num-total-blocks 1
+0 00011.67 Performance simulation time-usec 85497748
+0 00011.67 Performance cycle time-usec 10663713
+0 00011.67 Performance cycle bytes-curr 0
+0 00011.67 Performance cycle bytes-high 0
+0 00011.67 Performance cycle bytes-highest 0
+0 00011.67 Performance cycle bytes-available 0
+0 00011.67 Performance initial time-usec 74797625
+0 00011.67 Performance adapt_apply time-usec 284
+0 00011.67 Performance adapt_apply_sync time-usec 74
+0 00011.67 Performance adapt_update time-usec 132
+0 00011.67 Performance adapt_update_sync time-usec 4407
+0 00011.67 Performance adapt_notify time-usec 303
+0 00011.67 Performance adapt_notify_sync time-usec 507
+0 00011.67 Performance adapt_end time-usec 16
+0 00011.67 Performance adapt_end_sync time-usec 2055
+0 00011.67 Performance refresh_store time-usec 0
+0 00011.67 Performance refresh_child time-usec 0
+0 00011.67 Performance refresh_exit time-usec 0
+0 00011.67 Performance refresh_store_sync time-usec 0
+0 00011.67 Performance refresh_child_sync time-usec 0
+0 00011.67 Performance refresh_exit_sync time-usec 0
+0 00011.67 Performance control time-usec 0
+0 00011.67 Performance compute time-usec 10492533
+0 00011.67 Performance output time-usec 826
+0 00011.67 Performance stopping time-usec 247786
+0 00011.67 Performance block time-usec 434
+0 00011.67 Performance exit time-usec 0
+0 00011.67 Performance grackle time-usec 0
+0 00011.67 Performance simulation max-proc-blocks 1
+0 00011.67 Performance simulation max-node-blocks 1
+0 00011.67 Performance simulation max-proc-particles 0
+0 00011.67 Performance simulation max-node-particles 0
+0 00011.67 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00011.67 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00012.10  -------------------------------------
+0 00012.10 Simulation cycle 0026
+0 00012.10 Simulation time-sim 5.608071497359e-02
+0 00012.10 Simulation dt 2.094768861084e-03
+0 00012.11 Performance counter num-msg-coarsen 0
+0 00012.11 Performance counter num-msg-refine 0
+0 00012.11 Performance counter num-msg-refresh 0
+0 00012.11 Performance counter num-data-msg 0
+0 00012.11 Performance counter num-field-face 0
+0 00012.11 Performance counter num-particle-data 1
+0 00012.11 Performance simulation num-particles total 0
+0 00012.11 performance simulation num-blocks-level 0 1
+0 00012.11 Performance simulation num-leaf-blocks 1
+0 00012.11 Performance simulation num-total-blocks 1
+0 00012.11 Performance simulation time-usec 88948469
+0 00012.11 Performance cycle time-usec 11095057
+0 00012.11 Performance cycle bytes-curr 0
+0 00012.11 Performance cycle bytes-high 0
+0 00012.11 Performance cycle bytes-highest 0
+0 00012.11 Performance cycle bytes-available 0
+0 00012.11 Performance initial time-usec 77817000
+0 00012.11 Performance adapt_apply time-usec 293
+0 00012.11 Performance adapt_apply_sync time-usec 77
+0 00012.11 Performance adapt_update time-usec 136
+0 00012.11 Performance adapt_update_sync time-usec 4551
+0 00012.11 Performance adapt_notify time-usec 313
+0 00012.11 Performance adapt_notify_sync time-usec 527
+0 00012.11 Performance adapt_end time-usec 17
+0 00012.11 Performance adapt_end_sync time-usec 2118
+0 00012.11 Performance refresh_store time-usec 0
+0 00012.11 Performance refresh_child time-usec 0
+0 00012.11 Performance refresh_exit time-usec 0
+0 00012.11 Performance refresh_store_sync time-usec 0
+0 00012.11 Performance refresh_child_sync time-usec 0
+0 00012.11 Performance refresh_exit_sync time-usec 0
+0 00012.11 Performance control time-usec 0
+0 00012.11 Performance compute time-usec 10916821
+0 00012.11 Performance output time-usec 855
+0 00012.11 Performance stopping time-usec 257734
+0 00012.11 Performance block time-usec 434
+0 00012.11 Performance exit time-usec 0
+0 00012.11 Performance grackle time-usec 0
+0 00012.11 Performance simulation max-proc-blocks 1
+0 00012.11 Performance simulation max-node-blocks 1
+0 00012.11 Performance simulation max-proc-particles 0
+0 00012.11 Performance simulation max-node-particles 0
+0 00012.11 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00012.11 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00012.54  -------------------------------------
+0 00012.54 Simulation cycle 0027
+0 00012.54 Simulation time-sim 5.817005008816e-02
+0 00012.54 Simulation dt 2.089335114571e-03
+0 00012.54 Performance counter num-msg-coarsen 0
+0 00012.54 Performance counter num-msg-refine 0
+0 00012.54 Performance counter num-msg-refresh 0
+0 00012.54 Performance counter num-data-msg 0
+0 00012.54 Performance counter num-field-face 0
+0 00012.54 Performance counter num-particle-data 1
+0 00012.54 Performance simulation num-particles total 0
+0 00012.54 performance simulation num-blocks-level 0 1
+0 00012.54 Performance simulation num-leaf-blocks 1
+0 00012.54 Performance simulation num-total-blocks 1
+0 00012.54 Performance simulation time-usec 92401356
+0 00012.54 Performance cycle time-usec 11526660
+0 00012.54 Performance cycle bytes-curr 0
+0 00012.54 Performance cycle bytes-high 0
+0 00012.54 Performance cycle bytes-highest 0
+0 00012.54 Performance cycle bytes-available 0
+0 00012.54 Performance initial time-usec 80838279
+0 00012.54 Performance adapt_apply time-usec 305
+0 00012.54 Performance adapt_apply_sync time-usec 80
+0 00012.54 Performance adapt_update time-usec 141
+0 00012.54 Performance adapt_update_sync time-usec 4690
+0 00012.54 Performance adapt_notify time-usec 324
+0 00012.54 Performance adapt_notify_sync time-usec 550
+0 00012.54 Performance adapt_end time-usec 17
+0 00012.54 Performance adapt_end_sync time-usec 2183
+0 00012.54 Performance refresh_store time-usec 0
+0 00012.54 Performance refresh_child time-usec 0
+0 00012.54 Performance refresh_exit time-usec 0
+0 00012.54 Performance refresh_store_sync time-usec 0
+0 00012.54 Performance refresh_child_sync time-usec 0
+0 00012.54 Performance refresh_exit_sync time-usec 0
+0 00012.54 Performance control time-usec 0
+0 00012.54 Performance compute time-usec 11341342
+0 00012.54 Performance output time-usec 881
+0 00012.54 Performance stopping time-usec 267690
+0 00012.54 Performance block time-usec 434
+0 00012.54 Performance exit time-usec 0
+0 00012.54 Performance grackle time-usec 0
+0 00012.54 Performance simulation max-proc-blocks 1
+0 00012.54 Performance simulation max-node-blocks 1
+0 00012.54 Performance simulation max-proc-particles 0
+0 00012.54 Performance simulation max-node-particles 0
+0 00012.54 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00012.54 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00012.97  -------------------------------------
+0 00012.97 Simulation cycle 0028
+0 00012.97 Simulation time-sim 6.025555963758e-02
+0 00012.97 Simulation dt 2.085509549417e-03
+0 00012.97 Performance counter num-msg-coarsen 0
+0 00012.97 Performance counter num-msg-refine 0
+0 00012.97 Performance counter num-msg-refresh 0
+0 00012.97 Performance counter num-data-msg 0
+0 00012.97 Performance counter num-field-face 0
+0 00012.97 Performance counter num-particle-data 1
+0 00012.97 Performance simulation num-particles total 0
+0 00012.97 performance simulation num-blocks-level 0 1
+0 00012.97 Performance simulation num-leaf-blocks 1
+0 00012.97 Performance simulation num-total-blocks 1
+0 00012.97 Performance simulation time-usec 95849109
+0 00012.97 Performance cycle time-usec 11957629
+0 00012.97 Performance cycle bytes-curr 0
+0 00012.97 Performance cycle bytes-high 0
+0 00012.97 Performance cycle bytes-highest 0
+0 00012.97 Performance cycle bytes-available 0
+0 00012.97 Performance initial time-usec 83855067
+0 00012.97 Performance adapt_apply time-usec 315
+0 00012.97 Performance adapt_apply_sync time-usec 83
+0 00012.97 Performance adapt_update time-usec 146
+0 00012.97 Performance adapt_update_sync time-usec 4833
+0 00012.97 Performance adapt_notify time-usec 335
+0 00012.97 Performance adapt_notify_sync time-usec 567
+0 00012.97 Performance adapt_end time-usec 17
+0 00012.97 Performance adapt_end_sync time-usec 2250
+0 00012.97 Performance refresh_store time-usec 0
+0 00012.97 Performance refresh_child time-usec 0
+0 00012.97 Performance refresh_exit time-usec 0
+0 00012.97 Performance refresh_store_sync time-usec 0
+0 00012.97 Performance refresh_child_sync time-usec 0
+0 00012.97 Performance refresh_exit_sync time-usec 0
+0 00012.97 Performance control time-usec 0
+0 00012.97 Performance compute time-usec 11765225
+0 00012.97 Performance output time-usec 909
+0 00012.97 Performance stopping time-usec 277593
+0 00012.97 Performance block time-usec 434
+0 00012.97 Performance exit time-usec 0
+0 00012.97 Performance grackle time-usec 0
+0 00012.97 Performance simulation max-proc-blocks 1
+0 00012.97 Performance simulation max-node-blocks 1
+0 00012.97 Performance simulation max-proc-particles 0
+0 00012.97 Performance simulation max-node-particles 0
+0 00012.97 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00012.97 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00013.40  -------------------------------------
+0 00013.40 Simulation cycle 0029
+0 00013.40 Simulation time-sim 6.233893673690e-02
+0 00013.40 Simulation dt 2.083377099327e-03
+0 00013.40 Performance counter num-msg-coarsen 0
+0 00013.40 Performance counter num-msg-refine 0
+0 00013.40 Performance counter num-msg-refresh 0
+0 00013.40 Performance counter num-data-msg 0
+0 00013.40 Performance counter num-field-face 0
+0 00013.40 Performance counter num-particle-data 1
+0 00013.40 Performance simulation num-particles total 0
+0 00013.40 performance simulation num-blocks-level 0 1
+0 00013.40 Performance simulation num-leaf-blocks 1
+0 00013.40 Performance simulation num-total-blocks 1
+0 00013.40 Performance simulation time-usec 99303451
+0 00013.40 Performance cycle time-usec 12389421
+0 00013.40 Performance cycle bytes-curr 0
+0 00013.40 Performance cycle bytes-high 0
+0 00013.40 Performance cycle bytes-highest 0
+0 00013.40 Performance cycle bytes-available 0
+0 00013.40 Performance initial time-usec 86877613
+0 00013.40 Performance adapt_apply time-usec 326
+0 00013.40 Performance adapt_apply_sync time-usec 86
+0 00013.40 Performance adapt_update time-usec 150
+0 00013.40 Performance adapt_update_sync time-usec 4968
+0 00013.40 Performance adapt_notify time-usec 346
+0 00013.40 Performance adapt_notify_sync time-usec 582
+0 00013.40 Performance adapt_end time-usec 19
+0 00013.40 Performance adapt_end_sync time-usec 2324
+0 00013.40 Performance refresh_store time-usec 0
+0 00013.40 Performance refresh_child time-usec 0
+0 00013.40 Performance refresh_exit time-usec 0
+0 00013.40 Performance refresh_store_sync time-usec 0
+0 00013.40 Performance refresh_child_sync time-usec 0
+0 00013.40 Performance refresh_exit_sync time-usec 0
+0 00013.40 Performance control time-usec 0
+0 00013.40 Performance compute time-usec 12189935
+0 00013.40 Performance output time-usec 938
+0 00013.40 Performance stopping time-usec 287502
+0 00013.40 Performance block time-usec 434
+0 00013.40 Performance exit time-usec 0
+0 00013.40 Performance grackle time-usec 0
+0 00013.40 Performance simulation max-proc-blocks 1
+0 00013.40 Performance simulation max-node-blocks 1
+0 00013.40 Performance simulation max-proc-particles 0
+0 00013.40 Performance simulation max-node-particles 0
+0 00013.40 Performance simulation balance-eff-blocks-core 0.125000 (0/1)
+0 00013.40 Performance simulation balance-eff-blocks-node 0.125000 (0/1)
+0 00013.84 Output writing data file ./hlld_cloud_0.0625/cloud-data-000.h5

@@ -1,0 +1,21 @@
+# Problem: VL test problems involving the dual energy formalism
+# Author: Matthew Abruzzo (matthewabruzzo@gmail.com)
+
+   include "input/vlct/vl.incl"
+
+   Physics { fluid_props { dual_energy { type = "modern"; } } }
+
+   Field {
+      # overwrite the list parameter to include internal energy
+      list = ["density",
+              "velocity_x", "velocity_y", "velocity_z",
+	      "total_energy", "internal_energy", "pressure"];
+   }
+
+   Output {
+      data {
+         # overwrite field_list to include "internal_energy"
+	 field_list = ["density", "velocity_x", "velocity_y", "velocity_z",
+                       "total_energy", "internal_energy"];
+      };
+   }

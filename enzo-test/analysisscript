@@ -1,0 +1,26 @@
+#!/bin/bash
+
+#SBATCH -J analysis  # Job name
+#SBATCH -o o%j       # Name of stdout output file
+#SBATCH -e e%j       # Name of stderr error file
+#SBATCH -p spr             # Queue (partition) name
+#SBATCH -N 1               # Total # of nodes 
+#SBATCH -n 32             # Total # of mpi tasks
+#SBATCH -t 01:00:00        # Run time (hh:mm:ss)
+#SBATCH --mail-user=roy.h9222001@gmail.com
+#SBATCH --mail-type=all    # Send email at begin and end of job
+
+# Other commands must follow all #SBATCH directives...
+module list
+pwd
+date
+
+# Always run your jobs out of $SCRATCH.  Your input files, output files, 
+# and exectuable should be in the $SCRATCH directory hierarchy.  
+# Change directories to your $SCRATCH directory where your executable is
+
+cd $SCRATCH/enzo-test # Define working directory 
+
+# Launch MPI code... 
+
+tar --use-compress-program="zstd -T0" -cf frames.tar.zst *.png

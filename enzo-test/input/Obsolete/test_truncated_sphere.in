@@ -1,0 +1,104 @@
+# Problem: 3D test of EnzoMethodGravityCg using a truncated isothermal sphere
+# Author:  James Bordner (jobordner@ucsd.edu)
+
+Domain {
+   lower = [ -1.0, -1.0, -1.0 ];
+   upper = [  1.0,  1.0,  1.0 ];
+}
+
+Adapt {
+   max_level = 3; 
+   list = ["slope"];
+   slope {
+      type = "slope";
+      field_list = ["density"];
+      min_refine =  2.0;
+      max_coarsen = 0.01;
+   }
+}
+
+Mesh { 
+   root_rank = 3;
+   root_blocks = [4,4,4];
+   root_size = [64,64,64];
+}
+
+Method {
+    list = ["gravity_bicgstab"]; 
+    gravity_bicgstab {
+       iter_max = 1000;
+       res_tol  = 1e-3;
+    }
+}
+
+Field {
+   
+   list = ["density", "potential",
+   "acceleration_x",
+   "acceleration_y",
+   "acceleration_z",
+   "B" ];
+
+   ghost_depth = 4;
+
+}
+
+Initial {
+   list = ["value"];	
+   value {
+      density  = [ 1.0 / (x*x + y*y + z*z + 0.00001),
+                          x*x + y*y + z*z < 0.1,
+                  10.0 ];
+   }
+}
+
+Boundary {
+   type = "reflecting";
+} 
+
+Output {
+   list = ["phi_png", "rho_png", "mesh", "phi_h5", "rho_h5"];
+    mesh {
+	type     = "image";
+	image_type  = "mesh";
+	image_reduce_type = "max";
+        include "input/schedule_cycle_1.incl"
+	image_min = 0.0;
+	image_max = 6.0;
+        include "input/colormap_rainbow.incl"
+   }
+   phi_png {
+     type = "image";
+     field_list = ["potential"];
+     include "input/schedule_cycle_1.incl"
+     include "input/colormap_blackbody.incl"
+   }
+   rho_png {
+     type = "image";
+     field_list = ["density"];
+     image_log = true;
+     include "input/schedule_cycle_1.incl"
+     include "input/colormap_blackbody.incl"
+   }
+   phi_h5 {
+     type = "data";
+     field_list = ["potential"];
+     include "input/schedule_cycle_1.incl"
+   }
+   rho_h5 {
+     type = "data";
+     field_list = ["density"];
+     include "input/schedule_cycle_1.incl"
+   }
+}
+
+Stopping { cycle = 1; }
+
+Output {
+
+  mesh    { name = ["tis3-mesh-%02d.png", "cycle"]; }
+  phi_png { name = ["tis3-phi-%02d.png",  "cycle"]; }
+  rho_png { name = ["tis3-rho-%02d.png",  "cycle"]; }
+  phi_h5  { name = ["tis3-phi-%02d-%02d.h5",   "cycle", "proc"]; }
+  rho_h5  { name = ["tis3-rho-%02d-%02d.h5",   "cycle", "proc"]; }
+}

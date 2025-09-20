@@ -1,0 +1,126 @@
+
+Currently Loaded Modules:
+  1) intel/24.0      4) cmake/4.1.0     7) TACC
+  2) impi/21.11      5) xalt/3.1.1      8) hdf5/1.14.6
+  3) autotools/1.4   6) python/3.9.18   9) boost/1.86.0
+
+ 
+
+7 00001.69  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+7 00001.69 ERROR EnzoMethodPpm_SolveHydroEquations.cpp:383
+7 00001.69 ERROR EnzoMethodPpm::SolveHydroEquations
+7 00001.69 ERROR Error 10501 in call to ppm_de block B10:00_11:10
+0 00001.70  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+0 00001.70 ERROR EnzoMethodPpm_SolveHydroEquations.cpp:383
+0 00001.70 ERROR EnzoMethodPpm::SolveHydroEquations
+0 00001.70 ERROR Error 10501 in call to ppm_de block B00:100_00:100
+0 00001.70  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+7 00001.70 EXIT :0
+7 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(_ZN5cello5errorEv+0x23) [0x9b9ba3]
+7 00001.70 EXIT :0
+7 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(_ZN13EnzoMethodPpm19SolveHydroEquationsER9EnzoBlockddbbbibbbd+0x2661) [0x7b0d81]
+7 00001.70 EXIT :0
+7 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(_ZN13EnzoMethodPpm7computeEP5Block+0x314) [0x7adea4]
+7 00001.70 EXIT :0
+7 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(_ZN5Block17compute_continue_Ev+0x127) [0x9a5a07]
+7 00001.70 EXIT :0
+7 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(_ZN5Block18p_compute_continueEv+0x15) [0x97b425]
+7 00001.70 EXIT :0
+7 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(_ZN13CkIndex_Block29_call_p_compute_continue_voidEPvS0_+0x21) [0x96d871]
+7 00001.70 EXIT :0
+7 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(CkDeliverMessageFree+0x3c) [0xaf3a2c]
+7 00001.70 EXIT :0
+7 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(_ZN8CkLocRec11invokeEntryEP12CkMigratablePvib+0x2b) [0xb2fe9b]
+7 00001.70 EXIT :0
+7 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(_Z15_processHandlerPvP11CkCoreState+0x1141) [0xaf6081]
+7 00001.70 EXIT :0
+7 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(CsdScheduleForever+0xb7) [0xbb44b7]
+7 00001.70 EXIT :0
+7 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(CsdScheduler+0x20) [0xbb4270]
+7 00001.70 EXIT :0
+7 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(ConverseInit+0x59a) [0xbecdba]
+7 00001.70 EXIT :0
+7 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(charm_main+0x24) [0xba1f04]
+7 00001.70 EXIT :0
+7 00001.70 EXIT /usr/lib64/libc.so.6(+0x295d0) [0x14e173a295d0]
+7 00001.70 EXIT :0
+7 00001.70 EXIT /usr/lib64/libc.so.6(__libc_start_main+0x80) [0x14e173a29680]
+7 00001.70 EXIT :0
+7 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(_start+0x25) [0x65c7c5]
+------------- Processor 7 Exiting: Called CmiAbort ------------
+Reason: EXITING
+0 00001.70 EXIT :0
+0 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(_ZN5cello5errorEv+0x23) [0x9b9ba3]
+0 00001.70 EXIT :0
+0 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(_ZN13EnzoMethodPpm19SolveHydroEquationsER9EnzoBlockddbbbibbbd+0x2661) [0x7b0d81]
+0 00001.70 EXIT :0
+0 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(_ZN13EnzoMethodPpm7computeEP5Block+0x314) [0x7adea4]
+0 00001.70 EXIT :0
+0 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(_ZN5Block17compute_continue_Ev+0x127) [0x9a5a07]
+0 00001.70 EXIT :0
+0 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(_ZN5Block18p_compute_continueEv+0x15) [0x97b425]
+0 00001.70 EXIT :0
+0 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(_ZN13CkIndex_Block29_call_p_compute_continue_voidEPvS0_+0x21) [0x96d871]
+0 00001.70 EXIT :0
+0 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(CkDeliverMessageFree+0x3c) [0xaf3a2c]
+0 00001.70 EXIT :0
+0 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(_ZN8CkLocRec11invokeEntryEP12CkMigratablePvib+0x2b) [0xb2fe9b]
+0 00001.70 EXIT :0
+0 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(_Z15_processHandlerPvP11CkCoreState+0x1141) [0xaf6081]
+0 00001.70 EXIT :0
+0 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(CsdScheduleForever+0xb7) [0xbb44b7]
+0 00001.70 EXIT :0
+0 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(CsdScheduler+0x20) [0xbb4270]
+0 00001.70 EXIT :0
+0 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(ConverseInit+0x59a) [0xbecdba]
+0 00001.70 EXIT :0
+0 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(charm_main+0x24) [0xba1f04]
+0 00001.70 EXIT :0
+0 00001.70 EXIT /usr/lib64/libc.so.6(+0x295d0) [0x14b86e4295d0]
+0 00001.70 EXIT :0
+0 00001.70 EXIT /usr/lib64/libc.so.6(__libc_start_main+0x80) [0x14b86e429680]
+0 00001.70 EXIT :0
+0 00001.70 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(_start+0x25) [0x65c7c5]
+------------- Processor 0 Exiting: Called CmiAbort ------------
+Reason: EXITING
+2 00001.70  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+2 00001.70 ERROR EnzoMethodPpm_SolveHydroEquations.cpp:383
+2 00001.70 ERROR EnzoMethodPpm::SolveHydroEquations
+2 00001.70 ERROR Error 10502 in call to ppm_de block B00:110_01:000
+Abort(1) on node 7 (rank 7 in comm 496): application called MPI_Abort(comm=0x84000002, 1) - process 7
+Abort(1) on node 0 (rank 0 in comm 496): application called MPI_Abort(comm=0x84000003, 1) - process 0
+2 00001.71 EXIT :0
+2 00001.71 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(_ZN5cello5errorEv+0x23) [0x9b9ba3]
+2 00001.71 EXIT :0
+2 00001.71 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(_ZN13EnzoMethodPpm19SolveHydroEquationsER9EnzoBlockddbbbibbbd+0x2661) [0x7b0d81]
+2 00001.71 EXIT :0
+2 00001.71 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(_ZN13EnzoMethodPpm7computeEP5Block+0x314) [0x7adea4]
+2 00001.71 EXIT :0
+2 00001.71 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(_ZN5Block17compute_continue_Ev+0x127) [0x9a5a07]
+2 00001.71 EXIT :0
+2 00001.71 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(_ZN5Block18p_compute_continueEv+0x15) [0x97b425]
+2 00001.71 EXIT :0
+2 00001.71 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(_ZN13CkIndex_Block29_call_p_compute_continue_voidEPvS0_+0x21) [0x96d871]
+2 00001.71 EXIT :0
+2 00001.71 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(CkDeliverMessageFree+0x3c) [0xaf3a2c]
+2 00001.71 EXIT :0
+2 00001.71 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(_ZN8CkLocRec11invokeEntryEP12CkMigratablePvib+0x2b) [0xb2fe9b]
+2 00001.71 EXIT :0
+2 00001.71 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(_Z15_processHandlerPvP11CkCoreState+0x1141) [0xaf6081]
+2 00001.71 EXIT :0
+2 00001.71 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(CsdScheduleForever+0xb7) [0xbb44b7]
+2 00001.71 EXIT :0
+2 00001.71 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(CsdScheduler+0x20) [0xbb4270]
+2 00001.71 EXIT :0
+2 00001.71 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(ConverseInit+0x59a) [0xbecdba]
+2 00001.71 EXIT :0
+2 00001.71 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(charm_main+0x24) [0xba1f04]
+2 00001.71 EXIT :0
+2 00001.71 EXIT /usr/lib64/libc.so.6(+0x295d0) [0x151fc88295d0]
+2 00001.71 EXIT :0
+2 00001.71 EXIT /usr/lib64/libc.so.6(__libc_start_main+0x80) [0x151fc8829680]
+2 00001.71 EXIT :0
+2 00001.71 EXIT /home1/10334/jthsu2001/enzo-e/build-icx-mpi/bin/enzo-e(_start+0x25) [0x65c7c5]
+------------- Processor 2 Exiting: Called CmiAbort ------------
+Reason: EXITING
+Abort(1) on node 2 (rank 2 in comm 496): application called MPI_Abort(comm=0x84000002, 1) - process 2

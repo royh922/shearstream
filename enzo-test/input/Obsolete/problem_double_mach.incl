@@ -1,0 +1,84 @@
+# File:    problem_double_mach.incl
+
+Initial {
+
+   list = ["value"];
+
+   value {
+      density = [8.0, (x <= 0.16667 + 0.57735*y), 
+                 1.4];
+      velocity_x = [ 8.25*0.8660253,
+                         (x <= 0.16667 + 0.57735*y),
+                     0.0 ]; 
+      velocity_y = [-8.25*0.5,
+                         (x <= 0.16667 + 0.57735*y),
+                     0.0]; 
+      total_energy = [116.5 / (0.4 * 8.0) + 34.03125,
+                         (x <= 0.16667 + 0.57735*y), 
+                        1.0 / (0.4 * 1.4)]; 
+   }
+}
+
+Boundary {
+
+   list = [
+	   "outflow",
+	   "reflecting",
+           "d_pre",
+           "vx_pre",
+           "vy_pre",
+	   "te_pre"
+         ];
+
+   outflow {
+      type = "outflow";
+      mask = [ (x >= 4.0) || 
+               (y >= 1.0 && (x >= 0.744017 + 11.547* t))];
+   }
+   reflecting {
+      type = "reflecting";
+      axis = "y";
+      face = "lower";
+      mask = (x >= 0.166667);
+   }
+
+   d_pre {
+      type = "inflow";
+      field_list = "density";
+      value = [ 8.0, 
+                 ((x <= 0.166667) && (y <= 0.0) ) ||
+                  (x <= 0.0) ||
+                  ((x <= 0.744017 + 11.547*t) && (y >= 1.0))
+              ];
+    }
+
+   vx_pre {
+      type = "inflow";
+      field_list = "velocity_x";
+      value = [ 8.25*0.8660253,
+                 ((x <= 0.166667) && (y <= 0.0) ) ||
+                  (x <= 0.0) ||
+		  ((x <= 0.744017 + 11.547*t) && (y >= 1.0))
+               ];
+    }
+
+   vy_pre {
+      type = "inflow";
+      field_list = "velocity_y";
+      value = [ -8.25*0.5,
+                 ((x <= 0.166667) && (y <= 0.0) ) ||
+                  (x <= 0.0) ||
+		  ((x < 0.744017 + 11.547*t) && (y >= 1.0))
+               ];
+    }
+
+   te_pre {
+      type = "inflow";
+      field_list = "total_energy";
+      value = [ 116.5 / (0.4 * 8.0) + 34.03125,
+                 ( (x <= 0.166667) && (y <= 0.0) ) ||
+                   (x <= 0.0) ||
+                  ((x <= 0.744017 + 11.547*t) && (y >= 1.0))
+               ];
+    }
+}

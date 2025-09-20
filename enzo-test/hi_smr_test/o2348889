@@ -1,0 +1,2458 @@
+/scratch/10334/jthsu2001/enzo-test
+Mon Sep  8 12:41:07 PM CDT 2025
+TACC:  Starting up job 2348889 
+TACC:  Starting parallel tasks... 
+Charm++> Running on MPI library: Intel(R) MPI Library 2021.11 for Linux* OS
+ (MPI standard: 3.1)
+Charm++> Level of thread support used: MPI_THREAD_SINGLE (desired: MPI_THREAD_SINGLE)
+Charm++> Running in non-SMP mode: 8 processes (PEs)
+Converse/Charm++ Commit ID: v8.0.0
+Charm++> MPI timer is synchronized
+Isomalloc> Synchronized global address space.
+CharmLB> Load balancer assumes all CPUs are same.
+Charm++> Running on 1 hosts (2 sockets x 56 cores x 1 PUs = 112-way SMP)
+Charm++> cpu topology info is gathered in 0.002 seconds.
+[0] No TreeLB configuration file found. Choosing a default configuration.
+[0] TreeLB: Using PE_Root tree with: GreedyRefine 
+0 00000.00 Parameters  Boundary:type = "reflecting"
+0 00000.00 Parameters  Domain:lower = [ 0.000000000000000 0.000000000000000 ]
+0 00000.00 Parameters  Domain:upper = [ 1.000000000000000 1.000000000000000 ]
+0 00000.00 Parameters  Field:ghost_depth = 4
+0 00000.00 Parameters  Field:list = [ "density" "velocity_x" "velocity_y" "total_energy" "internal_energy" "pressure" ]
+0 00000.00 Parameters  Group:conserved:field_list = [ "density" "internal_energy" "total_energy" "velocity_x" "velocity_y" ]
+0 00000.00 Parameters  Group:list = [ "conserved" "make_field_conservative" ]
+0 00000.00 Parameters  Group:make_field_conservative:field_list = [ "velocity_x" "velocity_y" "internal_energy" "total_energy" ]
+0 00000.00 Parameters  Initial:list = [ "value" ]
+0 00000.00 Parameters  Initial:value:density = [ 1.000000000000000 ((((((( 0.2000000000000000  <  x ) && ( x  <  0.3000000000000000 )) && ( 0.3000000000000000  <  y )) && ( y  <  0.7000000000000000 )) || (((( 0.4000000000000000  <  x ) && ( x  <  0.5000000000000000 )) && ( 0.3000000000000000  <  y )) && ( y  <  0.7000000000000000 ))) || (((( 0.6000000000000000  <  x ) && ( x  <  0.7000000000000000 )) && ( 0.3000000000000000  <  y )) && ( y  <  0.5000000000000000 ))) || (((( 0.2000000000000000  <  x ) && ( x  <  0.5000000000000000 )) && ( 0.4500000000000000  <  y )) && ( y  <  0.5500000000000000 ))) || (((( x  -  0.6500000000000000 ) * ( x  -  0.6500000000000000 )) + (( y  -  0.6000000000000000 ) * ( y  -  0.6000000000000000 ))) <  0.002500000000000000 ) 0.1250000000000000 ]
+0 00000.00 Parameters  Initial:value:total_energy = [ 2.500000000000000 ((((((( 0.2000000000000000  <  x ) && ( x  <  0.3000000000000000 )) && ( 0.3000000000000000  <  y )) && ( y  <  0.7000000000000000 )) || (((( 0.4000000000000000  <  x ) && ( x  <  0.5000000000000000 )) && ( 0.3000000000000000  <  y )) && ( y  <  0.7000000000000000 ))) || (((( 0.6000000000000000  <  x ) && ( x  <  0.7000000000000000 )) && ( 0.3000000000000000  <  y )) && ( y  <  0.5000000000000000 ))) || (((( 0.2000000000000000  <  x ) && ( x  <  0.5000000000000000 )) && ( 0.4500000000000000  <  y )) && ( y  <  0.5500000000000000 ))) || (((( x  -  0.6500000000000000 ) * ( x  -  0.6500000000000000 )) + (( y  -  0.6000000000000000 ) * ( y  -  0.6000000000000000 ))) <  0.002500000000000000 ) 3.500000000000000 ]
+0 00000.00 Parameters  Initial:value:velocity_x = 0.000000000000000
+0 00000.00 Parameters  Initial:value:velocity_y = 0.000000000000000
+0 00000.00 Parameters  Mesh:root_blocks = [ 4 4 ]
+0 00000.00 Parameters  Mesh:root_rank = 2
+0 00000.00 Parameters  Mesh:root_size = [ 80 80 ]
+0 00000.00 Parameters  Method:list = [ "ppm" "flux_correct" ]
+0 00000.00 Parameters  Method:ppm:courant = 0.8000000000000000
+0 00000.00 Parameters  Method:ppm:diffusion = true
+0 00000.00 Parameters  Method:ppm:flattening = 3
+0 00000.00 Parameters  Method:ppm:steepening = true
+0 00000.00 Parameters  Output:density:colormap = [ "black" "blue" "cyan" "lime" "yellow" "red" ]
+0 00000.00 Parameters  Output:density:field_list = [ "density" ]
+0 00000.00 Parameters  Output:density:image_size = [ 640 640 ]
+0 00000.00 Parameters  Output:density:image_type = "data"
+0 00000.00 Parameters  Output:density:name = [ "hi-de-%04d.png" "count" ]
+0 00000.00 Parameters  Output:density:schedule:step = 10
+0 00000.00 Parameters  Output:density:schedule:var = "cycle"
+0 00000.00 Parameters  Output:density:type = "image"
+0 00000.00 Parameters  Output:list = [ "density" "mesh_age" "mesh_level" ]
+0 00000.00 Parameters  Output:mesh_age:colormap = [ "black" "red" "yellow" "white" ]
+0 00000.00 Parameters  Output:mesh_age:image_max = 1.000000000000000
+0 00000.00 Parameters  Output:mesh_age:image_mesh_color = "age"
+0 00000.00 Parameters  Output:mesh_age:image_min = 0.000000000000000
+0 00000.00 Parameters  Output:mesh_age:image_size = [ 641 641 ]
+0 00000.00 Parameters  Output:mesh_age:image_type = "mesh"
+0 00000.00 Parameters  Output:mesh_age:name = [ "hi-mesh-age-%04d.png" "count" ]
+0 00000.00 Parameters  Output:mesh_age:schedule:step = 10
+0 00000.00 Parameters  Output:mesh_age:schedule:var = "cycle"
+0 00000.00 Parameters  Output:mesh_age:type = "image"
+0 00000.00 Parameters  Output:mesh_level:colormap = [ "black" "blue" "cyan" "lime" "yellow" "red" ]
+0 00000.00 Parameters  Output:mesh_level:image_mesh_color = "level"
+0 00000.00 Parameters  Output:mesh_level:image_size = [ 641 641 ]
+0 00000.00 Parameters  Output:mesh_level:image_type = "mesh"
+0 00000.00 Parameters  Output:mesh_level:name = [ "hi-mesh-level-%04d.png" "count" ]
+0 00000.00 Parameters  Output:mesh_level:schedule:step = 10
+0 00000.00 Parameters  Output:mesh_level:schedule:var = "cycle"
+0 00000.00 Parameters  Output:mesh_level:type = "image"
+0 00000.00 Parameters  Physics:fluid_props:dual_energy:type = "disabled"
+0 00000.00 Parameters  Physics:fluid_props:eos:gamma = 1.400000000000000
+0 00000.00 Parameters  Physics:fluid_props:eos:type = "ideal"
+0 00000.00 Parameters  Physics:list = [ "fluid_props" ]
+0 00000.00 Parameters  Stopping:time = 0.1000000000000000
+0 00001.03 WARNING parameters_Config.cpp:1023
+0 00001.03 WARNING Config::read()
+0 00001.03 WARNING output_axis[0] set to z
+0 00001.03 WARNING parameters_Config.cpp:1023
+0 00001.03 WARNING Config::read()
+0 00001.03 WARNING output_axis[1] set to z
+0 00001.03 WARNING parameters_Config.cpp:1023
+0 00001.03 WARNING Config::read()
+0 00001.03 WARNING output_axis[2] set to z
+UNIT TEST BEGIN
+0 00001.03  ==============================================
+0 00001.03   
+0 00001.03    .oooooo.             oooo  oooo            
+0 00001.03   d8P'  `Y8b            `888  `888            
+0 00001.03  888           .ooooo.   888   888   .ooooo.  
+0 00001.03  888          d88' `88b  888   888  d88' `88b 
+0 00001.03  888          888ooo888  888   888  888   888 
+0 00001.03  `88b    ooo  888    .o  888   888  888   888 
+0 00001.03   `Y8bood8P'  `Y8bod8P' o888o o888o `Y8bod8P' 
+0 00001.03   
+0 00001.03  A Parallel Adaptive Mesh Refinement Framework
+0 00001.03   
+0 00001.03    Laboratory for Computational Astrophysics
+0 00001.03          San Diego Supercomputer Center
+0 00001.03       University of California, San Diego
+0 00001.03   
+0 00001.03  See 'LICENSE_CELLO' for software license information
+0 00001.03   
+0 00001.03  BEGIN CELLO: Sep 08 12:41:08
+0 00001.03 Define Simulation processors 8
+0 00001.03 Define CELLO_PREC          double
+0 00001.03 Define CC                  /opt/intel/oneapi/compiler/2024.0/bin/icx
+0 00001.03 Define CFLAGS              
+0 00001.03 Define CPPDEFINES          CONFIG_PRECISION_DOUBLE;SMALL_INTS;CONFIG_USE_GRACKLE;NO_FREETYPE;CELLO_VERSION="1.0.0";BYPASS_CHARM_MEM_LEAK;CONFIG_NODE_SIZE=64;CONFIG_NODE_SIZE_3=192;CONFIG_USE_PERFORMANCE;CONFIG_HAVE_VERSION_CONTROL
+0 00001.03 Define CXX                 /opt/intel/oneapi/compiler/2024.0/bin/icpx
+0 00001.03 Define CXXFLAGS            
+0 00001.03 Define FORTRANFLAGS        
+0 00001.03 Define FORTRAN             /opt/intel/oneapi/compiler/2024.0/bin/ifx
+0 00001.03 Define BUILD HOST          Linux-5.14.0-503.23.2.el9_5.x86_64
+0 00001.03 Define BUILD DIR           /home1/10334/jthsu2001/enzo-e/build-icx-mpi
+0 00001.03 Define CELLO_VERSION       1.0.0
+0 00001.03 Define CHANGESET           4798687a1
+0 00001.03 Define CHARM_PATH          /home1/10334/jthsu2001/charm/mpi-linux-x86_64-icx
+0 00001.03 Define CONFIG_NODE_SIZE    64
+0 00001.03 Define CONFIG_SMP_MODE     no
+0 00001.03 CHARM CkNumPes()           8
+0 00001.03 CHARM CkNumNodes()         8
+0 00001.03  BEGIN ENZO-E
+0 00001.03 Memory bytes 0 bytes_high 0
+0 00001.04 WARNING problem_InitialValue.cpp:158
+0 00001.04 WARNING InitialValue::enforce_block
+0 00001.04 WARNING Uninitialized field internal_energy
+0 00001.04 WARNING problem_InitialValue.cpp:158
+0 00001.04 WARNING InitialValue::enforce_block
+0 00001.04 WARNING Uninitialized field pressure
+0 00001.30  -------------------------------------
+0 00001.30 Simulation cycle 0000
+0 00001.30 Simulation time-sim 0.000000000000e+00
+0 00001.30 Simulation dt 0.000000000000e+00
+0 00001.30 Performance counter num-msg-coarsen 0
+0 00001.30 Performance counter num-msg-refine 0
+0 00001.30 Performance counter num-msg-refresh 0
+0 00001.30 Performance counter num-data-msg 0
+0 00001.30 Performance counter num-field-face 0
+0 00001.30 Performance counter num-particle-data 16
+0 00001.30 Performance simulation num-particles total 0
+0 00001.30 performance simulation num-blocks-level 0 16
+0 00001.30 Performance simulation num-leaf-blocks 16
+0 00001.30 Performance simulation num-total-blocks 16
+0 00001.30 Performance simulation time-usec 2161120
+0 00001.30 Performance cycle time-usec 0
+0 00001.30 Performance cycle bytes-curr 0
+0 00001.30 Performance cycle bytes-high 0
+0 00001.30 Performance cycle bytes-highest 0
+0 00001.30 Performance cycle bytes-available 0
+0 00001.30 Performance initial time-usec -21396
+0 00001.30 Performance adapt_apply time-usec 245
+0 00001.30 Performance adapt_apply_sync time-usec 421
+0 00001.30 Performance adapt_update time-usec 419
+0 00001.30 Performance adapt_update_sync time-usec 2160
+0 00001.30 Performance adapt_notify time-usec 1081
+0 00001.30 Performance adapt_notify_sync time-usec 114
+0 00001.30 Performance adapt_end time-usec 10
+0 00001.30 Performance adapt_end_sync time-usec 593
+0 00001.30 Performance refresh_store time-usec 0
+0 00001.30 Performance refresh_child time-usec 0
+0 00001.30 Performance refresh_exit time-usec 0
+0 00001.30 Performance refresh_store_sync time-usec 0
+0 00001.30 Performance refresh_child_sync time-usec 0
+0 00001.30 Performance refresh_exit_sync time-usec 0
+0 00001.30 Performance control time-usec 38
+0 00001.30 Performance compute time-usec 0
+0 00001.30 Performance output time-usec 288598
+0 00001.30 Performance stopping time-usec 0
+0 00001.30 Performance block time-usec -43233
+0 00001.30 Performance exit time-usec 0
+0 00001.30 Performance grackle time-usec 0
+0 00001.30 Performance simulation max-proc-blocks 2
+0 00001.30 Performance simulation max-node-blocks 2
+0 00001.30 Performance simulation max-proc-particles 0
+0 00001.30 Performance simulation max-node-particles 0
+0 00001.30 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00001.30 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00001.32 Method Field density sum 1.4615000363720132e+03 conserved to inf digits of 15
+0 00001.32 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00001.32 Method Field total_energy sum 4.3592501043027114e+03 conserved to inf digits of 15
+0 00001.32 Method Field velocity_x sum 4.6347539486741923e-05 conserved to inf digits of 15
+0 00001.32 Method Field velocity_y sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00001.32  -------------------------------------
+0 00001.32 Simulation cycle 0001
+0 00001.32 Simulation time-sim 3.571428731084e-03
+0 00001.32 Simulation dt 3.571428731084e-03
+0 00001.32 Performance counter num-msg-coarsen 0
+0 00001.32 Performance counter num-msg-refine 0
+0 00001.32 Performance counter num-msg-refresh 0
+0 00001.32 Performance counter num-data-msg 0
+0 00001.32 Performance counter num-field-face 0
+0 00001.32 Performance counter num-particle-data 16
+0 00001.32 Performance simulation num-particles total 0
+0 00001.32 performance simulation num-blocks-level 0 16
+0 00001.32 Performance simulation num-leaf-blocks 16
+0 00001.32 Performance simulation num-total-blocks 16
+0 00001.32 Performance simulation time-usec 2291691
+0 00001.32 Performance cycle time-usec 128984
+0 00001.32 Performance cycle bytes-curr 0
+0 00001.32 Performance cycle bytes-high 0
+0 00001.32 Performance cycle bytes-highest 0
+0 00001.32 Performance cycle bytes-available 0
+0 00001.32 Performance initial time-usec -21396
+0 00001.32 Performance adapt_apply time-usec 447
+0 00001.32 Performance adapt_apply_sync time-usec 536
+0 00001.32 Performance adapt_update time-usec 843
+0 00001.32 Performance adapt_update_sync time-usec 4278
+0 00001.32 Performance adapt_notify time-usec 2150
+0 00001.32 Performance adapt_notify_sync time-usec 213
+0 00001.32 Performance adapt_end time-usec 19
+0 00001.32 Performance adapt_end_sync time-usec 1273
+0 00001.32 Performance refresh_store time-usec 0
+0 00001.32 Performance refresh_child time-usec 0
+0 00001.32 Performance refresh_exit time-usec 0
+0 00001.32 Performance refresh_store_sync time-usec 0
+0 00001.32 Performance refresh_child_sync time-usec 0
+0 00001.32 Performance refresh_exit_sync time-usec 0
+0 00001.32 Performance control time-usec 227
+0 00001.32 Performance compute time-usec 109797
+0 00001.32 Performance output time-usec 288661
+0 00001.32 Performance stopping time-usec 3908
+0 00001.32 Performance block time-usec -43233
+0 00001.32 Performance exit time-usec 0
+0 00001.32 Performance grackle time-usec 0
+0 00001.32 Performance simulation max-proc-blocks 2
+0 00001.32 Performance simulation max-node-blocks 2
+0 00001.32 Performance simulation max-proc-particles 0
+0 00001.32 Performance simulation max-node-particles 0
+0 00001.32 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00001.32 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00001.33 Method Field density sum 1.4615000363720132e+03 conserved to 17.1509 digits of 15
+0 00001.33 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00001.33 Method Field total_energy sum 4.3592501043027114e+03 conserved to 16.9389 digits of 15
+0 00001.33 Method Field velocity_x sum 4.6347539486430757e-05 conserved to 11.173 digits of 15
+0 00001.33 Method Field velocity_y sum -1.1991276027689679e-16 conserved to 15.9211 digits of 15
+0 00001.33  -------------------------------------
+0 00001.33 Simulation cycle 0002
+0 00001.33 Simulation time-sim 6.440543197095e-03
+0 00001.33 Simulation dt 2.869114466012e-03
+0 00001.33 Performance counter num-msg-coarsen 0
+0 00001.33 Performance counter num-msg-refine 0
+0 00001.33 Performance counter num-msg-refresh 0
+0 00001.33 Performance counter num-data-msg 0
+0 00001.33 Performance counter num-field-face 0
+0 00001.33 Performance counter num-particle-data 16
+0 00001.33 Performance simulation num-particles total 0
+0 00001.33 performance simulation num-blocks-level 0 16
+0 00001.33 Performance simulation num-leaf-blocks 16
+0 00001.33 Performance simulation num-total-blocks 16
+0 00001.33 Performance simulation time-usec 2358328
+0 00001.33 Performance cycle time-usec 195612
+0 00001.33 Performance cycle bytes-curr 0
+0 00001.33 Performance cycle bytes-high 0
+0 00001.33 Performance cycle bytes-highest 0
+0 00001.33 Performance cycle bytes-available 0
+0 00001.33 Performance initial time-usec -21396
+0 00001.33 Performance adapt_apply time-usec 622
+0 00001.33 Performance adapt_apply_sync time-usec 632
+0 00001.33 Performance adapt_update time-usec 1210
+0 00001.33 Performance adapt_update_sync time-usec 6488
+0 00001.33 Performance adapt_notify time-usec 3173
+0 00001.33 Performance adapt_notify_sync time-usec 309
+0 00001.33 Performance adapt_end time-usec 25
+0 00001.33 Performance adapt_end_sync time-usec 1871
+0 00001.33 Performance refresh_store time-usec 0
+0 00001.33 Performance refresh_child time-usec 0
+0 00001.33 Performance refresh_exit time-usec 0
+0 00001.33 Performance refresh_store_sync time-usec 0
+0 00001.33 Performance refresh_child_sync time-usec 0
+0 00001.33 Performance refresh_exit_sync time-usec 0
+0 00001.33 Performance control time-usec 390
+0 00001.33 Performance compute time-usec 157398
+0 00001.33 Performance output time-usec 288715
+0 00001.33 Performance stopping time-usec 7046
+0 00001.33 Performance block time-usec -43233
+0 00001.33 Performance exit time-usec 0
+0 00001.33 Performance grackle time-usec 0
+0 00001.33 Performance simulation max-proc-blocks 2
+0 00001.33 Performance simulation max-node-blocks 2
+0 00001.33 Performance simulation max-proc-particles 0
+0 00001.33 Performance simulation max-node-particles 0
+0 00001.33 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00001.33 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00001.33 Method Field density sum 1.4615079324666442e+03 conserved to 5.26739 digits of 15
+0 00001.33 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00001.33 Method Field total_energy sum 4.3592691995467080e+03 conserved to 5.35849 digits of 15
+0 00001.33 Method Field velocity_x sum 5.7167842247567591e-05 conserved to 0.631787 digits of 15
+0 00001.33 Method Field velocity_y sum -2.6716535224197580e-03 conserved to 2.57322 digits of 15
+0 00001.34  -------------------------------------
+0 00001.34 Simulation cycle 0003
+0 00001.34 Simulation time-sim 9.274928458035e-03
+0 00001.34 Simulation dt 2.834385260940e-03
+0 00001.34 Performance counter num-msg-coarsen 0
+0 00001.34 Performance counter num-msg-refine 0
+0 00001.34 Performance counter num-msg-refresh 0
+0 00001.34 Performance counter num-data-msg 0
+0 00001.34 Performance counter num-field-face 0
+0 00001.34 Performance counter num-particle-data 16
+0 00001.34 Performance simulation num-particles total 0
+0 00001.34 performance simulation num-blocks-level 0 16
+0 00001.34 Performance simulation num-leaf-blocks 16
+0 00001.34 Performance simulation num-total-blocks 16
+0 00001.34 Performance simulation time-usec 2425812
+0 00001.34 Performance cycle time-usec 263095
+0 00001.34 Performance cycle bytes-curr 0
+0 00001.34 Performance cycle bytes-high 0
+0 00001.34 Performance cycle bytes-highest 0
+0 00001.34 Performance cycle bytes-available 0
+0 00001.34 Performance initial time-usec -21396
+0 00001.34 Performance adapt_apply time-usec 796
+0 00001.34 Performance adapt_apply_sync time-usec 728
+0 00001.34 Performance adapt_update time-usec 1578
+0 00001.34 Performance adapt_update_sync time-usec 8520
+0 00001.34 Performance adapt_notify time-usec 4192
+0 00001.34 Performance adapt_notify_sync time-usec 403
+0 00001.34 Performance adapt_end time-usec 32
+0 00001.34 Performance adapt_end_sync time-usec 2455
+0 00001.34 Performance refresh_store time-usec 0
+0 00001.34 Performance refresh_child time-usec 0
+0 00001.34 Performance refresh_exit time-usec 0
+0 00001.34 Performance refresh_store_sync time-usec 0
+0 00001.34 Performance refresh_child_sync time-usec 0
+0 00001.34 Performance refresh_exit_sync time-usec 0
+0 00001.34 Performance control time-usec 558
+0 00001.34 Performance compute time-usec 204854
+0 00001.34 Performance output time-usec 288768
+0 00001.34 Performance stopping time-usec 10083
+0 00001.34 Performance block time-usec -43233
+0 00001.34 Performance exit time-usec 0
+0 00001.34 Performance grackle time-usec 0
+0 00001.34 Performance simulation max-proc-blocks 2
+0 00001.34 Performance simulation max-node-blocks 2
+0 00001.34 Performance simulation max-proc-particles 0
+0 00001.34 Performance simulation max-node-particles 0
+0 00001.34 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00001.34 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00001.34 Method Field density sum 1.4615079371697647e+03 conserved to 5.26713 digits of 15
+0 00001.34 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00001.34 Method Field total_energy sum 4.3592692219653589e+03 conserved to 5.35798 digits of 15
+0 00001.34 Method Field velocity_x sum 6.5741166312324392e-05 conserved to 0.378368 digits of 15
+0 00001.34 Method Field velocity_y sum -2.6715267380595948e-03 conserved to 2.57324 digits of 15
+0 00001.34  -------------------------------------
+0 00001.34 Simulation cycle 0004
+0 00001.34 Simulation time-sim 1.189195960760e-02
+0 00001.34 Simulation dt 2.617031149566e-03
+0 00001.34 Performance counter num-msg-coarsen 0
+0 00001.34 Performance counter num-msg-refine 0
+0 00001.34 Performance counter num-msg-refresh 0
+0 00001.34 Performance counter num-data-msg 0
+0 00001.34 Performance counter num-field-face 0
+0 00001.34 Performance counter num-particle-data 16
+0 00001.34 Performance simulation num-particles total 0
+0 00001.34 performance simulation num-blocks-level 0 16
+0 00001.34 Performance simulation num-leaf-blocks 16
+0 00001.34 Performance simulation num-total-blocks 16
+0 00001.34 Performance simulation time-usec 2494540
+0 00001.34 Performance cycle time-usec 331817
+0 00001.34 Performance cycle bytes-curr 0
+0 00001.34 Performance cycle bytes-high 0
+0 00001.34 Performance cycle bytes-highest 0
+0 00001.34 Performance cycle bytes-available 0
+0 00001.34 Performance initial time-usec -21396
+0 00001.34 Performance adapt_apply time-usec 958
+0 00001.34 Performance adapt_apply_sync time-usec 831
+0 00001.34 Performance adapt_update time-usec 1941
+0 00001.34 Performance adapt_update_sync time-usec 10568
+0 00001.34 Performance adapt_notify time-usec 5143
+0 00001.34 Performance adapt_notify_sync time-usec 495
+0 00001.34 Performance adapt_end time-usec 41
+0 00001.34 Performance adapt_end_sync time-usec 3037
+0 00001.34 Performance refresh_store time-usec 0
+0 00001.34 Performance refresh_child time-usec 0
+0 00001.34 Performance refresh_exit time-usec 0
+0 00001.34 Performance refresh_store_sync time-usec 0
+0 00001.34 Performance refresh_child_sync time-usec 0
+0 00001.34 Performance refresh_exit_sync time-usec 0
+0 00001.34 Performance control time-usec 738
+0 00001.34 Performance compute time-usec 252151
+0 00001.34 Performance output time-usec 288818
+0 00001.34 Performance stopping time-usec 13073
+0 00001.34 Performance block time-usec -43233
+0 00001.34 Performance exit time-usec 0
+0 00001.34 Performance grackle time-usec 0
+0 00001.34 Performance simulation max-proc-blocks 2
+0 00001.34 Performance simulation max-node-blocks 2
+0 00001.34 Performance simulation max-proc-particles 0
+0 00001.34 Performance simulation max-node-particles 0
+0 00001.34 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00001.34 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00001.35 Method Field density sum 1.4615079405866761e+03 conserved to 5.26694 digits of 15
+0 00001.35 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00001.35 Method Field total_energy sum 4.3592692359861113e+03 conserved to 5.35766 digits of 15
+0 00001.35 Method Field velocity_x sum 7.2753254067232584e-05 conserved to 0.244329 digits of 15
+0 00001.35 Method Field velocity_y sum -2.6711714781282921e-03 conserved to 2.5733 digits of 15
+0 00001.35  -------------------------------------
+0 00001.35 Simulation cycle 0005
+0 00001.35 Simulation time-sim 1.441288776696e-02
+0 00001.35 Simulation dt 2.520928159356e-03
+0 00001.35 Performance counter num-msg-coarsen 0
+0 00001.35 Performance counter num-msg-refine 0
+0 00001.35 Performance counter num-msg-refresh 0
+0 00001.35 Performance counter num-data-msg 0
+0 00001.35 Performance counter num-field-face 0
+0 00001.35 Performance counter num-particle-data 16
+0 00001.35 Performance simulation num-particles total 0
+0 00001.35 performance simulation num-blocks-level 0 16
+0 00001.35 Performance simulation num-leaf-blocks 16
+0 00001.35 Performance simulation num-total-blocks 16
+0 00001.35 Performance simulation time-usec 2562788
+0 00001.35 Performance cycle time-usec 400061
+0 00001.35 Performance cycle bytes-curr 0
+0 00001.35 Performance cycle bytes-high 0
+0 00001.35 Performance cycle bytes-highest 0
+0 00001.35 Performance cycle bytes-available 0
+0 00001.35 Performance initial time-usec -21396
+0 00001.35 Performance adapt_apply time-usec 1124
+0 00001.35 Performance adapt_apply_sync time-usec 922
+0 00001.35 Performance adapt_update time-usec 2299
+0 00001.35 Performance adapt_update_sync time-usec 12587
+0 00001.35 Performance adapt_notify time-usec 6118
+0 00001.35 Performance adapt_notify_sync time-usec 602
+0 00001.35 Performance adapt_end time-usec 48
+0 00001.35 Performance adapt_end_sync time-usec 3762
+0 00001.35 Performance refresh_store time-usec 0
+0 00001.35 Performance refresh_child time-usec 0
+0 00001.35 Performance refresh_exit time-usec 0
+0 00001.35 Performance refresh_store_sync time-usec 0
+0 00001.35 Performance refresh_child_sync time-usec 0
+0 00001.35 Performance refresh_exit_sync time-usec 0
+0 00001.35 Performance control time-usec 906
+0 00001.35 Performance compute time-usec 300246
+0 00001.35 Performance output time-usec 288868
+0 00001.35 Performance stopping time-usec 16110
+0 00001.35 Performance block time-usec -43233
+0 00001.35 Performance exit time-usec 0
+0 00001.35 Performance grackle time-usec 0
+0 00001.35 Performance simulation max-proc-blocks 2
+0 00001.35 Performance simulation max-node-blocks 2
+0 00001.35 Performance simulation max-proc-particles 0
+0 00001.35 Performance simulation max-node-particles 0
+0 00001.35 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00001.35 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00001.36 Method Field density sum 1.4615090488723027e+03 conserved to 5.20995 digits of 15
+0 00001.36 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00001.36 Method Field total_energy sum 4.3592734191223942e+03 conserved to 5.27178 digits of 15
+0 00001.36 Method Field velocity_x sum -6.0907869439193879e-04 conserved to -1.1505 digits of 15
+0 00001.36 Method Field velocity_y sum -2.6782596978944893e-03 conserved to 2.57215 digits of 15
+0 00001.36  -------------------------------------
+0 00001.36 Simulation cycle 0006
+0 00001.36 Simulation time-sim 1.693136859685e-02
+0 00001.36 Simulation dt 2.518480829895e-03
+0 00001.36 Performance counter num-msg-coarsen 0
+0 00001.36 Performance counter num-msg-refine 0
+0 00001.36 Performance counter num-msg-refresh 0
+0 00001.36 Performance counter num-data-msg 0
+0 00001.36 Performance counter num-field-face 0
+0 00001.36 Performance counter num-particle-data 16
+0 00001.36 Performance simulation num-particles total 0
+0 00001.36 performance simulation num-blocks-level 0 16
+0 00001.36 Performance simulation num-leaf-blocks 16
+0 00001.36 Performance simulation num-total-blocks 16
+0 00001.36 Performance simulation time-usec 2628029
+0 00001.36 Performance cycle time-usec 465296
+0 00001.36 Performance cycle bytes-curr 0
+0 00001.36 Performance cycle bytes-high 0
+0 00001.36 Performance cycle bytes-highest 0
+0 00001.36 Performance cycle bytes-available 0
+0 00001.36 Performance initial time-usec -21396
+0 00001.36 Performance adapt_apply time-usec 1242
+0 00001.36 Performance adapt_apply_sync time-usec 1013
+0 00001.36 Performance adapt_update time-usec 2665
+0 00001.36 Performance adapt_update_sync time-usec 14408
+0 00001.36 Performance adapt_notify time-usec 7097
+0 00001.36 Performance adapt_notify_sync time-usec 698
+0 00001.36 Performance adapt_end time-usec 55
+0 00001.36 Performance adapt_end_sync time-usec 4363
+0 00001.36 Performance refresh_store time-usec 0
+0 00001.36 Performance refresh_child time-usec 0
+0 00001.36 Performance refresh_exit time-usec 0
+0 00001.36 Performance refresh_store_sync time-usec 0
+0 00001.36 Performance refresh_child_sync time-usec 0
+0 00001.36 Performance refresh_exit_sync time-usec 0
+0 00001.36 Performance control time-usec 1095
+0 00001.36 Performance compute time-usec 347989
+0 00001.36 Performance output time-usec 288916
+0 00001.36 Performance stopping time-usec 19057
+0 00001.36 Performance block time-usec -43233
+0 00001.36 Performance exit time-usec 0
+0 00001.36 Performance grackle time-usec 0
+0 00001.36 Performance simulation max-proc-blocks 2
+0 00001.36 Performance simulation max-node-blocks 2
+0 00001.36 Performance simulation max-proc-particles 0
+0 00001.36 Performance simulation max-node-particles 0
+0 00001.36 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00001.36 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00001.37 Method Field density sum 1.4615090512074010e+03 conserved to 5.20984 digits of 15
+0 00001.37 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00001.37 Method Field total_energy sum 4.3592734339085015e+03 conserved to 5.2715 digits of 15
+0 00001.37 Method Field velocity_x sum -6.0322664465249729e-04 conserved to -1.1466 digits of 15
+0 00001.37 Method Field velocity_y sum -2.6744653506146771e-03 conserved to 2.57276 digits of 15
+0 00001.37  -------------------------------------
+0 00001.37 Simulation cycle 0007
+0 00001.37 Simulation time-sim 1.928821876645e-02
+0 00001.37 Simulation dt 2.356850169599e-03
+0 00001.37 Performance counter num-msg-coarsen 0
+0 00001.37 Performance counter num-msg-refine 0
+0 00001.37 Performance counter num-msg-refresh 0
+0 00001.37 Performance counter num-data-msg 0
+0 00001.37 Performance counter num-field-face 0
+0 00001.37 Performance counter num-particle-data 16
+0 00001.37 Performance simulation num-particles total 0
+0 00001.37 performance simulation num-blocks-level 0 16
+0 00001.37 Performance simulation num-leaf-blocks 16
+0 00001.37 Performance simulation num-total-blocks 16
+0 00001.37 Performance simulation time-usec 2693279
+0 00001.37 Performance cycle time-usec 530543
+0 00001.37 Performance cycle bytes-curr 0
+0 00001.37 Performance cycle bytes-high 0
+0 00001.37 Performance cycle bytes-highest 0
+0 00001.37 Performance cycle bytes-available 0
+0 00001.37 Performance initial time-usec -21396
+0 00001.37 Performance adapt_apply time-usec 1371
+0 00001.37 Performance adapt_apply_sync time-usec 1112
+0 00001.37 Performance adapt_update time-usec 3015
+0 00001.37 Performance adapt_update_sync time-usec 16343
+0 00001.37 Performance adapt_notify time-usec 8025
+0 00001.37 Performance adapt_notify_sync time-usec 785
+0 00001.37 Performance adapt_end time-usec 62
+0 00001.37 Performance adapt_end_sync time-usec 4896
+0 00001.37 Performance refresh_store time-usec 0
+0 00001.37 Performance refresh_child time-usec 0
+0 00001.37 Performance refresh_exit time-usec 0
+0 00001.37 Performance refresh_store_sync time-usec 0
+0 00001.37 Performance refresh_child_sync time-usec 0
+0 00001.37 Performance refresh_exit_sync time-usec 0
+0 00001.37 Performance control time-usec 1268
+0 00001.37 Performance compute time-usec 395306
+0 00001.37 Performance output time-usec 288961
+0 00001.37 Performance stopping time-usec 21994
+0 00001.37 Performance block time-usec -43233
+0 00001.37 Performance exit time-usec 0
+0 00001.37 Performance grackle time-usec 0
+0 00001.37 Performance simulation max-proc-blocks 2
+0 00001.37 Performance simulation max-node-blocks 2
+0 00001.37 Performance simulation max-proc-particles 0
+0 00001.37 Performance simulation max-node-particles 0
+0 00001.37 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00001.37 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00001.38 Method Field density sum 1.4615090552364215e+03 conserved to 5.20965 digits of 15
+0 00001.38 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00001.38 Method Field total_energy sum 4.3592734547701253e+03 conserved to 5.27112 digits of 15
+0 00001.38 Method Field velocity_x sum -6.0016589765879858e-04 conserved to -1.14455 digits of 15
+0 00001.38 Method Field velocity_y sum -2.6754158622287385e-03 conserved to 2.57261 digits of 15
+0 00001.38  -------------------------------------
+0 00001.38 Simulation cycle 0008
+0 00001.38 Simulation time-sim 2.155038733035e-02
+0 00001.38 Simulation dt 2.262168563902e-03
+0 00001.38 Performance counter num-msg-coarsen 0
+0 00001.38 Performance counter num-msg-refine 0
+0 00001.38 Performance counter num-msg-refresh 0
+0 00001.38 Performance counter num-data-msg 0
+0 00001.38 Performance counter num-field-face 0
+0 00001.38 Performance counter num-particle-data 16
+0 00001.38 Performance simulation num-particles total 0
+0 00001.38 performance simulation num-blocks-level 0 16
+0 00001.38 Performance simulation num-leaf-blocks 16
+0 00001.38 Performance simulation num-total-blocks 16
+0 00001.38 Performance simulation time-usec 2758711
+0 00001.38 Performance cycle time-usec 595971
+0 00001.38 Performance cycle bytes-curr 0
+0 00001.38 Performance cycle bytes-high 0
+0 00001.38 Performance cycle bytes-highest 0
+0 00001.38 Performance cycle bytes-available 0
+0 00001.38 Performance initial time-usec -21396
+0 00001.38 Performance adapt_apply time-usec 1483
+0 00001.38 Performance adapt_apply_sync time-usec 1197
+0 00001.38 Performance adapt_update time-usec 3367
+0 00001.38 Performance adapt_update_sync time-usec 18063
+0 00001.38 Performance adapt_notify time-usec 8945
+0 00001.38 Performance adapt_notify_sync time-usec 868
+0 00001.38 Performance adapt_end time-usec 69
+0 00001.38 Performance adapt_end_sync time-usec 5575
+0 00001.38 Performance refresh_store time-usec 0
+0 00001.38 Performance refresh_child time-usec 0
+0 00001.38 Performance refresh_exit time-usec 0
+0 00001.38 Performance refresh_store_sync time-usec 0
+0 00001.38 Performance refresh_child_sync time-usec 0
+0 00001.38 Performance refresh_exit_sync time-usec 0
+0 00001.38 Performance control time-usec 1445
+0 00001.38 Performance compute time-usec 442433
+0 00001.38 Performance output time-usec 289011
+0 00001.38 Performance stopping time-usec 24903
+0 00001.38 Performance block time-usec -43233
+0 00001.38 Performance exit time-usec 0
+0 00001.38 Performance grackle time-usec 0
+0 00001.38 Performance simulation max-proc-blocks 2
+0 00001.38 Performance simulation max-node-blocks 2
+0 00001.38 Performance simulation max-proc-particles 0
+0 00001.38 Performance simulation max-node-particles 0
+0 00001.38 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00001.38 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00001.38 Method Field density sum 1.4615090646688290e+03 conserved to 5.20919 digits of 15
+0 00001.38 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00001.38 Method Field total_energy sum 4.3592735161365721e+03 conserved to 5.26998 digits of 15
+0 00001.38 Method Field velocity_x sum -6.0799891027957329e-04 conserved to -1.14978 digits of 15
+0 00001.38 Method Field velocity_y sum -2.6744315265096845e-03 conserved to 2.57277 digits of 15
+0 00001.38  -------------------------------------
+0 00001.38 Simulation cycle 0009
+0 00001.38 Simulation time-sim 2.378966920078e-02
+0 00001.38 Simulation dt 2.239281870425e-03
+0 00001.38 Performance counter num-msg-coarsen 0
+0 00001.38 Performance counter num-msg-refine 0
+0 00001.38 Performance counter num-msg-refresh 0
+0 00001.38 Performance counter num-data-msg 0
+0 00001.38 Performance counter num-field-face 0
+0 00001.38 Performance counter num-particle-data 16
+0 00001.38 Performance simulation num-particles total 0
+0 00001.38 performance simulation num-blocks-level 0 16
+0 00001.38 Performance simulation num-leaf-blocks 16
+0 00001.38 Performance simulation num-total-blocks 16
+0 00001.38 Performance simulation time-usec 2823772
+0 00001.38 Performance cycle time-usec 661029
+0 00001.38 Performance cycle bytes-curr 0
+0 00001.38 Performance cycle bytes-high 0
+0 00001.38 Performance cycle bytes-highest 0
+0 00001.38 Performance cycle bytes-available 0
+0 00001.38 Performance initial time-usec -21396
+0 00001.38 Performance adapt_apply time-usec 1587
+0 00001.38 Performance adapt_apply_sync time-usec 1278
+0 00001.38 Performance adapt_update time-usec 3722
+0 00001.38 Performance adapt_update_sync time-usec 19837
+0 00001.38 Performance adapt_notify time-usec 9857
+0 00001.38 Performance adapt_notify_sync time-usec 954
+0 00001.38 Performance adapt_end time-usec 73
+0 00001.38 Performance adapt_end_sync time-usec 6157
+0 00001.38 Performance refresh_store time-usec 0
+0 00001.38 Performance refresh_child time-usec 0
+0 00001.38 Performance refresh_exit time-usec 0
+0 00001.38 Performance refresh_store_sync time-usec 0
+0 00001.38 Performance refresh_child_sync time-usec 0
+0 00001.38 Performance refresh_exit_sync time-usec 0
+0 00001.38 Performance control time-usec 1628
+0 00001.38 Performance compute time-usec 489917
+0 00001.38 Performance output time-usec 289057
+0 00001.38 Performance stopping time-usec 27824
+0 00001.38 Performance block time-usec -43233
+0 00001.38 Performance exit time-usec 0
+0 00001.38 Performance grackle time-usec 0
+0 00001.38 Performance simulation max-proc-blocks 2
+0 00001.38 Performance simulation max-node-blocks 2
+0 00001.38 Performance simulation max-proc-particles 0
+0 00001.38 Performance simulation max-node-particles 0
+0 00001.38 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00001.39 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00001.39 Method Field density sum 1.4615090756681329e+03 conserved to 5.20866 digits of 15
+0 00001.39 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00001.39 Method Field total_energy sum 4.3592735877512798e+03 conserved to 5.26865 digits of 15
+0 00001.39 Method Field velocity_x sum -6.1765318859258559e-04 conserved to -1.15614 digits of 15
+0 00001.39 Method Field velocity_y sum -2.6788077128654178e-03 conserved to 2.57206 digits of 15
+0 00001.65  -------------------------------------
+0 00001.65 Simulation cycle 0010
+0 00001.65 Simulation time-sim 2.603598069400e-02
+0 00001.65 Simulation dt 2.246311493218e-03
+0 00001.65 Performance counter num-msg-coarsen 0
+0 00001.65 Performance counter num-msg-refine 0
+0 00001.65 Performance counter num-msg-refresh 0
+0 00001.65 Performance counter num-data-msg 0
+0 00001.65 Performance counter num-field-face 0
+0 00001.65 Performance counter num-particle-data 16
+0 00001.65 Performance simulation num-particles total 0
+0 00001.65 performance simulation num-blocks-level 0 16
+0 00001.65 Performance simulation num-leaf-blocks 16
+0 00001.65 Performance simulation num-total-blocks 16
+0 00001.65 Performance simulation time-usec 4964235
+0 00001.65 Performance cycle time-usec 2801485
+0 00001.65 Performance cycle bytes-curr 0
+0 00001.65 Performance cycle bytes-high 0
+0 00001.65 Performance cycle bytes-highest 0
+0 00001.65 Performance cycle bytes-available 0
+0 00001.65 Performance initial time-usec -21396
+0 00001.65 Performance adapt_apply time-usec 1685
+0 00001.65 Performance adapt_apply_sync time-usec 1359
+0 00001.65 Performance adapt_update time-usec 4079
+0 00001.65 Performance adapt_update_sync time-usec 21824
+0 00001.65 Performance adapt_notify time-usec 10779
+0 00001.65 Performance adapt_notify_sync time-usec 1039
+0 00001.65 Performance adapt_end time-usec 80
+0 00001.65 Performance adapt_end_sync time-usec 6756
+0 00001.65 Performance refresh_store time-usec 0
+0 00001.65 Performance refresh_child time-usec 0
+0 00001.65 Performance refresh_exit time-usec 0
+0 00001.65 Performance refresh_store_sync time-usec 0
+0 00001.65 Performance refresh_child_sync time-usec 0
+0 00001.65 Performance refresh_exit_sync time-usec 0
+0 00001.65 Performance control time-usec 1799
+0 00001.65 Performance compute time-usec 537985
+0 00001.65 Performance output time-usec 570654
+0 00001.65 Performance stopping time-usec 30730
+0 00001.65 Performance block time-usec -43233
+0 00001.65 Performance exit time-usec 0
+0 00001.65 Performance grackle time-usec 0
+0 00001.65 Performance simulation max-proc-blocks 2
+0 00001.65 Performance simulation max-node-blocks 2
+0 00001.65 Performance simulation max-proc-particles 0
+0 00001.65 Performance simulation max-node-particles 0
+0 00001.65 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00001.65 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00001.66 Method Field density sum 1.4615090826110411e+03 conserved to 5.20833 digits of 15
+0 00001.66 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00001.66 Method Field total_energy sum 4.3592736396475118e+03 conserved to 5.26769 digits of 15
+0 00001.66 Method Field velocity_x sum -6.3528138596002079e-04 conserved to -1.16752 digits of 15
+0 00001.66 Method Field velocity_y sum -2.6826864178905244e-03 conserved to 2.57143 digits of 15
+0 00001.66  -------------------------------------
+0 00001.66 Simulation cycle 0011
+0 00001.66 Simulation time-sim 2.830532584339e-02
+0 00001.66 Simulation dt 2.269345149398e-03
+0 00001.66 Performance counter num-msg-coarsen 0
+0 00001.66 Performance counter num-msg-refine 0
+0 00001.66 Performance counter num-msg-refresh 0
+0 00001.66 Performance counter num-data-msg 0
+0 00001.66 Performance counter num-field-face 0
+0 00001.66 Performance counter num-particle-data 16
+0 00001.66 Performance simulation num-particles total 0
+0 00001.66 performance simulation num-blocks-level 0 16
+0 00001.66 Performance simulation num-leaf-blocks 16
+0 00001.66 Performance simulation num-total-blocks 16
+0 00001.66 Performance simulation time-usec 5033016
+0 00001.66 Performance cycle time-usec 2870272
+0 00001.66 Performance cycle bytes-curr 0
+0 00001.66 Performance cycle bytes-high 0
+0 00001.66 Performance cycle bytes-highest 0
+0 00001.66 Performance cycle bytes-available 0
+0 00001.66 Performance initial time-usec -21396
+0 00001.66 Performance adapt_apply time-usec 1799
+0 00001.66 Performance adapt_apply_sync time-usec 1442
+0 00001.66 Performance adapt_update time-usec 4486
+0 00001.66 Performance adapt_update_sync time-usec 24088
+0 00001.66 Performance adapt_notify time-usec 11795
+0 00001.66 Performance adapt_notify_sync time-usec 1128
+0 00001.66 Performance adapt_end time-usec 89
+0 00001.66 Performance adapt_end_sync time-usec 7316
+0 00001.66 Performance refresh_store time-usec 0
+0 00001.66 Performance refresh_child time-usec 0
+0 00001.66 Performance refresh_exit time-usec 0
+0 00001.66 Performance refresh_store_sync time-usec 0
+0 00001.66 Performance refresh_child_sync time-usec 0
+0 00001.66 Performance refresh_exit_sync time-usec 0
+0 00001.66 Performance control time-usec 1984
+0 00001.66 Performance compute time-usec 586540
+0 00001.66 Performance output time-usec 570724
+0 00001.66 Performance stopping time-usec 34088
+0 00001.66 Performance block time-usec -43233
+0 00001.66 Performance exit time-usec 0
+0 00001.66 Performance grackle time-usec 0
+0 00001.66 Performance simulation max-proc-blocks 2
+0 00001.66 Performance simulation max-node-blocks 2
+0 00001.66 Performance simulation max-proc-particles 0
+0 00001.66 Performance simulation max-node-particles 0
+0 00001.66 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00001.66 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00001.67 Method Field density sum 1.4615090857356670e+03 conserved to 5.20818 digits of 15
+0 00001.67 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00001.67 Method Field total_energy sum 4.3592736773178432e+03 conserved to 5.267 digits of 15
+0 00001.67 Method Field velocity_x sum -6.5779229106506867e-04 conserved to -1.18163 digits of 15
+0 00001.67 Method Field velocity_y sum -2.6865109609058024e-03 conserved to 2.57081 digits of 15
+0 00001.67  -------------------------------------
+0 00001.67 Simulation cycle 0012
+0 00001.67 Simulation time-sim 3.057958111167e-02
+0 00001.67 Simulation dt 2.274255268276e-03
+0 00001.67 Performance counter num-msg-coarsen 0
+0 00001.67 Performance counter num-msg-refine 0
+0 00001.67 Performance counter num-msg-refresh 0
+0 00001.67 Performance counter num-data-msg 0
+0 00001.67 Performance counter num-field-face 0
+0 00001.67 Performance counter num-particle-data 16
+0 00001.67 Performance simulation num-particles total 0
+0 00001.67 performance simulation num-blocks-level 0 16
+0 00001.67 Performance simulation num-leaf-blocks 16
+0 00001.67 Performance simulation num-total-blocks 16
+0 00001.67 Performance simulation time-usec 5099481
+0 00001.67 Performance cycle time-usec 2936727
+0 00001.67 Performance cycle bytes-curr 0
+0 00001.67 Performance cycle bytes-high 0
+0 00001.67 Performance cycle bytes-highest 0
+0 00001.67 Performance cycle bytes-available 0
+0 00001.67 Performance initial time-usec -21396
+0 00001.67 Performance adapt_apply time-usec 1894
+0 00001.67 Performance adapt_apply_sync time-usec 1525
+0 00001.67 Performance adapt_update time-usec 4871
+0 00001.67 Performance adapt_update_sync time-usec 26073
+0 00001.67 Performance adapt_notify time-usec 12724
+0 00001.67 Performance adapt_notify_sync time-usec 1213
+0 00001.67 Performance adapt_end time-usec 97
+0 00001.67 Performance adapt_end_sync time-usec 7882
+0 00001.67 Performance refresh_store time-usec 0
+0 00001.67 Performance refresh_child time-usec 0
+0 00001.67 Performance refresh_exit time-usec 0
+0 00001.67 Performance refresh_store_sync time-usec 0
+0 00001.67 Performance refresh_child_sync time-usec 0
+0 00001.67 Performance refresh_exit_sync time-usec 0
+0 00001.67 Performance control time-usec 2149
+0 00001.67 Performance compute time-usec 634395
+0 00001.67 Performance output time-usec 570768
+0 00001.67 Performance stopping time-usec 37028
+0 00001.67 Performance block time-usec -43233
+0 00001.67 Performance exit time-usec 0
+0 00001.67 Performance grackle time-usec 0
+0 00001.67 Performance simulation max-proc-blocks 2
+0 00001.67 Performance simulation max-node-blocks 2
+0 00001.67 Performance simulation max-proc-particles 0
+0 00001.67 Performance simulation max-node-particles 0
+0 00001.67 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00001.67 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00001.68 Method Field density sum 1.4615090831520394e+03 conserved to 5.2083 digits of 15
+0 00001.68 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00001.68 Method Field total_energy sum 4.3592736867938693e+03 conserved to 5.26682 digits of 15
+0 00001.68 Method Field velocity_x sum -6.7362756170447280e-04 conserved to -1.19129 digits of 15
+0 00001.68 Method Field velocity_y sum -2.6896825071768583e-03 conserved to 2.5703 digits of 15
+0 00001.68  -------------------------------------
+0 00001.68 Simulation cycle 0013
+0 00001.68 Simulation time-sim 3.287450578064e-02
+0 00001.68 Simulation dt 2.294924668968e-03
+0 00001.68 Performance counter num-msg-coarsen 0
+0 00001.68 Performance counter num-msg-refine 0
+0 00001.68 Performance counter num-msg-refresh 0
+0 00001.68 Performance counter num-data-msg 0
+0 00001.68 Performance counter num-field-face 0
+0 00001.68 Performance counter num-particle-data 16
+0 00001.68 Performance simulation num-particles total 0
+0 00001.68 performance simulation num-blocks-level 0 16
+0 00001.68 Performance simulation num-leaf-blocks 16
+0 00001.68 Performance simulation num-total-blocks 16
+0 00001.68 Performance simulation time-usec 5165221
+0 00001.68 Performance cycle time-usec 3002467
+0 00001.68 Performance cycle bytes-curr 0
+0 00001.68 Performance cycle bytes-high 0
+0 00001.68 Performance cycle bytes-highest 0
+0 00001.68 Performance cycle bytes-available 0
+0 00001.68 Performance initial time-usec -21396
+0 00001.68 Performance adapt_apply time-usec 2006
+0 00001.68 Performance adapt_apply_sync time-usec 1631
+0 00001.68 Performance adapt_update time-usec 5233
+0 00001.68 Performance adapt_update_sync time-usec 27955
+0 00001.68 Performance adapt_notify time-usec 13651
+0 00001.68 Performance adapt_notify_sync time-usec 1301
+0 00001.68 Performance adapt_end time-usec 105
+0 00001.68 Performance adapt_end_sync time-usec 8486
+0 00001.68 Performance refresh_store time-usec 0
+0 00001.68 Performance refresh_child time-usec 0
+0 00001.68 Performance refresh_exit time-usec 0
+0 00001.68 Performance refresh_store_sync time-usec 0
+0 00001.68 Performance refresh_child_sync time-usec 0
+0 00001.68 Performance refresh_exit_sync time-usec 0
+0 00001.68 Performance control time-usec 2326
+0 00001.68 Performance compute time-usec 682511
+0 00001.68 Performance output time-usec 570821
+0 00001.68 Performance stopping time-usec 39926
+0 00001.68 Performance block time-usec -43233
+0 00001.68 Performance exit time-usec 0
+0 00001.68 Performance grackle time-usec 0
+0 00001.68 Performance simulation max-proc-blocks 2
+0 00001.68 Performance simulation max-node-blocks 2
+0 00001.68 Performance simulation max-proc-particles 0
+0 00001.68 Performance simulation max-node-particles 0
+0 00001.68 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00001.68 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00001.69 Method Field density sum 1.4615090801261081e+03 conserved to 5.20845 digits of 15
+0 00001.69 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00001.69 Method Field total_energy sum 4.3592736980920074e+03 conserved to 5.26661 digits of 15
+0 00001.69 Method Field velocity_x sum -6.7979927510886107e-04 conserved to -1.195 digits of 15
+0 00001.69 Method Field velocity_y sum -2.6925447196234284e-03 conserved to 2.56984 digits of 15
+0 00001.69  -------------------------------------
+0 00001.69 Simulation cycle 0014
+0 00001.69 Simulation time-sim 3.517263326794e-02
+0 00001.69 Simulation dt 2.298127487302e-03
+0 00001.69 Performance counter num-msg-coarsen 0
+0 00001.69 Performance counter num-msg-refine 0
+0 00001.69 Performance counter num-msg-refresh 0
+0 00001.69 Performance counter num-data-msg 0
+0 00001.69 Performance counter num-field-face 0
+0 00001.69 Performance counter num-particle-data 16
+0 00001.69 Performance simulation num-particles total 0
+0 00001.69 performance simulation num-blocks-level 0 16
+0 00001.69 Performance simulation num-leaf-blocks 16
+0 00001.69 Performance simulation num-total-blocks 16
+0 00001.69 Performance simulation time-usec 5232356
+0 00001.69 Performance cycle time-usec 3069600
+0 00001.69 Performance cycle bytes-curr 0
+0 00001.69 Performance cycle bytes-high 0
+0 00001.69 Performance cycle bytes-highest 0
+0 00001.69 Performance cycle bytes-available 0
+0 00001.69 Performance initial time-usec -21396
+0 00001.69 Performance adapt_apply time-usec 2107
+0 00001.69 Performance adapt_apply_sync time-usec 1712
+0 00001.69 Performance adapt_update time-usec 5591
+0 00001.69 Performance adapt_update_sync time-usec 29704
+0 00001.69 Performance adapt_notify time-usec 14571
+0 00001.69 Performance adapt_notify_sync time-usec 1389
+0 00001.69 Performance adapt_end time-usec 112
+0 00001.69 Performance adapt_end_sync time-usec 9138
+0 00001.69 Performance refresh_store time-usec 0
+0 00001.69 Performance refresh_child time-usec 0
+0 00001.69 Performance refresh_exit time-usec 0
+0 00001.69 Performance refresh_store_sync time-usec 0
+0 00001.69 Performance refresh_child_sync time-usec 0
+0 00001.69 Performance refresh_exit_sync time-usec 0
+0 00001.69 Performance control time-usec 2501
+0 00001.69 Performance compute time-usec 730762
+0 00001.69 Performance output time-usec 570865
+0 00001.69 Performance stopping time-usec 42853
+0 00001.69 Performance block time-usec -43233
+0 00001.69 Performance exit time-usec 0
+0 00001.69 Performance grackle time-usec 0
+0 00001.69 Performance simulation max-proc-blocks 2
+0 00001.69 Performance simulation max-node-blocks 2
+0 00001.69 Performance simulation max-proc-particles 0
+0 00001.69 Performance simulation max-node-particles 0
+0 00001.69 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00001.69 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00001.69 Method Field density sum 1.4615090786961864e+03 conserved to 5.20852 digits of 15
+0 00001.69 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00001.69 Method Field total_energy sum 4.3592737135601722e+03 conserved to 5.26633 digits of 15
+0 00001.69 Method Field velocity_x sum -6.7697987438221363e-04 conserved to -1.19331 digits of 15
+0 00001.69 Method Field velocity_y sum -2.6937521566845687e-03 conserved to 2.56964 digits of 15
+0 00001.69  -------------------------------------
+0 00001.69 Simulation cycle 0015
+0 00001.69 Simulation time-sim 3.749250844121e-02
+0 00001.69 Simulation dt 2.319875173271e-03
+0 00001.69 Performance counter num-msg-coarsen 0
+0 00001.69 Performance counter num-msg-refine 0
+0 00001.69 Performance counter num-msg-refresh 0
+0 00001.69 Performance counter num-data-msg 0
+0 00001.69 Performance counter num-field-face 0
+0 00001.69 Performance counter num-particle-data 16
+0 00001.69 Performance simulation num-particles total 0
+0 00001.69 performance simulation num-blocks-level 0 16
+0 00001.69 Performance simulation num-leaf-blocks 16
+0 00001.69 Performance simulation num-total-blocks 16
+0 00001.69 Performance simulation time-usec 5298403
+0 00001.69 Performance cycle time-usec 3135641
+0 00001.69 Performance cycle bytes-curr 0
+0 00001.69 Performance cycle bytes-high 0
+0 00001.69 Performance cycle bytes-highest 0
+0 00001.69 Performance cycle bytes-available 0
+0 00001.69 Performance initial time-usec -21396
+0 00001.69 Performance adapt_apply time-usec 2206
+0 00001.69 Performance adapt_apply_sync time-usec 1793
+0 00001.69 Performance adapt_update time-usec 5957
+0 00001.69 Performance adapt_update_sync time-usec 31488
+0 00001.69 Performance adapt_notify time-usec 15490
+0 00001.69 Performance adapt_notify_sync time-usec 1472
+0 00001.69 Performance adapt_end time-usec 119
+0 00001.69 Performance adapt_end_sync time-usec 9726
+0 00001.69 Performance refresh_store time-usec 0
+0 00001.69 Performance refresh_child time-usec 0
+0 00001.69 Performance refresh_exit time-usec 0
+0 00001.69 Performance refresh_store_sync time-usec 0
+0 00001.69 Performance refresh_child_sync time-usec 0
+0 00001.69 Performance refresh_exit_sync time-usec 0
+0 00001.69 Performance control time-usec 2679
+0 00001.69 Performance compute time-usec 778588
+0 00001.69 Performance output time-usec 570909
+0 00001.69 Performance stopping time-usec 45763
+0 00001.69 Performance block time-usec -43233
+0 00001.69 Performance exit time-usec 0
+0 00001.69 Performance grackle time-usec 0
+0 00001.69 Performance simulation max-proc-blocks 2
+0 00001.69 Performance simulation max-node-blocks 2
+0 00001.69 Performance simulation max-proc-particles 0
+0 00001.69 Performance simulation max-node-particles 0
+0 00001.69 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00001.69 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00001.70 Method Field density sum 1.4615090785571025e+03 conserved to 5.20853 digits of 15
+0 00001.70 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00001.70 Method Field total_energy sum 4.3592737303644330e+03 conserved to 5.26602 digits of 15
+0 00001.70 Method Field velocity_x sum -6.7325497326140248e-04 conserved to -1.19107 digits of 15
+0 00001.70 Method Field velocity_y sum -2.6931746996373546e-03 conserved to 2.56974 digits of 15
+0 00001.70  -------------------------------------
+0 00001.70 Simulation cycle 0016
+0 00001.70 Simulation time-sim 3.983666468412e-02
+0 00001.70 Simulation dt 2.344156242907e-03
+0 00001.70 Performance counter num-msg-coarsen 0
+0 00001.70 Performance counter num-msg-refine 0
+0 00001.70 Performance counter num-msg-refresh 0
+0 00001.70 Performance counter num-data-msg 0
+0 00001.70 Performance counter num-field-face 0
+0 00001.70 Performance counter num-particle-data 16
+0 00001.70 Performance simulation num-particles total 0
+0 00001.70 performance simulation num-blocks-level 0 16
+0 00001.70 Performance simulation num-leaf-blocks 16
+0 00001.70 Performance simulation num-total-blocks 16
+0 00001.70 Performance simulation time-usec 5364838
+0 00001.70 Performance cycle time-usec 3202075
+0 00001.70 Performance cycle bytes-curr 0
+0 00001.70 Performance cycle bytes-high 0
+0 00001.70 Performance cycle bytes-highest 0
+0 00001.70 Performance cycle bytes-available 0
+0 00001.70 Performance initial time-usec -21396
+0 00001.70 Performance adapt_apply time-usec 2306
+0 00001.70 Performance adapt_apply_sync time-usec 1875
+0 00001.70 Performance adapt_update time-usec 6319
+0 00001.70 Performance adapt_update_sync time-usec 33239
+0 00001.70 Performance adapt_notify time-usec 16448
+0 00001.70 Performance adapt_notify_sync time-usec 1557
+0 00001.70 Performance adapt_end time-usec 127
+0 00001.70 Performance adapt_end_sync time-usec 10481
+0 00001.70 Performance refresh_store time-usec 0
+0 00001.70 Performance refresh_child time-usec 0
+0 00001.70 Performance refresh_exit time-usec 0
+0 00001.70 Performance refresh_store_sync time-usec 0
+0 00001.70 Performance refresh_child_sync time-usec 0
+0 00001.70 Performance refresh_exit_sync time-usec 0
+0 00001.70 Performance control time-usec 2850
+0 00001.70 Performance compute time-usec 827278
+0 00001.70 Performance output time-usec 570962
+0 00001.70 Performance stopping time-usec 48654
+0 00001.70 Performance block time-usec -43233
+0 00001.70 Performance exit time-usec 0
+0 00001.70 Performance grackle time-usec 0
+0 00001.70 Performance simulation max-proc-blocks 2
+0 00001.70 Performance simulation max-node-blocks 2
+0 00001.70 Performance simulation max-proc-particles 0
+0 00001.70 Performance simulation max-node-particles 0
+0 00001.70 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00001.70 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00001.71 Method Field density sum 1.4615090849115833e+03 conserved to 5.20822 digits of 15
+0 00001.71 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00001.71 Method Field total_energy sum 4.3592737530855456e+03 conserved to 5.2656 digits of 15
+0 00001.71 Method Field velocity_x sum -6.5209694713887038e-04 conserved to -1.17811 digits of 15
+0 00001.71 Method Field velocity_y sum -2.6908597173990606e-03 conserved to 2.57011 digits of 15
+0 00001.71  -------------------------------------
+0 00001.71 Simulation cycle 0017
+0 00001.71 Simulation time-sim 4.219939876348e-02
+0 00001.71 Simulation dt 2.362734079361e-03
+0 00001.71 Performance counter num-msg-coarsen 0
+0 00001.71 Performance counter num-msg-refine 0
+0 00001.71 Performance counter num-msg-refresh 0
+0 00001.71 Performance counter num-data-msg 0
+0 00001.71 Performance counter num-field-face 0
+0 00001.71 Performance counter num-particle-data 16
+0 00001.71 Performance simulation num-particles total 0
+0 00001.71 performance simulation num-blocks-level 0 16
+0 00001.71 Performance simulation num-leaf-blocks 16
+0 00001.71 Performance simulation num-total-blocks 16
+0 00001.71 Performance simulation time-usec 5430714
+0 00001.71 Performance cycle time-usec 3267947
+0 00001.71 Performance cycle bytes-curr 0
+0 00001.71 Performance cycle bytes-high 0
+0 00001.71 Performance cycle bytes-highest 0
+0 00001.71 Performance cycle bytes-available 0
+0 00001.71 Performance initial time-usec -21396
+0 00001.71 Performance adapt_apply time-usec 2404
+0 00001.71 Performance adapt_apply_sync time-usec 1957
+0 00001.71 Performance adapt_update time-usec 6683
+0 00001.71 Performance adapt_update_sync time-usec 35110
+0 00001.71 Performance adapt_notify time-usec 17409
+0 00001.71 Performance adapt_notify_sync time-usec 1641
+0 00001.71 Performance adapt_end time-usec 133
+0 00001.71 Performance adapt_end_sync time-usec 11018
+0 00001.71 Performance refresh_store time-usec 0
+0 00001.71 Performance refresh_child time-usec 0
+0 00001.71 Performance refresh_exit time-usec 0
+0 00001.71 Performance refresh_store_sync time-usec 0
+0 00001.71 Performance refresh_child_sync time-usec 0
+0 00001.71 Performance refresh_exit_sync time-usec 0
+0 00001.71 Performance control time-usec 3016
+0 00001.71 Performance compute time-usec 875095
+0 00001.71 Performance output time-usec 571011
+0 00001.71 Performance stopping time-usec 51551
+0 00001.71 Performance block time-usec -43233
+0 00001.71 Performance exit time-usec 0
+0 00001.71 Performance grackle time-usec 0
+0 00001.71 Performance simulation max-proc-blocks 2
+0 00001.71 Performance simulation max-node-blocks 2
+0 00001.71 Performance simulation max-proc-particles 0
+0 00001.71 Performance simulation max-node-particles 0
+0 00001.71 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00001.71 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00001.72 Method Field density sum 1.4615090923031686e+03 conserved to 5.20787 digits of 15
+0 00001.72 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00001.72 Method Field total_energy sum 4.3592737966478463e+03 conserved to 5.2648 digits of 15
+0 00001.72 Method Field velocity_x sum -6.4594055301310689e-04 conserved to -1.17426 digits of 15
+0 00001.72 Method Field velocity_y sum -2.6925499456375949e-03 conserved to 2.56984 digits of 15
+0 00001.72  -------------------------------------
+0 00001.72 Simulation cycle 0018
+0 00001.72 Simulation time-sim 4.457596745342e-02
+0 00001.72 Simulation dt 2.376568689942e-03
+0 00001.72 Performance counter num-msg-coarsen 0
+0 00001.72 Performance counter num-msg-refine 0
+0 00001.72 Performance counter num-msg-refresh 0
+0 00001.72 Performance counter num-data-msg 0
+0 00001.72 Performance counter num-field-face 0
+0 00001.72 Performance counter num-particle-data 16
+0 00001.72 Performance simulation num-particles total 0
+0 00001.72 performance simulation num-blocks-level 0 16
+0 00001.72 Performance simulation num-leaf-blocks 16
+0 00001.72 Performance simulation num-total-blocks 16
+0 00001.72 Performance simulation time-usec 5496434
+0 00001.72 Performance cycle time-usec 3333664
+0 00001.72 Performance cycle bytes-curr 0
+0 00001.72 Performance cycle bytes-high 0
+0 00001.72 Performance cycle bytes-highest 0
+0 00001.72 Performance cycle bytes-available 0
+0 00001.72 Performance initial time-usec -21396
+0 00001.72 Performance adapt_apply time-usec 2501
+0 00001.72 Performance adapt_apply_sync time-usec 2041
+0 00001.72 Performance adapt_update time-usec 7035
+0 00001.72 Performance adapt_update_sync time-usec 36923
+0 00001.72 Performance adapt_notify time-usec 18323
+0 00001.72 Performance adapt_notify_sync time-usec 1722
+0 00001.72 Performance adapt_end time-usec 138
+0 00001.72 Performance adapt_end_sync time-usec 11510
+0 00001.72 Performance refresh_store time-usec 0
+0 00001.72 Performance refresh_child time-usec 0
+0 00001.72 Performance refresh_exit time-usec 0
+0 00001.72 Performance refresh_store_sync time-usec 0
+0 00001.72 Performance refresh_child_sync time-usec 0
+0 00001.72 Performance refresh_exit_sync time-usec 0
+0 00001.72 Performance control time-usec 3178
+0 00001.72 Performance compute time-usec 923325
+0 00001.72 Performance output time-usec 571054
+0 00001.72 Performance stopping time-usec 54463
+0 00001.72 Performance block time-usec -43233
+0 00001.72 Performance exit time-usec 0
+0 00001.72 Performance grackle time-usec 0
+0 00001.72 Performance simulation max-proc-blocks 2
+0 00001.72 Performance simulation max-node-blocks 2
+0 00001.72 Performance simulation max-proc-particles 0
+0 00001.72 Performance simulation max-node-particles 0
+0 00001.72 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00001.72 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00001.73 Method Field density sum 1.4615091038881536e+03 conserved to 5.20731 digits of 15
+0 00001.73 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00001.73 Method Field total_energy sum 4.3592737803412505e+03 conserved to 5.2651 digits of 15
+0 00001.73 Method Field velocity_x sum -6.2552873308865421e-04 conserved to -1.16126 digits of 15
+0 00001.73 Method Field velocity_y sum -2.6849878756610018e-03 conserved to 2.57106 digits of 15
+0 00001.73  -------------------------------------
+0 00001.73 Simulation cycle 0019
+0 00001.73 Simulation time-sim 4.697016756982e-02
+0 00001.73 Simulation dt 2.394200116396e-03
+0 00001.73 Performance counter num-msg-coarsen 0
+0 00001.73 Performance counter num-msg-refine 0
+0 00001.73 Performance counter num-msg-refresh 0
+0 00001.73 Performance counter num-data-msg 0
+0 00001.73 Performance counter num-field-face 0
+0 00001.73 Performance counter num-particle-data 16
+0 00001.73 Performance simulation num-particles total 0
+0 00001.73 performance simulation num-blocks-level 0 16
+0 00001.73 Performance simulation num-leaf-blocks 16
+0 00001.73 Performance simulation num-total-blocks 16
+0 00001.73 Performance simulation time-usec 5562115
+0 00001.73 Performance cycle time-usec 3399338
+0 00001.73 Performance cycle bytes-curr 0
+0 00001.73 Performance cycle bytes-high 0
+0 00001.73 Performance cycle bytes-highest 0
+0 00001.73 Performance cycle bytes-available 0
+0 00001.73 Performance initial time-usec -21396
+0 00001.73 Performance adapt_apply time-usec 2603
+0 00001.73 Performance adapt_apply_sync time-usec 2126
+0 00001.73 Performance adapt_update time-usec 7404
+0 00001.73 Performance adapt_update_sync time-usec 38579
+0 00001.73 Performance adapt_notify time-usec 19240
+0 00001.73 Performance adapt_notify_sync time-usec 1808
+0 00001.73 Performance adapt_end time-usec 144
+0 00001.73 Performance adapt_end_sync time-usec 12034
+0 00001.73 Performance refresh_store time-usec 0
+0 00001.73 Performance refresh_child time-usec 0
+0 00001.73 Performance refresh_exit time-usec 0
+0 00001.73 Performance refresh_store_sync time-usec 0
+0 00001.73 Performance refresh_child_sync time-usec 0
+0 00001.73 Performance refresh_exit_sync time-usec 0
+0 00001.73 Performance control time-usec 3352
+0 00001.73 Performance compute time-usec 971429
+0 00001.73 Performance output time-usec 571099
+0 00001.73 Performance stopping time-usec 57371
+0 00001.73 Performance block time-usec -43233
+0 00001.73 Performance exit time-usec 0
+0 00001.73 Performance grackle time-usec 0
+0 00001.73 Performance simulation max-proc-blocks 2
+0 00001.73 Performance simulation max-node-blocks 2
+0 00001.73 Performance simulation max-proc-particles 0
+0 00001.73 Performance simulation max-node-particles 0
+0 00001.73 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00001.73 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00001.73 Method Field density sum 1.4615091165630545e+03 conserved to 5.2067 digits of 15
+0 00001.73 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00001.73 Method Field total_energy sum 4.3592738312015004e+03 conserved to 5.26417 digits of 15
+0 00001.73 Method Field velocity_x sum -6.2313201478235263e-04 conserved to -1.15971 digits of 15
+0 00001.73 Method Field velocity_y sum -2.6911750431202371e-03 conserved to 2.57006 digits of 15
+0 00002.00  -------------------------------------
+0 00002.00 Simulation cycle 0020
+0 00002.00 Simulation time-sim 4.937242474407e-02
+0 00002.00 Simulation dt 2.402257174253e-03
+0 00002.00 Performance counter num-msg-coarsen 0
+0 00002.00 Performance counter num-msg-refine 0
+0 00002.00 Performance counter num-msg-refresh 0
+0 00002.00 Performance counter num-data-msg 0
+0 00002.00 Performance counter num-field-face 0
+0 00002.00 Performance counter num-particle-data 16
+0 00002.00 Performance simulation num-particles total 0
+0 00002.00 performance simulation num-blocks-level 0 16
+0 00002.00 Performance simulation num-leaf-blocks 16
+0 00002.00 Performance simulation num-total-blocks 16
+0 00002.00 Performance simulation time-usec 7719118
+0 00002.00 Performance cycle time-usec 5556338
+0 00002.00 Performance cycle bytes-curr 0
+0 00002.00 Performance cycle bytes-high 0
+0 00002.00 Performance cycle bytes-highest 0
+0 00002.00 Performance cycle bytes-available 0
+0 00002.00 Performance initial time-usec -21396
+0 00002.00 Performance adapt_apply time-usec 2704
+0 00002.00 Performance adapt_apply_sync time-usec 2211
+0 00002.00 Performance adapt_update time-usec 7770
+0 00002.00 Performance adapt_update_sync time-usec 40233
+0 00002.00 Performance adapt_notify time-usec 20166
+0 00002.00 Performance adapt_notify_sync time-usec 1892
+0 00002.00 Performance adapt_end time-usec 149
+0 00002.00 Performance adapt_end_sync time-usec 12576
+0 00002.00 Performance refresh_store time-usec 0
+0 00002.00 Performance refresh_child time-usec 0
+0 00002.00 Performance refresh_exit time-usec 0
+0 00002.00 Performance refresh_store_sync time-usec 0
+0 00002.00 Performance refresh_child_sync time-usec 0
+0 00002.00 Performance refresh_exit_sync time-usec 0
+0 00002.00 Performance control time-usec 3516
+0 00002.00 Performance compute time-usec 1019631
+0 00002.00 Performance output time-usec 848593
+0 00002.00 Performance stopping time-usec 60282
+0 00002.00 Performance block time-usec -43233
+0 00002.00 Performance exit time-usec 0
+0 00002.00 Performance grackle time-usec 0
+0 00002.00 Performance simulation max-proc-blocks 2
+0 00002.00 Performance simulation max-node-blocks 2
+0 00002.00 Performance simulation max-proc-particles 0
+0 00002.00 Performance simulation max-node-particles 0
+0 00002.00 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00002.00 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00002.00 Method Field density sum 1.4615091320243326e+03 conserved to 5.20596 digits of 15
+0 00002.00 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00002.00 Method Field total_energy sum 4.3592737178934960e+03 conserved to 5.26625 digits of 15
+0 00002.00 Method Field velocity_x sum -5.9551578963840113e-04 conserved to -1.14142 digits of 15
+0 00002.00 Method Field velocity_y sum -2.6498948907866596e-03 conserved to 2.57677 digits of 15
+0 00002.01  -------------------------------------
+0 00002.01 Simulation cycle 0021
+0 00002.01 Simulation time-sim 5.177941247821e-02
+0 00002.01 Simulation dt 2.406987734139e-03
+0 00002.01 Performance counter num-msg-coarsen 0
+0 00002.01 Performance counter num-msg-refine 0
+0 00002.01 Performance counter num-msg-refresh 0
+0 00002.01 Performance counter num-data-msg 0
+0 00002.01 Performance counter num-field-face 0
+0 00002.01 Performance counter num-particle-data 16
+0 00002.01 Performance simulation num-particles total 0
+0 00002.01 performance simulation num-blocks-level 0 16
+0 00002.01 Performance simulation num-leaf-blocks 16
+0 00002.01 Performance simulation num-total-blocks 16
+0 00002.01 Performance simulation time-usec 7787648
+0 00002.01 Performance cycle time-usec 5624863
+0 00002.01 Performance cycle bytes-curr 0
+0 00002.01 Performance cycle bytes-high 0
+0 00002.01 Performance cycle bytes-highest 0
+0 00002.01 Performance cycle bytes-available 0
+0 00002.01 Performance initial time-usec -21396
+0 00002.01 Performance adapt_apply time-usec 2813
+0 00002.01 Performance adapt_apply_sync time-usec 2294
+0 00002.01 Performance adapt_update time-usec 8175
+0 00002.01 Performance adapt_update_sync time-usec 41931
+0 00002.01 Performance adapt_notify time-usec 21173
+0 00002.01 Performance adapt_notify_sync time-usec 1977
+0 00002.01 Performance adapt_end time-usec 156
+0 00002.01 Performance adapt_end_sync time-usec 13181
+0 00002.01 Performance refresh_store time-usec 0
+0 00002.01 Performance refresh_child time-usec 0
+0 00002.01 Performance refresh_exit time-usec 0
+0 00002.01 Performance refresh_store_sync time-usec 0
+0 00002.01 Performance refresh_child_sync time-usec 0
+0 00002.01 Performance refresh_exit_sync time-usec 0
+0 00002.01 Performance control time-usec 3699
+0 00002.01 Performance compute time-usec 1068817
+0 00002.01 Performance output time-usec 848658
+0 00002.01 Performance stopping time-usec 63651
+0 00002.01 Performance block time-usec -43233
+0 00002.01 Performance exit time-usec 0
+0 00002.01 Performance grackle time-usec 0
+0 00002.01 Performance simulation max-proc-blocks 2
+0 00002.01 Performance simulation max-node-blocks 2
+0 00002.01 Performance simulation max-proc-particles 0
+0 00002.01 Performance simulation max-node-particles 0
+0 00002.01 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00002.01 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00002.01 Method Field density sum 1.4615091410996780e+03 conserved to 5.20553 digits of 15
+0 00002.01 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00002.01 Method Field total_energy sum 4.3592737636103911e+03 conserved to 5.26541 digits of 15
+0 00002.01 Method Field velocity_x sum -5.9597299529252565e-04 conserved to -1.14173 digits of 15
+0 00002.01 Method Field velocity_y sum -2.6532731915008129e-03 conserved to 2.57622 digits of 15
+0 00002.01  -------------------------------------
+0 00002.01 Simulation cycle 0022
+0 00002.01 Simulation time-sim 5.418517217040e-02
+0 00002.01 Simulation dt 2.405759692192e-03
+0 00002.01 Performance counter num-msg-coarsen 0
+0 00002.01 Performance counter num-msg-refine 0
+0 00002.01 Performance counter num-msg-refresh 0
+0 00002.01 Performance counter num-data-msg 0
+0 00002.01 Performance counter num-field-face 0
+0 00002.01 Performance counter num-particle-data 16
+0 00002.01 Performance simulation num-particles total 0
+0 00002.01 performance simulation num-blocks-level 0 16
+0 00002.01 Performance simulation num-leaf-blocks 16
+0 00002.01 Performance simulation num-total-blocks 16
+0 00002.01 Performance simulation time-usec 7854243
+0 00002.01 Performance cycle time-usec 5691453
+0 00002.01 Performance cycle bytes-curr 0
+0 00002.01 Performance cycle bytes-high 0
+0 00002.01 Performance cycle bytes-highest 0
+0 00002.01 Performance cycle bytes-available 0
+0 00002.01 Performance initial time-usec -21396
+0 00002.01 Performance adapt_apply time-usec 2913
+0 00002.01 Performance adapt_apply_sync time-usec 2378
+0 00002.01 Performance adapt_update time-usec 8543
+0 00002.01 Performance adapt_update_sync time-usec 43645
+0 00002.01 Performance adapt_notify time-usec 22074
+0 00002.01 Performance adapt_notify_sync time-usec 2063
+0 00002.01 Performance adapt_end time-usec 161
+0 00002.01 Performance adapt_end_sync time-usec 13683
+0 00002.01 Performance refresh_store time-usec 0
+0 00002.01 Performance refresh_child time-usec 0
+0 00002.01 Performance refresh_exit time-usec 0
+0 00002.01 Performance refresh_store_sync time-usec 0
+0 00002.01 Performance refresh_child_sync time-usec 0
+0 00002.01 Performance refresh_exit_sync time-usec 0
+0 00002.01 Performance control time-usec 3879
+0 00002.01 Performance compute time-usec 1117440
+0 00002.01 Performance output time-usec 848703
+0 00002.01 Performance stopping time-usec 66592
+0 00002.01 Performance block time-usec -43233
+0 00002.01 Performance exit time-usec 0
+0 00002.01 Performance grackle time-usec 0
+0 00002.01 Performance simulation max-proc-blocks 2
+0 00002.01 Performance simulation max-node-blocks 2
+0 00002.01 Performance simulation max-proc-particles 0
+0 00002.01 Performance simulation max-node-particles 0
+0 00002.01 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00002.01 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00002.02 Method Field density sum 1.4615091493695755e+03 conserved to 5.20514 digits of 15
+0 00002.02 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00002.02 Method Field total_energy sum 4.3592737280578678e+03 conserved to 5.26606 digits of 15
+0 00002.02 Method Field velocity_x sum -5.5534348056539978e-04 conserved to -1.11335 digits of 15
+0 00002.02 Method Field velocity_y sum -2.6026138133629778e-03 conserved to 2.58459 digits of 15
+0 00002.02  -------------------------------------
+0 00002.02 Simulation cycle 0023
+0 00002.02 Simulation time-sim 5.658330116421e-02
+0 00002.02 Simulation dt 2.398128993809e-03
+0 00002.02 Performance counter num-msg-coarsen 0
+0 00002.02 Performance counter num-msg-refine 0
+0 00002.02 Performance counter num-msg-refresh 0
+0 00002.02 Performance counter num-data-msg 0
+0 00002.02 Performance counter num-field-face 0
+0 00002.02 Performance counter num-particle-data 16
+0 00002.02 Performance simulation num-particles total 0
+0 00002.02 performance simulation num-blocks-level 0 16
+0 00002.02 Performance simulation num-leaf-blocks 16
+0 00002.02 Performance simulation num-total-blocks 16
+0 00002.02 Performance simulation time-usec 7920138
+0 00002.02 Performance cycle time-usec 5757347
+0 00002.02 Performance cycle bytes-curr 0
+0 00002.02 Performance cycle bytes-high 0
+0 00002.02 Performance cycle bytes-highest 0
+0 00002.02 Performance cycle bytes-available 0
+0 00002.02 Performance initial time-usec -21396
+0 00002.02 Performance adapt_apply time-usec 3010
+0 00002.02 Performance adapt_apply_sync time-usec 2461
+0 00002.02 Performance adapt_update time-usec 8903
+0 00002.02 Performance adapt_update_sync time-usec 45330
+0 00002.02 Performance adapt_notify time-usec 22973
+0 00002.02 Performance adapt_notify_sync time-usec 2149
+0 00002.02 Performance adapt_end time-usec 170
+0 00002.02 Performance adapt_end_sync time-usec 14175
+0 00002.02 Performance refresh_store time-usec 0
+0 00002.02 Performance refresh_child time-usec 0
+0 00002.02 Performance refresh_exit time-usec 0
+0 00002.02 Performance refresh_store_sync time-usec 0
+0 00002.02 Performance refresh_child_sync time-usec 0
+0 00002.02 Performance refresh_exit_sync time-usec 0
+0 00002.02 Performance control time-usec 4055
+0 00002.02 Performance compute time-usec 1165699
+0 00002.02 Performance output time-usec 848754
+0 00002.02 Performance stopping time-usec 69513
+0 00002.02 Performance block time-usec -43233
+0 00002.02 Performance exit time-usec 0
+0 00002.02 Performance grackle time-usec 0
+0 00002.02 Performance simulation max-proc-blocks 2
+0 00002.02 Performance simulation max-node-blocks 2
+0 00002.02 Performance simulation max-proc-particles 0
+0 00002.02 Performance simulation max-node-particles 0
+0 00002.02 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00002.02 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00002.03 Method Field density sum 1.4615091974628551e+03 conserved to 5.20285 digits of 15
+0 00002.03 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00002.03 Method Field total_energy sum 4.3592738920824999e+03 conserved to 5.26306 digits of 15
+0 00002.03 Method Field velocity_x sum -5.3418195795309348e-04 conserved to -1.0978 digits of 15
+0 00002.03 Method Field velocity_y sum -2.5569192572424820e-03 conserved to 2.59228 digits of 15
+0 00002.03  -------------------------------------
+0 00002.03 Simulation cycle 0024
+0 00002.03 Simulation time-sim 5.897512529045e-02
+0 00002.03 Simulation dt 2.391824126244e-03
+0 00002.03 Performance counter num-msg-coarsen 0
+0 00002.03 Performance counter num-msg-refine 0
+0 00002.03 Performance counter num-msg-refresh 0
+0 00002.03 Performance counter num-data-msg 0
+0 00002.03 Performance counter num-field-face 0
+0 00002.03 Performance counter num-particle-data 16
+0 00002.03 Performance simulation num-particles total 0
+0 00002.03 performance simulation num-blocks-level 0 16
+0 00002.03 Performance simulation num-leaf-blocks 16
+0 00002.03 Performance simulation num-total-blocks 16
+0 00002.03 Performance simulation time-usec 7985948
+0 00002.03 Performance cycle time-usec 5823155
+0 00002.03 Performance cycle bytes-curr 0
+0 00002.03 Performance cycle bytes-high 0
+0 00002.03 Performance cycle bytes-highest 0
+0 00002.03 Performance cycle bytes-available 0
+0 00002.03 Performance initial time-usec -21396
+0 00002.03 Performance adapt_apply time-usec 3108
+0 00002.03 Performance adapt_apply_sync time-usec 2545
+0 00002.03 Performance adapt_update time-usec 9272
+0 00002.03 Performance adapt_update_sync time-usec 47084
+0 00002.03 Performance adapt_notify time-usec 23911
+0 00002.03 Performance adapt_notify_sync time-usec 2237
+0 00002.03 Performance adapt_end time-usec 176
+0 00002.03 Performance adapt_end_sync time-usec 14666
+0 00002.03 Performance refresh_store time-usec 0
+0 00002.03 Performance refresh_child time-usec 0
+0 00002.03 Performance refresh_exit time-usec 0
+0 00002.03 Performance refresh_store_sync time-usec 0
+0 00002.03 Performance refresh_child_sync time-usec 0
+0 00002.03 Performance refresh_exit_sync time-usec 0
+0 00002.03 Performance control time-usec 4222
+0 00002.03 Performance compute time-usec 1214116
+0 00002.03 Performance output time-usec 848807
+0 00002.03 Performance stopping time-usec 72403
+0 00002.03 Performance block time-usec -43233
+0 00002.03 Performance exit time-usec 0
+0 00002.03 Performance grackle time-usec 0
+0 00002.03 Performance simulation max-proc-blocks 2
+0 00002.03 Performance simulation max-node-blocks 2
+0 00002.03 Performance simulation max-proc-particles 0
+0 00002.03 Performance simulation max-node-particles 0
+0 00002.03 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00002.03 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00002.04 Method Field density sum 1.4615094927561916e+03 conserved to 5.18907 digits of 15
+0 00002.04 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00002.04 Method Field total_energy sum 4.3592747697419123e+03 conserved to 5.24732 digits of 15
+0 00002.04 Method Field velocity_x sum -4.9789828389185803e-04 conserved to -1.06977 digits of 15
+0 00002.04 Method Field velocity_y sum -2.2213305003307773e-03 conserved to 2.65339 digits of 15
+0 00002.04  -------------------------------------
+0 00002.04 Simulation cycle 0025
+0 00002.04 Simulation time-sim 6.135772336274e-02
+0 00002.04 Simulation dt 2.382598072290e-03
+0 00002.04 Performance counter num-msg-coarsen 0
+0 00002.04 Performance counter num-msg-refine 0
+0 00002.04 Performance counter num-msg-refresh 0
+0 00002.04 Performance counter num-data-msg 0
+0 00002.04 Performance counter num-field-face 0
+0 00002.04 Performance counter num-particle-data 16
+0 00002.04 Performance simulation num-particles total 0
+0 00002.04 performance simulation num-blocks-level 0 16
+0 00002.04 Performance simulation num-leaf-blocks 16
+0 00002.04 Performance simulation num-total-blocks 16
+0 00002.04 Performance simulation time-usec 8051378
+0 00002.04 Performance cycle time-usec 5888581
+0 00002.04 Performance cycle bytes-curr 0
+0 00002.04 Performance cycle bytes-high 0
+0 00002.04 Performance cycle bytes-highest 0
+0 00002.04 Performance cycle bytes-available 0
+0 00002.04 Performance initial time-usec -21396
+0 00002.04 Performance adapt_apply time-usec 3206
+0 00002.04 Performance adapt_apply_sync time-usec 2627
+0 00002.04 Performance adapt_update time-usec 9651
+0 00002.04 Performance adapt_update_sync time-usec 48753
+0 00002.04 Performance adapt_notify time-usec 24840
+0 00002.04 Performance adapt_notify_sync time-usec 2339
+0 00002.04 Performance adapt_end time-usec 181
+0 00002.04 Performance adapt_end_sync time-usec 15161
+0 00002.04 Performance refresh_store time-usec 0
+0 00002.04 Performance refresh_child time-usec 0
+0 00002.04 Performance refresh_exit time-usec 0
+0 00002.04 Performance refresh_store_sync time-usec 0
+0 00002.04 Performance refresh_child_sync time-usec 0
+0 00002.04 Performance refresh_exit_sync time-usec 0
+0 00002.04 Performance control time-usec 4383
+0 00002.04 Performance compute time-usec 1262091
+0 00002.04 Performance output time-usec 848854
+0 00002.04 Performance stopping time-usec 75301
+0 00002.04 Performance block time-usec -43233
+0 00002.04 Performance exit time-usec 0
+0 00002.04 Performance grackle time-usec 0
+0 00002.04 Performance simulation max-proc-blocks 2
+0 00002.04 Performance simulation max-node-blocks 2
+0 00002.04 Performance simulation max-proc-particles 0
+0 00002.04 Performance simulation max-node-particles 0
+0 00002.04 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00002.04 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00002.05 Method Field density sum 1.4615098875596285e+03 conserved to 5.17131 digits of 15
+0 00002.05 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00002.05 Method Field total_energy sum 4.3592760964879062e+03 conserved to 5.22457 digits of 15
+0 00002.05 Method Field velocity_x sum -4.8555107449732224e-04 conserved to -1.0598 digits of 15
+0 00002.05 Method Field velocity_y sum -1.8030937050257725e-03 conserved to 2.74398 digits of 15
+0 00002.05  -------------------------------------
+0 00002.05 Simulation cycle 0026
+0 00002.05 Simulation time-sim 6.371809747070e-02
+0 00002.05 Simulation dt 2.360374107957e-03
+0 00002.05 Performance counter num-msg-coarsen 0
+0 00002.05 Performance counter num-msg-refine 0
+0 00002.05 Performance counter num-msg-refresh 0
+0 00002.05 Performance counter num-data-msg 0
+0 00002.05 Performance counter num-field-face 0
+0 00002.05 Performance counter num-particle-data 16
+0 00002.05 Performance simulation num-particles total 0
+0 00002.05 performance simulation num-blocks-level 0 16
+0 00002.05 Performance simulation num-leaf-blocks 16
+0 00002.05 Performance simulation num-total-blocks 16
+0 00002.05 Performance simulation time-usec 8118245
+0 00002.05 Performance cycle time-usec 5955444
+0 00002.05 Performance cycle bytes-curr 0
+0 00002.05 Performance cycle bytes-high 0
+0 00002.05 Performance cycle bytes-highest 0
+0 00002.05 Performance cycle bytes-available 0
+0 00002.05 Performance initial time-usec -21396
+0 00002.05 Performance adapt_apply time-usec 3305
+0 00002.05 Performance adapt_apply_sync time-usec 2709
+0 00002.05 Performance adapt_update time-usec 10017
+0 00002.05 Performance adapt_update_sync time-usec 50443
+0 00002.05 Performance adapt_notify time-usec 25736
+0 00002.05 Performance adapt_notify_sync time-usec 2421
+0 00002.05 Performance adapt_end time-usec 187
+0 00002.05 Performance adapt_end_sync time-usec 15661
+0 00002.05 Performance refresh_store time-usec 0
+0 00002.05 Performance refresh_child time-usec 0
+0 00002.05 Performance refresh_exit time-usec 0
+0 00002.05 Performance refresh_store_sync time-usec 0
+0 00002.05 Performance refresh_child_sync time-usec 0
+0 00002.05 Performance refresh_exit_sync time-usec 0
+0 00002.05 Performance control time-usec 4566
+0 00002.05 Performance compute time-usec 1310844
+0 00002.05 Performance output time-usec 848900
+0 00002.05 Performance stopping time-usec 78215
+0 00002.05 Performance block time-usec -43233
+0 00002.05 Performance exit time-usec 0
+0 00002.05 Performance grackle time-usec 0
+0 00002.05 Performance simulation max-proc-blocks 2
+0 00002.05 Performance simulation max-node-blocks 2
+0 00002.05 Performance simulation max-proc-particles 0
+0 00002.05 Performance simulation max-node-particles 0
+0 00002.05 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00002.05 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00002.05 Method Field density sum 1.4615106478953586e+03 conserved to 5.13902 digits of 15
+0 00002.05 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00002.05 Method Field total_energy sum 4.3592787086789424e+03 conserved to 5.18298 digits of 15
+0 00002.05 Method Field velocity_x sum -3.8630806171925658e-04 conserved to -0.970116 digits of 15
+0 00002.05 Method Field velocity_y sum -9.4263713278924105e-04 conserved to 3.02566 digits of 15
+0 00002.05  -------------------------------------
+0 00002.05 Simulation cycle 0027
+0 00002.05 Simulation time-sim 6.605161651969e-02
+0 00002.05 Simulation dt 2.333519048989e-03
+0 00002.05 Performance counter num-msg-coarsen 0
+0 00002.05 Performance counter num-msg-refine 0
+0 00002.05 Performance counter num-msg-refresh 0
+0 00002.05 Performance counter num-data-msg 0
+0 00002.05 Performance counter num-field-face 0
+0 00002.05 Performance counter num-particle-data 16
+0 00002.05 Performance simulation num-particles total 0
+0 00002.05 performance simulation num-blocks-level 0 16
+0 00002.05 Performance simulation num-leaf-blocks 16
+0 00002.05 Performance simulation num-total-blocks 16
+0 00002.05 Performance simulation time-usec 8184178
+0 00002.05 Performance cycle time-usec 6021373
+0 00002.05 Performance cycle bytes-curr 0
+0 00002.05 Performance cycle bytes-high 0
+0 00002.05 Performance cycle bytes-highest 0
+0 00002.05 Performance cycle bytes-available 0
+0 00002.05 Performance initial time-usec -21396
+0 00002.05 Performance adapt_apply time-usec 3405
+0 00002.05 Performance adapt_apply_sync time-usec 2788
+0 00002.05 Performance adapt_update time-usec 10379
+0 00002.06 Performance adapt_update_sync time-usec 52134
+0 00002.06 Performance adapt_notify time-usec 26624
+0 00002.06 Performance adapt_notify_sync time-usec 2508
+0 00002.06 Performance adapt_end time-usec 195
+0 00002.06 Performance adapt_end_sync time-usec 16230
+0 00002.06 Performance refresh_store time-usec 0
+0 00002.06 Performance refresh_child time-usec 0
+0 00002.06 Performance refresh_exit time-usec 0
+0 00002.06 Performance refresh_store_sync time-usec 0
+0 00002.06 Performance refresh_child_sync time-usec 0
+0 00002.06 Performance refresh_exit_sync time-usec 0
+0 00002.06 Performance control time-usec 4739
+0 00002.06 Performance compute time-usec 1359429
+0 00002.06 Performance output time-usec 848952
+0 00002.06 Performance stopping time-usec 81163
+0 00002.06 Performance block time-usec -43233
+0 00002.06 Performance exit time-usec 0
+0 00002.06 Performance grackle time-usec 0
+0 00002.06 Performance simulation max-proc-blocks 2
+0 00002.06 Performance simulation max-node-blocks 2
+0 00002.06 Performance simulation max-proc-particles 0
+0 00002.06 Performance simulation max-node-particles 0
+0 00002.06 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00002.06 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00002.06 Method Field density sum 1.4615114676621977e+03 conserved to 5.1067 digits of 15
+0 00002.06 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00002.06 Method Field total_energy sum 4.3592813116406106e+03 conserved to 5.14516 digits of 15
+0 00002.06 Method Field velocity_x sum -1.9333001581721540e-04 conserved to -0.713601 digits of 15
+0 00002.06 Method Field velocity_y sum -8.0077302071414336e-05 conserved to 4.09649 digits of 15
+0 00002.06  -------------------------------------
+0 00002.06 Simulation cycle 0028
+0 00002.06 Simulation time-sim 6.836370900273e-02
+0 00002.06 Simulation dt 2.312092483044e-03
+0 00002.06 Performance counter num-msg-coarsen 0
+0 00002.06 Performance counter num-msg-refine 0
+0 00002.06 Performance counter num-msg-refresh 0
+0 00002.06 Performance counter num-data-msg 0
+0 00002.06 Performance counter num-field-face 0
+0 00002.06 Performance counter num-particle-data 16
+0 00002.06 Performance simulation num-particles total 0
+0 00002.06 performance simulation num-blocks-level 0 16
+0 00002.06 Performance simulation num-leaf-blocks 16
+0 00002.06 Performance simulation num-total-blocks 16
+0 00002.06 Performance simulation time-usec 8251037
+0 00002.06 Performance cycle time-usec 6088226
+0 00002.06 Performance cycle bytes-curr 0
+0 00002.06 Performance cycle bytes-high 0
+0 00002.06 Performance cycle bytes-highest 0
+0 00002.06 Performance cycle bytes-available 0
+0 00002.06 Performance initial time-usec -21396
+0 00002.06 Performance adapt_apply time-usec 3501
+0 00002.06 Performance adapt_apply_sync time-usec 2869
+0 00002.06 Performance adapt_update time-usec 10755
+0 00002.06 Performance adapt_update_sync time-usec 53819
+0 00002.06 Performance adapt_notify time-usec 27545
+0 00002.06 Performance adapt_notify_sync time-usec 2590
+0 00002.06 Performance adapt_end time-usec 198
+0 00002.06 Performance adapt_end_sync time-usec 16780
+0 00002.06 Performance refresh_store time-usec 0
+0 00002.06 Performance refresh_child time-usec 0
+0 00002.06 Performance refresh_exit time-usec 0
+0 00002.06 Performance refresh_store_sync time-usec 0
+0 00002.06 Performance refresh_child_sync time-usec 0
+0 00002.06 Performance refresh_exit_sync time-usec 0
+0 00002.06 Performance control time-usec 4906
+0 00002.06 Performance compute time-usec 1408262
+0 00002.06 Performance output time-usec 849001
+0 00002.06 Performance stopping time-usec 84055
+0 00002.06 Performance block time-usec -43233
+0 00002.06 Performance exit time-usec 0
+0 00002.06 Performance grackle time-usec 0
+0 00002.06 Performance simulation max-proc-blocks 2
+0 00002.06 Performance simulation max-node-blocks 2
+0 00002.06 Performance simulation max-proc-particles 0
+0 00002.06 Performance simulation max-node-particles 0
+0 00002.06 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00002.06 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00002.07 Method Field density sum 1.4615123396027566e+03 conserved to 5.07478 digits of 15
+0 00002.07 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00002.07 Method Field total_energy sum 4.3592838319695385e+03 conserved to 5.11143 digits of 15
+0 00002.07 Method Field velocity_x sum 9.0927786060984728e-06 conserved to 0.0948449 digits of 15
+0 00002.07 Method Field velocity_y sum 1.0342634146602858e-03 conserved to 2.98537 digits of 15
+0 00002.07  -------------------------------------
+0 00002.07 Simulation cycle 0029
+0 00002.07 Simulation time-sim 7.066248841584e-02
+0 00002.07 Simulation dt 2.298779413104e-03
+0 00002.07 Performance counter num-msg-coarsen 0
+0 00002.07 Performance counter num-msg-refine 0
+0 00002.07 Performance counter num-msg-refresh 0
+0 00002.07 Performance counter num-data-msg 0
+0 00002.07 Performance counter num-field-face 0
+0 00002.07 Performance counter num-particle-data 16
+0 00002.07 Performance simulation num-particles total 0
+0 00002.07 performance simulation num-blocks-level 0 16
+0 00002.07 Performance simulation num-leaf-blocks 16
+0 00002.07 Performance simulation num-total-blocks 16
+0 00002.07 Performance simulation time-usec 8316778
+0 00002.07 Performance cycle time-usec 6153964
+0 00002.07 Performance cycle bytes-curr 0
+0 00002.07 Performance cycle bytes-high 0
+0 00002.07 Performance cycle bytes-highest 0
+0 00002.07 Performance cycle bytes-available 0
+0 00002.07 Performance initial time-usec -21396
+0 00002.07 Performance adapt_apply time-usec 3596
+0 00002.07 Performance adapt_apply_sync time-usec 2952
+0 00002.07 Performance adapt_update time-usec 11125
+0 00002.07 Performance adapt_update_sync time-usec 55434
+0 00002.07 Performance adapt_notify time-usec 28476
+0 00002.07 Performance adapt_notify_sync time-usec 2678
+0 00002.07 Performance adapt_end time-usec 204
+0 00002.07 Performance adapt_end_sync time-usec 17354
+0 00002.07 Performance refresh_store time-usec 0
+0 00002.07 Performance refresh_child time-usec 0
+0 00002.07 Performance refresh_exit time-usec 0
+0 00002.07 Performance refresh_store_sync time-usec 0
+0 00002.07 Performance refresh_child_sync time-usec 0
+0 00002.07 Performance refresh_exit_sync time-usec 0
+0 00002.07 Performance control time-usec 5101
+0 00002.07 Performance compute time-usec 1456619
+0 00002.07 Performance output time-usec 849044
+0 00002.07 Performance stopping time-usec 86960
+0 00002.07 Performance block time-usec -43233
+0 00002.07 Performance exit time-usec 0
+0 00002.07 Performance grackle time-usec 0
+0 00002.07 Performance simulation max-proc-blocks 2
+0 00002.07 Performance simulation max-node-blocks 2
+0 00002.07 Performance simulation max-proc-particles 0
+0 00002.07 Performance simulation max-node-particles 0
+0 00002.07 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00002.07 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00002.08 Method Field density sum 1.4615140144174105e+03 conserved to 5.01935 digits of 15
+0 00002.08 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00002.08 Method Field total_energy sum 4.3592888497919199e+03 conserved to 5.05119 digits of 15
+0 00002.08 Method Field velocity_x sum -5.4703480612771499e-05 conserved to -0.338514 digits of 15
+0 00002.08 Method Field velocity_y sum 2.8107001899082967e-03 conserved to 2.55119 digits of 15
+0 00002.34  -------------------------------------
+0 00002.34 Simulation cycle 0030
+0 00002.34 Simulation time-sim 7.294240370393e-02
+0 00002.34 Simulation dt 2.279915288091e-03
+0 00002.34 Performance counter num-msg-coarsen 0
+0 00002.34 Performance counter num-msg-refine 0
+0 00002.34 Performance counter num-msg-refresh 0
+0 00002.34 Performance counter num-data-msg 0
+0 00002.34 Performance counter num-field-face 0
+0 00002.34 Performance counter num-particle-data 16
+0 00002.34 Performance simulation num-particles total 0
+0 00002.34 performance simulation num-blocks-level 0 16
+0 00002.34 Performance simulation num-leaf-blocks 16
+0 00002.34 Performance simulation num-total-blocks 16
+0 00002.34 Performance simulation time-usec 10438414
+0 00002.34 Performance cycle time-usec 8275598
+0 00002.34 Performance cycle bytes-curr 0
+0 00002.34 Performance cycle bytes-high 0
+0 00002.34 Performance cycle bytes-highest 0
+0 00002.34 Performance cycle bytes-available 0
+0 00002.34 Performance initial time-usec -21396
+0 00002.34 Performance adapt_apply time-usec 3694
+0 00002.34 Performance adapt_apply_sync time-usec 3032
+0 00002.34 Performance adapt_update time-usec 11484
+0 00002.34 Performance adapt_update_sync time-usec 57140
+0 00002.34 Performance adapt_notify time-usec 29399
+0 00002.34 Performance adapt_notify_sync time-usec 2762
+0 00002.34 Performance adapt_end time-usec 209
+0 00002.34 Performance adapt_end_sync time-usec 17855
+0 00002.34 Performance refresh_store time-usec 0
+0 00002.34 Performance refresh_child time-usec 0
+0 00002.34 Performance refresh_exit time-usec 0
+0 00002.34 Performance refresh_store_sync time-usec 0
+0 00002.34 Performance refresh_child_sync time-usec 0
+0 00002.34 Performance refresh_exit_sync time-usec 0
+0 00002.34 Performance control time-usec 5279
+0 00002.34 Performance compute time-usec 1505275
+0 00002.34 Performance output time-usec 1128863
+0 00002.34 Performance stopping time-usec 89850
+0 00002.34 Performance block time-usec -43233
+0 00002.34 Performance exit time-usec 0
+0 00002.34 Performance grackle time-usec 0
+0 00002.34 Performance simulation max-proc-blocks 2
+0 00002.34 Performance simulation max-node-blocks 2
+0 00002.34 Performance simulation max-proc-particles 0
+0 00002.34 Performance simulation max-node-particles 0
+0 00002.34 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00002.34 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00002.34 Method Field density sum 1.4615158879516471e+03 conserved to 4.96473 digits of 15
+0 00002.34 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00002.34 Method Field total_energy sum 4.3592944183669873e+03 conserved to 4.99287 digits of 15
+0 00002.34 Method Field velocity_x sum 2.3047822577541496e-04 conserved to -0.599099 digits of 15
+0 00002.34 Method Field velocity_y sum 4.9740635699441066e-03 conserved to 2.30329 digits of 15
+0 00002.34  -------------------------------------
+0 00002.34 Simulation cycle 0031
+0 00002.34 Simulation time-sim 7.520902007818e-02
+0 00002.34 Simulation dt 2.266616374254e-03
+0 00002.35 Performance counter num-msg-coarsen 0
+0 00002.35 Performance counter num-msg-refine 0
+0 00002.35 Performance counter num-msg-refresh 0
+0 00002.35 Performance counter num-data-msg 0
+0 00002.35 Performance counter num-field-face 0
+0 00002.35 Performance counter num-particle-data 16
+0 00002.35 Performance simulation num-particles total 0
+0 00002.35 performance simulation num-blocks-level 0 16
+0 00002.35 Performance simulation num-leaf-blocks 16
+0 00002.35 Performance simulation num-total-blocks 16
+0 00002.35 Performance simulation time-usec 10505418
+0 00002.35 Performance cycle time-usec 8342599
+0 00002.35 Performance cycle bytes-curr 0
+0 00002.35 Performance cycle bytes-high 0
+0 00002.35 Performance cycle bytes-highest 0
+0 00002.35 Performance cycle bytes-available 0
+0 00002.35 Performance initial time-usec -21396
+0 00002.35 Performance adapt_apply time-usec 3806
+0 00002.35 Performance adapt_apply_sync time-usec 3114
+0 00002.35 Performance adapt_update time-usec 11891
+0 00002.35 Performance adapt_update_sync time-usec 58872
+0 00002.35 Performance adapt_notify time-usec 30397
+0 00002.35 Performance adapt_notify_sync time-usec 2849
+0 00002.35 Performance adapt_end time-usec 219
+0 00002.35 Performance adapt_end_sync time-usec 18403
+0 00002.35 Performance refresh_store time-usec 0
+0 00002.35 Performance refresh_child time-usec 0
+0 00002.35 Performance refresh_exit time-usec 0
+0 00002.35 Performance refresh_store_sync time-usec 0
+0 00002.35 Performance refresh_child_sync time-usec 0
+0 00002.35 Performance refresh_exit_sync time-usec 0
+0 00002.35 Performance control time-usec 5460
+0 00002.35 Performance compute time-usec 1554929
+0 00002.35 Performance output time-usec 1128926
+0 00002.35 Performance stopping time-usec 93231
+0 00002.35 Performance block time-usec -43233
+0 00002.35 Performance exit time-usec 0
+0 00002.35 Performance grackle time-usec 0
+0 00002.35 Performance simulation max-proc-blocks 2
+0 00002.35 Performance simulation max-node-blocks 2
+0 00002.35 Performance simulation max-proc-particles 0
+0 00002.35 Performance simulation max-node-particles 0
+0 00002.35 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00002.35 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00002.35 Method Field density sum 1.4615179882483887e+03 conserved to 4.91069 digits of 15
+0 00002.35 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00002.35 Method Field total_energy sum 4.3593003465641081e+03 conserved to 4.93834 digits of 15
+0 00002.35 Method Field velocity_x sum 3.0200642918194742e-04 conserved to -0.741634 digits of 15
+0 00002.35 Method Field velocity_y sum 7.1561754535310398e-03 conserved to 2.14532 digits of 15
+0 00002.35  -------------------------------------
+0 00002.35 Simulation cycle 0032
+0 00002.35 Simulation time-sim 7.746405769140e-02
+0 00002.35 Simulation dt 2.255037613213e-03
+0 00002.35 Performance counter num-msg-coarsen 0
+0 00002.35 Performance counter num-msg-refine 0
+0 00002.35 Performance counter num-msg-refresh 0
+0 00002.35 Performance counter num-data-msg 0
+0 00002.35 Performance counter num-field-face 0
+0 00002.35 Performance counter num-particle-data 16
+0 00002.35 Performance simulation num-particles total 0
+0 00002.35 performance simulation num-blocks-level 0 16
+0 00002.35 Performance simulation num-leaf-blocks 16
+0 00002.35 Performance simulation num-total-blocks 16
+0 00002.35 Performance simulation time-usec 10571971
+0 00002.35 Performance cycle time-usec 8409147
+0 00002.35 Performance cycle bytes-curr 0
+0 00002.35 Performance cycle bytes-high 0
+0 00002.35 Performance cycle bytes-highest 0
+0 00002.35 Performance cycle bytes-available 0
+0 00002.35 Performance initial time-usec -21396
+0 00002.35 Performance adapt_apply time-usec 3904
+0 00002.35 Performance adapt_apply_sync time-usec 3198
+0 00002.35 Performance adapt_update time-usec 12265
+0 00002.35 Performance adapt_update_sync time-usec 60578
+0 00002.35 Performance adapt_notify time-usec 31337
+0 00002.35 Performance adapt_notify_sync time-usec 2934
+0 00002.35 Performance adapt_end time-usec 224
+0 00002.35 Performance adapt_end_sync time-usec 18897
+0 00002.35 Performance refresh_store time-usec 0
+0 00002.35 Performance refresh_child time-usec 0
+0 00002.35 Performance refresh_exit time-usec 0
+0 00002.35 Performance refresh_store_sync time-usec 0
+0 00002.35 Performance refresh_child_sync time-usec 0
+0 00002.35 Performance refresh_exit_sync time-usec 0
+0 00002.35 Performance control time-usec 5644
+0 00002.35 Performance compute time-usec 1603911
+0 00002.35 Performance output time-usec 1128976
+0 00002.35 Performance stopping time-usec 96167
+0 00002.35 Performance block time-usec -43233
+0 00002.35 Performance exit time-usec 0
+0 00002.35 Performance grackle time-usec 0
+0 00002.35 Performance simulation max-proc-blocks 2
+0 00002.35 Performance simulation max-node-blocks 2
+0 00002.35 Performance simulation max-proc-particles 0
+0 00002.35 Performance simulation max-node-particles 0
+0 00002.35 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00002.35 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00002.36 Method Field density sum 1.4615199430308813e+03 conserved to 4.8658 digits of 15
+0 00002.36 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00002.36 Method Field total_energy sum 4.3593054706839867e+03 conserved to 4.89617 digits of 15
+0 00002.36 Method Field velocity_x sum 5.1921413751026060e-04 conserved to -1.00871 digits of 15
+0 00002.36 Method Field velocity_y sum 9.2918235562089446e-03 conserved to 2.0319 digits of 15
+0 00002.36  -------------------------------------
+0 00002.36 Simulation cycle 0033
+0 00002.36 Simulation time-sim 7.971086781472e-02
+0 00002.36 Simulation dt 2.246810123324e-03
+0 00002.36 Performance counter num-msg-coarsen 0
+0 00002.36 Performance counter num-msg-refine 0
+0 00002.36 Performance counter num-msg-refresh 0
+0 00002.36 Performance counter num-data-msg 0
+0 00002.36 Performance counter num-field-face 0
+0 00002.36 Performance counter num-particle-data 16
+0 00002.36 Performance simulation num-particles total 0
+0 00002.36 performance simulation num-blocks-level 0 16
+0 00002.36 Performance simulation num-leaf-blocks 16
+0 00002.36 Performance simulation num-total-blocks 16
+0 00002.36 Performance simulation time-usec 10638153
+0 00002.36 Performance cycle time-usec 8475326
+0 00002.36 Performance cycle bytes-curr 0
+0 00002.36 Performance cycle bytes-high 0
+0 00002.36 Performance cycle bytes-highest 0
+0 00002.36 Performance cycle bytes-available 0
+0 00002.36 Performance initial time-usec -21396
+0 00002.36 Performance adapt_apply time-usec 4003
+0 00002.36 Performance adapt_apply_sync time-usec 3277
+0 00002.36 Performance adapt_update time-usec 12631
+0 00002.36 Performance adapt_update_sync time-usec 62324
+0 00002.36 Performance adapt_notify time-usec 32270
+0 00002.36 Performance adapt_notify_sync time-usec 3020
+0 00002.36 Performance adapt_end time-usec 229
+0 00002.36 Performance adapt_end_sync time-usec 19363
+0 00002.36 Performance refresh_store time-usec 0
+0 00002.36 Performance refresh_child time-usec 0
+0 00002.36 Performance refresh_exit time-usec 0
+0 00002.36 Performance refresh_store_sync time-usec 0
+0 00002.36 Performance refresh_child_sync time-usec 0
+0 00002.36 Performance refresh_exit_sync time-usec 0
+0 00002.36 Performance control time-usec 5817
+0 00002.36 Performance compute time-usec 1652635
+0 00002.36 Performance output time-usec 1129025
+0 00002.36 Performance stopping time-usec 99075
+0 00002.36 Performance block time-usec -43233
+0 00002.36 Performance exit time-usec 0
+0 00002.36 Performance grackle time-usec 0
+0 00002.36 Performance simulation max-proc-blocks 2
+0 00002.36 Performance simulation max-node-blocks 2
+0 00002.36 Performance simulation max-proc-particles 0
+0 00002.36 Performance simulation max-node-particles 0
+0 00002.36 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00002.36 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00002.37 Method Field density sum 1.4615226258583830e+03 conserved to 4.81089 digits of 15
+0 00002.37 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00002.37 Method Field total_energy sum 4.3593122234183164e+03 conserved to 4.84619 digits of 15
+0 00002.37 Method Field velocity_x sum 6.6371119885591523e-04 conserved to -1.12451 digits of 15
+0 00002.37 Method Field velocity_y sum 1.1957753541825822e-02 conserved to 1.92235 digits of 15
+0 00002.37  -------------------------------------
+0 00002.37 Simulation cycle 0034
+0 00002.37 Simulation time-sim 8.194913361222e-02
+0 00002.37 Simulation dt 2.238265797496e-03
+0 00002.37 Performance counter num-msg-coarsen 0
+0 00002.37 Performance counter num-msg-refine 0
+0 00002.37 Performance counter num-msg-refresh 0
+0 00002.37 Performance counter num-data-msg 0
+0 00002.37 Performance counter num-field-face 0
+0 00002.37 Performance counter num-particle-data 16
+0 00002.37 Performance simulation num-particles total 0
+0 00002.37 performance simulation num-blocks-level 0 16
+0 00002.37 Performance simulation num-leaf-blocks 16
+0 00002.37 Performance simulation num-total-blocks 16
+0 00002.37 Performance simulation time-usec 10704348
+0 00002.37 Performance cycle time-usec 8541515
+0 00002.37 Performance cycle bytes-curr 0
+0 00002.37 Performance cycle bytes-high 0
+0 00002.37 Performance cycle bytes-highest 0
+0 00002.37 Performance cycle bytes-available 0
+0 00002.37 Performance initial time-usec -21396
+0 00002.37 Performance adapt_apply time-usec 4102
+0 00002.37 Performance adapt_apply_sync time-usec 3359
+0 00002.37 Performance adapt_update time-usec 12997
+0 00002.37 Performance adapt_update_sync time-usec 64096
+0 00002.37 Performance adapt_notify time-usec 33218
+0 00002.37 Performance adapt_notify_sync time-usec 3109
+0 00002.37 Performance adapt_end time-usec 236
+0 00002.37 Performance adapt_end_sync time-usec 19858
+0 00002.37 Performance refresh_store time-usec 0
+0 00002.37 Performance refresh_child time-usec 0
+0 00002.37 Performance refresh_exit time-usec 0
+0 00002.37 Performance refresh_store_sync time-usec 0
+0 00002.37 Performance refresh_child_sync time-usec 0
+0 00002.37 Performance refresh_exit_sync time-usec 0
+0 00002.37 Performance control time-usec 5987
+0 00002.37 Performance compute time-usec 1702033
+0 00002.37 Performance output time-usec 1129071
+0 00002.37 Performance stopping time-usec 102002
+0 00002.37 Performance block time-usec -43233
+0 00002.37 Performance exit time-usec 0
+0 00002.37 Performance grackle time-usec 0
+0 00002.37 Performance simulation max-proc-blocks 2
+0 00002.37 Performance simulation max-node-blocks 2
+0 00002.37 Performance simulation max-proc-particles 0
+0 00002.37 Performance simulation max-node-particles 0
+0 00002.37 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00002.37 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00002.38 Method Field density sum 1.4615253864559535e+03 conserved to 4.76082 digits of 15
+0 00002.38 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00002.38 Method Field total_energy sum 4.3593185140854181e+03 conserved to 4.80429 digits of 15
+0 00002.38 Method Field velocity_x sum 1.0659932771483714e-03 conserved to -1.34242 digits of 15
+0 00002.38 Method Field velocity_y sum 1.4944150641292354e-02 conserved to 1.82553 digits of 15
+0 00002.38  -------------------------------------
+0 00002.38 Simulation cycle 0035
+0 00002.38 Simulation time-sim 8.417604584247e-02
+0 00002.38 Simulation dt 2.226912230253e-03
+0 00002.38 Performance counter num-msg-coarsen 0
+0 00002.38 Performance counter num-msg-refine 0
+0 00002.38 Performance counter num-msg-refresh 0
+0 00002.38 Performance counter num-data-msg 0
+0 00002.38 Performance counter num-field-face 0
+0 00002.38 Performance counter num-particle-data 16
+0 00002.38 Performance simulation num-particles total 0
+0 00002.38 performance simulation num-blocks-level 0 16
+0 00002.38 Performance simulation num-leaf-blocks 16
+0 00002.38 Performance simulation num-total-blocks 16
+0 00002.38 Performance simulation time-usec 10770686
+0 00002.38 Performance cycle time-usec 8607847
+0 00002.38 Performance cycle bytes-curr 0
+0 00002.38 Performance cycle bytes-high 0
+0 00002.38 Performance cycle bytes-highest 0
+0 00002.38 Performance cycle bytes-available 0
+0 00002.38 Performance initial time-usec -21396
+0 00002.38 Performance adapt_apply time-usec 4202
+0 00002.38 Performance adapt_apply_sync time-usec 3444
+0 00002.38 Performance adapt_update time-usec 13368
+0 00002.38 Performance adapt_update_sync time-usec 65730
+0 00002.38 Performance adapt_notify time-usec 34141
+0 00002.38 Performance adapt_notify_sync time-usec 3192
+0 00002.38 Performance adapt_end time-usec 242
+0 00002.38 Performance adapt_end_sync time-usec 20390
+0 00002.38 Performance refresh_store time-usec 0
+0 00002.38 Performance refresh_child time-usec 0
+0 00002.38 Performance refresh_exit time-usec 0
+0 00002.38 Performance refresh_store_sync time-usec 0
+0 00002.38 Performance refresh_child_sync time-usec 0
+0 00002.38 Performance refresh_exit_sync time-usec 0
+0 00002.38 Performance control time-usec 6165
+0 00002.38 Performance compute time-usec 1750965
+0 00002.38 Performance output time-usec 1129122
+0 00002.38 Performance stopping time-usec 104941
+0 00002.38 Performance block time-usec -43233
+0 00002.38 Performance exit time-usec 0
+0 00002.38 Performance grackle time-usec 0
+0 00002.38 Performance simulation max-proc-blocks 2
+0 00002.38 Performance simulation max-node-blocks 2
+0 00002.38 Performance simulation max-proc-particles 0
+0 00002.38 Performance simulation max-node-particles 0
+0 00002.38 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00002.38 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00002.39 Method Field density sum 1.4615280069277561e+03 conserved to 4.7181 digits of 15
+0 00002.39 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00002.39 Method Field total_energy sum 4.3593250731848979e+03 conserved to 4.76453 digits of 15
+0 00002.39 Method Field velocity_x sum 1.5596612855954851e-03 conserved to -1.5139 digits of 15
+0 00002.39 Method Field velocity_y sum 1.7558910750842913e-02 conserved to 1.7555 digits of 15
+0 00002.39  -------------------------------------
+0 00002.39 Simulation cycle 0036
+0 00002.39 Simulation time-sim 8.639555480331e-02
+0 00002.39 Simulation dt 2.219508960843e-03
+0 00002.39 Performance counter num-msg-coarsen 0
+0 00002.39 Performance counter num-msg-refine 0
+0 00002.39 Performance counter num-msg-refresh 0
+0 00002.39 Performance counter num-data-msg 0
+0 00002.39 Performance counter num-field-face 0
+0 00002.39 Performance counter num-particle-data 16
+0 00002.39 Performance simulation num-particles total 0
+0 00002.39 performance simulation num-blocks-level 0 16
+0 00002.39 Performance simulation num-leaf-blocks 16
+0 00002.39 Performance simulation num-total-blocks 16
+0 00002.39 Performance simulation time-usec 10836919
+0 00002.39 Performance cycle time-usec 8674081
+0 00002.39 Performance cycle bytes-curr 0
+0 00002.39 Performance cycle bytes-high 0
+0 00002.39 Performance cycle bytes-highest 0
+0 00002.39 Performance cycle bytes-available 0
+0 00002.39 Performance initial time-usec -21396
+0 00002.39 Performance adapt_apply time-usec 4298
+0 00002.39 Performance adapt_apply_sync time-usec 3559
+0 00002.39 Performance adapt_update time-usec 13729
+0 00002.39 Performance adapt_update_sync time-usec 67377
+0 00002.39 Performance adapt_notify time-usec 35051
+0 00002.39 Performance adapt_notify_sync time-usec 3277
+0 00002.39 Performance adapt_end time-usec 249
+0 00002.39 Performance adapt_end_sync time-usec 20948
+0 00002.39 Performance refresh_store time-usec 0
+0 00002.39 Performance refresh_child time-usec 0
+0 00002.39 Performance refresh_exit time-usec 0
+0 00002.39 Performance refresh_store_sync time-usec 0
+0 00002.39 Performance refresh_child_sync time-usec 0
+0 00002.39 Performance refresh_exit_sync time-usec 0
+0 00002.39 Performance control time-usec 6345
+0 00002.39 Performance compute time-usec 1799477
+0 00002.39 Performance output time-usec 1129171
+0 00002.39 Performance stopping time-usec 107827
+0 00002.39 Performance block time-usec -43233
+0 00002.39 Performance exit time-usec 0
+0 00002.39 Performance grackle time-usec 0
+0 00002.39 Performance simulation max-proc-blocks 2
+0 00002.39 Performance simulation max-node-blocks 2
+0 00002.39 Performance simulation max-proc-particles 0
+0 00002.39 Performance simulation max-node-particles 0
+0 00002.39 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00002.39 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00002.39 Method Field density sum 1.4615298924390966e+03 conserved to 4.68977 digits of 15
+0 00002.39 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00002.39 Method Field total_energy sum 4.3593293072699613e+03 conserved to 4.74067 digits of 15
+0 00002.39 Method Field velocity_x sum 3.0599802983719768e-03 conserved to -1.81306 digits of 15
+0 00002.39 Method Field velocity_y sum 1.9540162396909269e-02 conserved to 1.70907 digits of 15
+0 00002.39  -------------------------------------
+0 00002.39 Simulation cycle 0037
+0 00002.39 Simulation time-sim 8.861024081707e-02
+0 00002.39 Simulation dt 2.214686013758e-03
+0 00002.39 Performance counter num-msg-coarsen 0
+0 00002.39 Performance counter num-msg-refine 0
+0 00002.39 Performance counter num-msg-refresh 0
+0 00002.39 Performance counter num-data-msg 0
+0 00002.39 Performance counter num-field-face 0
+0 00002.39 Performance counter num-particle-data 16
+0 00002.39 Performance simulation num-particles total 0
+0 00002.39 performance simulation num-blocks-level 0 16
+0 00002.39 Performance simulation num-leaf-blocks 16
+0 00002.39 Performance simulation num-total-blocks 16
+0 00002.39 Performance simulation time-usec 10903220
+0 00002.39 Performance cycle time-usec 8740376
+0 00002.39 Performance cycle bytes-curr 0
+0 00002.39 Performance cycle bytes-high 0
+0 00002.39 Performance cycle bytes-highest 0
+0 00002.39 Performance cycle bytes-available 0
+0 00002.39 Performance initial time-usec -21396
+0 00002.39 Performance adapt_apply time-usec 4395
+0 00002.39 Performance adapt_apply_sync time-usec 3640
+0 00002.39 Performance adapt_update time-usec 14086
+0 00002.39 Performance adapt_update_sync time-usec 69091
+0 00002.39 Performance adapt_notify time-usec 36003
+0 00002.39 Performance adapt_notify_sync time-usec 3361
+0 00002.39 Performance adapt_end time-usec 258
+0 00002.39 Performance adapt_end_sync time-usec 21516
+0 00002.39 Performance refresh_store time-usec 0
+0 00002.39 Performance refresh_child time-usec 0
+0 00002.39 Performance refresh_exit time-usec 0
+0 00002.39 Performance refresh_store_sync time-usec 0
+0 00002.39 Performance refresh_child_sync time-usec 0
+0 00002.39 Performance refresh_exit_sync time-usec 0
+0 00002.39 Performance control time-usec 6518
+0 00002.39 Performance compute time-usec 1848151
+0 00002.39 Performance output time-usec 1129219
+0 00002.39 Performance stopping time-usec 110717
+0 00002.39 Performance block time-usec -43233
+0 00002.39 Performance exit time-usec 0
+0 00002.39 Performance grackle time-usec 0
+0 00002.39 Performance simulation max-proc-blocks 2
+0 00002.39 Performance simulation max-node-blocks 2
+0 00002.39 Performance simulation max-proc-particles 0
+0 00002.39 Performance simulation max-node-particles 0
+0 00002.39 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00002.39 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00002.40 Method Field density sum 1.4615318856010025e+03 conserved to 4.6617 digits of 15
+0 00002.40 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00002.40 Method Field total_energy sum 4.3593340323039488e+03 conserved to 4.7155 digits of 15
+0 00002.40 Method Field velocity_x sum 8.1019668878064763e-03 conserved to -2.24007 digits of 15
+0 00002.40 Method Field velocity_y sum 2.1479279172909886e-02 conserved to 1.66798 digits of 15
+0 00002.40  -------------------------------------
+0 00002.40 Simulation cycle 0038
+0 00002.40 Simulation time-sim 9.082097969949e-02
+0 00002.40 Simulation dt 2.210738882422e-03
+0 00002.40 Performance counter num-msg-coarsen 0
+0 00002.40 Performance counter num-msg-refine 0
+0 00002.40 Performance counter num-msg-refresh 0
+0 00002.40 Performance counter num-data-msg 0
+0 00002.40 Performance counter num-field-face 0
+0 00002.40 Performance counter num-particle-data 16
+0 00002.40 Performance simulation num-particles total 0
+0 00002.40 performance simulation num-blocks-level 0 16
+0 00002.40 Performance simulation num-leaf-blocks 16
+0 00002.40 Performance simulation num-total-blocks 16
+0 00002.40 Performance simulation time-usec 10968732
+0 00002.40 Performance cycle time-usec 8805883
+0 00002.40 Performance cycle bytes-curr 0
+0 00002.40 Performance cycle bytes-high 0
+0 00002.40 Performance cycle bytes-highest 0
+0 00002.40 Performance cycle bytes-available 0
+0 00002.40 Performance initial time-usec -21396
+0 00002.40 Performance adapt_apply time-usec 4494
+0 00002.40 Performance adapt_apply_sync time-usec 3720
+0 00002.40 Performance adapt_update time-usec 14444
+0 00002.40 Performance adapt_update_sync time-usec 70764
+0 00002.40 Performance adapt_notify time-usec 36903
+0 00002.40 Performance adapt_notify_sync time-usec 3445
+0 00002.40 Performance adapt_end time-usec 263
+0 00002.40 Performance adapt_end_sync time-usec 22036
+0 00002.40 Performance refresh_store time-usec 0
+0 00002.40 Performance refresh_child time-usec 0
+0 00002.40 Performance refresh_exit time-usec 0
+0 00002.40 Performance refresh_store_sync time-usec 0
+0 00002.40 Performance refresh_child_sync time-usec 0
+0 00002.40 Performance refresh_exit_sync time-usec 0
+0 00002.40 Performance control time-usec 6684
+0 00002.40 Performance compute time-usec 1897093
+0 00002.40 Performance output time-usec 1129267
+0 00002.40 Performance stopping time-usec 113628
+0 00002.40 Performance block time-usec -43233
+0 00002.40 Performance exit time-usec 0
+0 00002.40 Performance grackle time-usec 0
+0 00002.40 Performance simulation max-proc-blocks 2
+0 00002.40 Performance simulation max-node-blocks 2
+0 00002.40 Performance simulation max-proc-particles 0
+0 00002.40 Performance simulation max-node-particles 0
+0 00002.40 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00002.40 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00002.41 Method Field density sum 1.4615337116833399e+03 conserved to 4.63749 digits of 15
+0 00002.41 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00002.41 Method Field total_energy sum 4.3593384477325777e+03 conserved to 4.69324 digits of 15
+0 00002.41 Method Field velocity_x sum 2.5333328493672987e-02 conserved to -2.73687 digits of 15
+0 00002.41 Method Field velocity_y sum 2.3273806496493618e-02 conserved to 1.63313 digits of 15
+0 00002.41  -------------------------------------
+0 00002.41 Simulation cycle 0039
+0 00002.41 Simulation time-sim 9.302649796009e-02
+0 00002.41 Simulation dt 2.205518260598e-03
+0 00002.41 Performance counter num-msg-coarsen 0
+0 00002.41 Performance counter num-msg-refine 0
+0 00002.41 Performance counter num-msg-refresh 0
+0 00002.41 Performance counter num-data-msg 0
+0 00002.41 Performance counter num-field-face 0
+0 00002.41 Performance counter num-particle-data 16
+0 00002.41 Performance simulation num-particles total 0
+0 00002.41 performance simulation num-blocks-level 0 16
+0 00002.41 Performance simulation num-leaf-blocks 16
+0 00002.41 Performance simulation num-total-blocks 16
+0 00002.41 Performance simulation time-usec 11034545
+0 00002.41 Performance cycle time-usec 8871690
+0 00002.41 Performance cycle bytes-curr 0
+0 00002.41 Performance cycle bytes-high 0
+0 00002.41 Performance cycle bytes-highest 0
+0 00002.41 Performance cycle bytes-available 0
+0 00002.41 Performance initial time-usec -21396
+0 00002.41 Performance adapt_apply time-usec 4595
+0 00002.41 Performance adapt_apply_sync time-usec 3802
+0 00002.41 Performance adapt_update time-usec 14812
+0 00002.41 Performance adapt_update_sync time-usec 72512
+0 00002.41 Performance adapt_notify time-usec 37821
+0 00002.41 Performance adapt_notify_sync time-usec 3530
+0 00002.41 Performance adapt_end time-usec 266
+0 00002.41 Performance adapt_end_sync time-usec 22519
+0 00002.41 Performance refresh_store time-usec 0
+0 00002.41 Performance refresh_child time-usec 0
+0 00002.41 Performance refresh_exit time-usec 0
+0 00002.41 Performance refresh_store_sync time-usec 0
+0 00002.41 Performance refresh_child_sync time-usec 0
+0 00002.41 Performance refresh_exit_sync time-usec 0
+0 00002.41 Performance control time-usec 6864
+0 00002.41 Performance compute time-usec 1945719
+0 00002.41 Performance output time-usec 1129318
+0 00002.41 Performance stopping time-usec 116541
+0 00002.41 Performance block time-usec -43233
+0 00002.41 Performance exit time-usec 0
+0 00002.41 Performance grackle time-usec 0
+0 00002.41 Performance simulation max-proc-blocks 2
+0 00002.41 Performance simulation max-node-blocks 2
+0 00002.41 Performance simulation max-proc-particles 0
+0 00002.41 Performance simulation max-node-particles 0
+0 00002.41 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00002.41 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00002.42 Method Field density sum 1.4615352599742692e+03 conserved to 4.61797 digits of 15
+0 00002.42 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00002.42 Method Field total_energy sum 4.3593420502719239e+03 conserved to 4.67588 digits of 15
+0 00002.42 Method Field velocity_x sum 8.3173230167855581e-02 conserved to -3.25371 digits of 15
+0 00002.42 Method Field velocity_y sum 2.4743625872466063e-02 conserved to 1.60654 digits of 15
+0 00002.68  -------------------------------------
+0 00002.68 Simulation cycle 0040
+0 00002.68 Simulation time-sim 9.522852208465e-02
+0 00002.68 Simulation dt 2.202024124563e-03
+0 00002.68 Performance counter num-msg-coarsen 0
+0 00002.68 Performance counter num-msg-refine 0
+0 00002.68 Performance counter num-msg-refresh 0
+0 00002.68 Performance counter num-data-msg 0
+0 00002.68 Performance counter num-field-face 0
+0 00002.68 Performance counter num-particle-data 16
+0 00002.68 Performance simulation num-particles total 0
+0 00002.68 performance simulation num-blocks-level 0 16
+0 00002.68 Performance simulation num-leaf-blocks 16
+0 00002.68 Performance simulation num-total-blocks 16
+0 00002.68 Performance simulation time-usec 13202341
+0 00002.68 Performance cycle time-usec 11039483
+0 00002.68 Performance cycle bytes-curr 0
+0 00002.68 Performance cycle bytes-high 0
+0 00002.68 Performance cycle bytes-highest 0
+0 00002.68 Performance cycle bytes-available 0
+0 00002.68 Performance initial time-usec -21396
+0 00002.68 Performance adapt_apply time-usec 4694
+0 00002.68 Performance adapt_apply_sync time-usec 3886
+0 00002.68 Performance adapt_update time-usec 15184
+0 00002.68 Performance adapt_update_sync time-usec 74148
+0 00002.68 Performance adapt_notify time-usec 38759
+0 00002.68 Performance adapt_notify_sync time-usec 3618
+0 00002.68 Performance adapt_end time-usec 273
+0 00002.68 Performance adapt_end_sync time-usec 23008
+0 00002.68 Performance refresh_store time-usec 0
+0 00002.68 Performance refresh_child time-usec 0
+0 00002.68 Performance refresh_exit time-usec 0
+0 00002.68 Performance refresh_store_sync time-usec 0
+0 00002.68 Performance refresh_child_sync time-usec 0
+0 00002.68 Performance refresh_exit_sync time-usec 0
+0 00002.68 Performance control time-usec 7032
+0 00002.68 Performance compute time-usec 1994831
+0 00002.68 Performance output time-usec 1414911
+0 00002.68 Performance stopping time-usec 119431
+0 00002.68 Performance block time-usec -43233
+0 00002.68 Performance exit time-usec 0
+0 00002.68 Performance grackle time-usec 0
+0 00002.68 Performance simulation max-proc-blocks 2
+0 00002.68 Performance simulation max-node-blocks 2
+0 00002.68 Performance simulation max-proc-particles 0
+0 00002.68 Performance simulation max-node-particles 0
+0 00002.68 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00002.68 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00002.69 Method Field density sum 1.4615362673391796e+03 conserved to 4.60572 digits of 15
+0 00002.69 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00002.69 Method Field total_energy sum 4.3593443280971940e+03 conserved to 4.66525 digits of 15
+0 00002.69 Method Field velocity_x sum 2.4812987041642083e-01 conserved to -3.72857 digits of 15
+0 00002.69 Method Field velocity_y sum 2.5745478998938859e-02 conserved to 1.5893 digits of 15
+0 00002.69  -------------------------------------
+0 00002.69 Simulation cycle 0041
+0 00002.69 Simulation time-sim 9.742678999901e-02
+0 00002.69 Simulation dt 2.198267914355e-03
+0 00002.69 Performance counter num-msg-coarsen 0
+0 00002.69 Performance counter num-msg-refine 0
+0 00002.69 Performance counter num-msg-refresh 0
+0 00002.69 Performance counter num-data-msg 0
+0 00002.69 Performance counter num-field-face 0
+0 00002.69 Performance counter num-particle-data 16
+0 00002.69 Performance simulation num-particles total 0
+0 00002.69 performance simulation num-blocks-level 0 16
+0 00002.69 Performance simulation num-leaf-blocks 16
+0 00002.69 Performance simulation num-total-blocks 16
+0 00002.69 Performance simulation time-usec 13272070
+0 00002.69 Performance cycle time-usec 11109210
+0 00002.69 Performance cycle bytes-curr 0
+0 00002.69 Performance cycle bytes-high 0
+0 00002.69 Performance cycle bytes-highest 0
+0 00002.69 Performance cycle bytes-available 0
+0 00002.69 Performance initial time-usec -21396
+0 00002.69 Performance adapt_apply time-usec 4804
+0 00002.69 Performance adapt_apply_sync time-usec 3969
+0 00002.69 Performance adapt_update time-usec 15594
+0 00002.69 Performance adapt_update_sync time-usec 75951
+0 00002.69 Performance adapt_notify time-usec 39755
+0 00002.69 Performance adapt_notify_sync time-usec 3707
+0 00002.69 Performance adapt_end time-usec 279
+0 00002.69 Performance adapt_end_sync time-usec 23506
+0 00002.69 Performance refresh_store time-usec 0
+0 00002.69 Performance refresh_child time-usec 0
+0 00002.69 Performance refresh_exit time-usec 0
+0 00002.69 Performance refresh_store_sync time-usec 0
+0 00002.69 Performance refresh_child_sync time-usec 0
+0 00002.69 Performance refresh_exit_sync time-usec 0
+0 00002.69 Performance control time-usec 7234
+0 00002.69 Performance compute time-usec 2045630
+0 00002.69 Performance output time-usec 1414979
+0 00002.69 Performance stopping time-usec 123196
+0 00002.69 Performance block time-usec -43233
+0 00002.69 Performance exit time-usec 0
+0 00002.69 Performance grackle time-usec 0
+0 00002.69 Performance simulation max-proc-blocks 2
+0 00002.69 Performance simulation max-node-blocks 2
+0 00002.69 Performance simulation max-proc-particles 0
+0 00002.69 Performance simulation max-node-particles 0
+0 00002.69 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00002.69 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00002.70 Method Field density sum 1.4615370025216488e+03 conserved to 4.59699 digits of 15
+0 00002.70 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00002.70 Method Field total_energy sum 4.3593459762969125e+03 conserved to 4.65772 digits of 15
+0 00002.70 Method Field velocity_x sum 6.4991778465475609e-01 conserved to -4.1468 digits of 15
+0 00002.70 Method Field velocity_y sum 2.6426806164583067e-02 conserved to 1.57796 digits of 15
+0 00002.70  -------------------------------------
+0 00002.70 Simulation cycle 0042
+0 00002.70 Simulation time-sim 9.961665142328e-02
+0 00002.70 Simulation dt 2.189861424267e-03
+0 00002.70 Performance counter num-msg-coarsen 0
+0 00002.70 Performance counter num-msg-refine 0
+0 00002.70 Performance counter num-msg-refresh 0
+0 00002.70 Performance counter num-data-msg 0
+0 00002.70 Performance counter num-field-face 0
+0 00002.70 Performance counter num-particle-data 16
+0 00002.70 Performance simulation num-particles total 0
+0 00002.70 performance simulation num-blocks-level 0 16
+0 00002.70 Performance simulation num-leaf-blocks 16
+0 00002.70 Performance simulation num-total-blocks 16
+0 00002.70 Performance simulation time-usec 13338117
+0 00002.70 Performance cycle time-usec 11175252
+0 00002.70 Performance cycle bytes-curr 0
+0 00002.70 Performance cycle bytes-high 0
+0 00002.70 Performance cycle bytes-highest 0
+0 00002.70 Performance cycle bytes-available 0
+0 00002.70 Performance initial time-usec -21396
+0 00002.70 Performance adapt_apply time-usec 4907
+0 00002.70 Performance adapt_apply_sync time-usec 4053
+0 00002.70 Performance adapt_update time-usec 15970
+0 00002.70 Performance adapt_update_sync time-usec 77670
+0 00002.70 Performance adapt_notify time-usec 40666
+0 00002.70 Performance adapt_notify_sync time-usec 3794
+0 00002.70 Performance adapt_end time-usec 287
+0 00002.70 Performance adapt_end_sync time-usec 24028
+0 00002.70 Performance refresh_store time-usec 0
+0 00002.70 Performance refresh_child time-usec 0
+0 00002.70 Performance refresh_exit time-usec 0
+0 00002.70 Performance refresh_store_sync time-usec 0
+0 00002.70 Performance refresh_child_sync time-usec 0
+0 00002.70 Performance refresh_exit_sync time-usec 0
+0 00002.70 Performance control time-usec 7410
+0 00002.70 Performance compute time-usec 2094949
+0 00002.70 Performance output time-usec 1415032
+0 00002.70 Performance stopping time-usec 126114
+0 00002.70 Performance block time-usec -43233
+0 00002.70 Performance exit time-usec 0
+0 00002.70 Performance grackle time-usec 0
+0 00002.70 Performance simulation max-proc-blocks 2
+0 00002.70 Performance simulation max-node-blocks 2
+0 00002.70 Performance simulation max-proc-particles 0
+0 00002.70 Performance simulation max-node-particles 0
+0 00002.70 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00002.70 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+0 00002.71 Method Field density sum 1.4615371064449602e+03 conserved to 4.59578 digits of 15
+0 00002.71 Method Field internal_energy sum 0.0000000000000000e+00 conserved to inf digits of 15
+0 00002.71 Method Field total_energy sum 4.3593462096928368e+03 conserved to 4.65666 digits of 15
+0 00002.71 Method Field velocity_x sum 7.6190566198073158e-01 conserved to -4.21585 digits of 15
+0 00002.71 Method Field velocity_y sum 2.6527831550273880e-02 conserved to 1.5763 digits of 15
+0 00002.71  -------------------------------------
+0 00002.71 Simulation cycle 0043
+0 00002.71 Simulation time-sim 1.000000000000e-01
+0 00002.71 Simulation dt 3.833485767245e-04
+0 00002.71 Performance counter num-msg-coarsen 0
+0 00002.71 Performance counter num-msg-refine 0
+0 00002.71 Performance counter num-msg-refresh 0
+0 00002.71 Performance counter num-data-msg 0
+0 00002.71 Performance counter num-field-face 0
+0 00002.71 Performance counter num-particle-data 16
+0 00002.71 Performance simulation num-particles total 0
+0 00002.71 performance simulation num-blocks-level 0 16
+0 00002.71 Performance simulation num-leaf-blocks 16
+0 00002.71 Performance simulation num-total-blocks 16
+0 00002.71 Performance simulation time-usec 13404046
+0 00002.71 Performance cycle time-usec 11241177
+0 00002.71 Performance cycle bytes-curr 0
+0 00002.71 Performance cycle bytes-high 0
+0 00002.71 Performance cycle bytes-highest 0
+0 00002.71 Performance cycle bytes-available 0
+0 00002.71 Performance initial time-usec -21396
+0 00002.71 Performance adapt_apply time-usec 5004
+0 00002.71 Performance adapt_apply_sync time-usec 4133
+0 00002.71 Performance adapt_update time-usec 16351
+0 00002.71 Performance adapt_update_sync time-usec 79417
+0 00002.71 Performance adapt_notify time-usec 41623
+0 00002.71 Performance adapt_notify_sync time-usec 3886
+0 00002.71 Performance adapt_end time-usec 292
+0 00002.71 Performance adapt_end_sync time-usec 24563
+0 00002.71 Performance refresh_store time-usec 0
+0 00002.71 Performance refresh_child time-usec 0
+0 00002.71 Performance refresh_exit time-usec 0
+0 00002.71 Performance refresh_store_sync time-usec 0
+0 00002.71 Performance refresh_child_sync time-usec 0
+0 00002.71 Performance refresh_exit_sync time-usec 0
+0 00002.71 Performance control time-usec 7593
+0 00002.71 Performance compute time-usec 2143935
+0 00002.71 Performance output time-usec 1415083
+0 00002.71 Performance stopping time-usec 129012
+0 00002.71 Performance block time-usec -43233
+0 00002.71 Performance exit time-usec 0
+0 00002.71 Performance grackle time-usec 0
+0 00002.71 Performance simulation max-proc-blocks 2
+0 00002.71 Performance simulation max-node-blocks 2
+0 00002.71 Performance simulation max-proc-particles 0
+0 00002.71 Performance simulation max-node-particles 0
+0 00002.71 Performance simulation balance-eff-blocks-core 1.000000 (2/2)
+0 00002.71 Performance simulation balance-eff-blocks-node 1.000000 (2/2)
+UNIT TEST END 1.680165
+0 00002.71 Testing actual sim-time:  0.1
+0 00002.71 Testing tolerance:      1e-06
+0 00002.71  END ENZO-E
+0 00002.71  END CELLO
+[Partition 0][Node 0] End of program
+TACC:  Shutdown complete. Exiting. 

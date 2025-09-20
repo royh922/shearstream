@@ -1,0 +1,4 @@
+# File:    colormap_blackbody.incl
+
+ colormap = [ "black", "red", "yellow", "white" ];
+

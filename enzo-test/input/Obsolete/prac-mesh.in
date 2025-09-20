@@ -1,0 +1,58 @@
+# Problem: 2D Implosion problem
+# Author:  James Bordner (jobordner@ucsd.edu)
+
+include "input/prac-demo.in"
+
+Domain { 
+   lower = [0.0, 0.0];
+   upper = [2.0, 1.0];
+}
+
+Stopping { cycle = 1000; }
+
+Initial { max_level = 3; }
+
+include "input/initial-cello-1080.incl"
+
+Mesh {
+   root_size   = [512,256];
+   root_blocks = [32,16];
+}
+
+Adapt {
+   max_level = 3;
+   list = ["slope"];
+   slope {
+       type = "slope";
+       field_list = ["density"];
+       min_refine = 0.003;
+       max_coarsen = 0.0015; 
+   }
+} 
+
+Field {
+    ghost_depth = 4; # must be even for ProlongLinear
+}
+
+Output { 
+   list = ["mesh","density"]; 
+
+  density { name = ["prac-de-%04d.png", "cycle"]; 
+	include "input/schedule_cycle_1.incl"
+#	image_size = [1920,1080];
+       image_ghost = true; 
+  } ;
+
+   mesh {
+      	type     = "image";
+	image_type  = "mesh";
+	image_reduce_type = "max";
+        field_list = ["density"];
+        # image_block_size  = 1; # DEPRECIATED
+        image_size = [1921,1081];
+	include "input/schedule_cycle_1.incl"
+        colormap = ["white", "lime", "red", "blue"];
+        name = ["prac-mesh-%06d.png","cycle"];
+        
+      }
+}
