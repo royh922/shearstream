@@ -5,8 +5,8 @@
 
 
 Domain { 
-    lower = [0.0, 0.0, 0.0];
-    upper = [2.0, 1.0, 1.0];
+    lower = [-4.0, -2.0, -2.0];
+    upper = [4.0, 2.0, 2.0];
 } 
 
 Mesh {
@@ -65,9 +65,21 @@ Initial {
     list = ["value"];
 
     value {       
-        density       = [0.5, y < (0.3 + 0.02*sin(2.0*pi*x)) || y > (0.7 + 0.02*sin(2.0*pi*x)), 1.0];
-        velocity_x    = [1.0, y < (0.3 + 0.02*sin(2.0*pi*x)) || y > (0.7 + 0.02*sin(2.0*pi*x)), -1.0];
-        velocity_y    = 0.0;
+        # Density defined by tanh function 
+        # rho * [0.5 * (c + 1) + 0.5 * (c - 1) * tanh((r - R) / s)]
+        # rho = diffuse density, c = density contrast, r = radius from axis, 
+        # R = cylinder radius, s = smoothing thickness of tanh
+        density = [1.0 * (0.5 * (100 + 1) + 0.5 * (100 - 1) * tanh((sqrt(y*y + z*z) - 1.0) / 0.1))];
+
+        # Shear velocity in the x direction, also smoothed by tanh
+        velocity_x = [1.0 * -1.0 * tanh((sqrt(y*y + z*z) - 1.0) / 0.1)];
+        
+        # Perturbation defined by sine and gaussian
+        # mag * exp(-1 * ((r - R) / s)^2) * sin(2 * Pi * x / lambda) * sin(theta)
+        # mag = magnitude of perturbation, lambda = period of perturbation along the flow axis
+        # theta = angle around the cylinder axis = atan2(y/z)
+        velocity_y = [0.01 * exp(-1 * pow((sqrt(y*y + z*z) - 1) / 0.1, 2)) * sin(2 * M_PI * x / 1.0) * sin(atan2(y, z))]
+        velocity_z = [0.01 * exp(-1 * pow((sqrt(y*y + z*z) - 1) / 0.1, 2)) * sin(2 * M_PI * x / 1.0) * cos(atan2(y, z))]
         total_energy   = [20.0, y < (0.3 + 0.02*sin(2.0*pi*x)) || y > (0.7 + 0.02*sin(2.0*pi*x)), 10.0];
     }
 }
@@ -100,18 +112,6 @@ Output {
 
         include "input/Colormap/colormap_blackbody.incl"
 
-    }
-
-    mesh {
-        name = ["kh-mesh-%04d.png","count"];
-        type = "image";
-        image_type  = "mesh";
-        image_reduce_type = "max";
-        image_size = [1921, 1081];
-        include "input/Schedule/schedule_cycle_25.incl"
-        image_min = 0.0;
-        image_max = 4.0;
-        include "input/Colormap/colormap_rainbow.incl"
     }
 
     pressure {
